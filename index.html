@@ -5,214 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GAME PARTY</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#222;font-family:Arial,"Noto Sans KR",sans-serif}.container{max-width:620px;margin:auto;padding:20px 15px 40px}.card{background:#fff;border-radius:24px;padding:28px;margin-bottom:18px;box-shadow:0 5px 20px rgba(0,0,0,.06)}.logo{text-align:center;font-size:32px;font-weight:900;margin:10px 0 30px}h2{text-align:center;font-size:28px;margin:0 0 25px}label{display:block;font-weight:700;margin:0 0 9px}input[type=text]{width:100%;height:58px;border:1px solid #ddd;border-radius:14px;padding:0 16px;font-size:17px;margin-bottom:17px}button{width:100%;min-height:56px;border:0;border-radius:14px;background:#222;color:#fff;font-size:17px;font-weight:700;margin-top:10px;padding:10px;cursor:pointer}button:disabled{background:#aaa}.gray{background:#eee;color:#222}.red{background:#ef493d}.hidden{display:none!important}.message{text-align:center;margin-top:15px;font-weight:700;white-space:pre-wrap;line-height:1.5}.error{color:#e5483e}.room-label{text-align:center;color:#777}.room-number{text-align:center;font-size:52px;font-weight:900;letter-spacing:7px;margin:18px}.room-status{text-align:center;color:#777}.player-count{text-align:center;color:#777;margin-bottom:10px}.player{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #eee}.badge{background:#222;color:#fff;border-radius:8px;padding:4px 8px;font-size:12px}.title2{font-size:19px;font-weight:800;margin:25px 0 12px}.option{display:flex;gap:10px;align-items:center;padding:14px;border:1px solid #ddd;border-radius:14px;margin-bottom:9px;font-weight:500}.option input{width:19px;height:19px}.hint{padding:14px;background:#f5f5f5;border-radius:12px;margin-bottom:8px}.vote{display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:14px;padding:14px;margin-bottom:9px}.vote button{width:auto;min-width:100px;margin:0}.result{font-size:18px;text-align:center;line-height:1.7}.my-role{text-align:center;font-size:30px;font-weight:900;margin:20px 0}.clue{font-size:36px;font-weight:900;text-align:center;margin:25px 0}.small{text-align:center;color:#777;line-height:1.6}.left{text-align:left}.game-choice{display:flex;align-items:center;gap:16px;border:1px solid #ddd;border-radius:16px;padding:18px;margin:12px 0}.game-choice.clickable{cursor:pointer}.game-icon{font-size:36px}.game-name{font-size:21px;font-weight:900}.arrow{margin-left:auto;font-size:34px;color:#999}.player-input-row{display:flex;gap:8px;margin-bottom:10px}.player-input-row input{flex:1;margin:0}.player-input-row button{width:58px;min-width:58px;margin:0}.single-player{padding:12px;border-bottom:1px solid #eee}.private-box{background:#f5f5f5;border-radius:16px;padding:20px;margin:15px 0}.big-name{text-align:center;font-size:24px;font-weight:900;margin:8px}.single-vote-grid button{margin-top:8px}.selected{border:3px solid #222!important}
+*{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#222;font-family:Arial,"Noto Sans KR",sans-serif}.container{max-width:680px;margin:auto;padding:18px 14px 45px}.card{background:#fff;border-radius:24px;padding:26px;margin-bottom:16px;box-shadow:0 5px 20px rgba(0,0,0,.06)}.logo{text-align:center;font-size:32px;font-weight:900;margin:12px 0 28px}h2{text-align:center;font-size:27px;margin:0 0 22px}.hidden{display:none!important}label{display:block;font-weight:700;margin:0 0 8px}input[type=text],textarea{width:100%;height:56px;border:1px solid #ddd;border-radius:14px;padding:0 15px;font-size:17px;margin-bottom:12px}textarea{height:100px;padding-top:14px;resize:none}button{width:100%;min-height:55px;border:0;border-radius:14px;background:#222;color:#fff;font-size:17px;font-weight:800;margin-top:9px;padding:10px;cursor:pointer}button:disabled{background:#aaa;cursor:default}.gray{background:#eee;color:#222}.red{background:#e94a42}.green{background:#267a45}.small{color:#777;line-height:1.65;text-align:center}.left{text-align:left}.game-choice{display:flex;align-items:center;gap:15px;border:1px solid #ddd;border-radius:17px;padding:17px;margin:10px 0}.clickable{cursor:pointer}.game-icon{font-size:38px}.game-name{font-size:21px;font-weight:900}.arrow{margin-left:auto;font-size:34px;color:#999}.title2{font-size:19px;font-weight:900;margin:22px 0 11px}.option{display:flex;gap:10px;align-items:center;padding:14px;border:1px solid #ddd;border-radius:14px;margin-bottom:8px;font-weight:600}.option input{width:19px;height:19px}.room-label{text-align:center;color:#777}.room-number{text-align:center;font-size:52px;font-weight:900;letter-spacing:7px;margin:15px}.room-status{text-align:center;color:#777}.player-count{text-align:center;color:#777;margin-bottom:9px}.player{display:flex;justify-content:space-between;align-items:center;padding:13px 4px;border-bottom:1px solid #eee}.badge{background:#222;color:#fff;border-radius:8px;padding:4px 8px;font-size:12px}.host-box{background:#f2f3f6;border-radius:14px;padding:14px;margin-bottom:14px}.phase{font-size:22px;font-weight:900;text-align:center;margin-bottom:10px}.progress{background:#f2f3f6;border-radius:14px;padding:12px;margin:12px 0;line-height:1.8}.script{background:#fff7d9;border:1px solid #f0dc87;border-radius:16px;padding:16px;white-space:pre-wrap;line-height:1.65}.hint{padding:13px;background:#f5f5f5;border-radius:12px;margin-bottom:8px}.submitted{font-weight:800}.countdown{text-align:center;font-size:40px;font-weight:900;margin:12px}.role{text-align:center;font-size:30px;font-weight:900;margin:18px 0}.clue{font-size:36px;font-weight:900;text-align:center;margin:22px 0}.vote{display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:14px;padding:13px;margin-bottom:8px}.vote button{width:auto;min-width:105px;margin:0}.result{text-align:center;font-size:18px;line-height:1.7}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice-grid button{margin:0}.notice{background:#f5f6fa;border-radius:14px;padding:13px;line-height:1.6}.error{color:#d33;font-weight:700}.success{color:#277943;font-weight:700}
 </style>
 </head>
 <body>
 <div class="container">
 <section id="home"><div class="logo">🎮 GAME PARTY</div><div class="card"><h2>플레이 방식 선택</h2><button onclick="show('single')">📱 한 기기로 플레이</button><button onclick="show('multi')">🌐 여러 기기로 플레이</button></div></section>
-
-<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><p class="small">휴대폰이나 태블릿 하나로 모두 함께 플레이합니다.</p><div class="title2">참가자 이름</div><div id="singlePlayers"></div><button class="gray" onclick="addSinglePlayer()">＋ 참가자 추가</button><div class="small">최소 3명, 최대 12명</div><button onclick="startSingleGame()">🎮 게임 시작</button><button class="gray" onclick="show('home')">뒤로가기</button><div id="singleMsg" class="message"></div></div></section>
-
-<section id="singleSetup" class="hidden"><div class="card"><h2>🎭 게임 설정</h2><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="scat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="scat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="scat" value="장소">📍 장소</label><label class="option"><input type="radio" name="scat" value="직업">💼 직업</label><label class="option"><input type="radio" name="scat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="scat" value="랜덤">🎲 랜덤</label><div class="title2">라이어 선택</div><label class="option"><input type="radio" name="sliar" value="random" checked>🎲 랜덤으로 선택</label><label class="option"><input type="radio" name="sliar" value="host">👤 방장이 선택</label><div id="singleLiarArea"></div><button onclick="saveSingleSetup()">게임 시작</button><button class="gray" onclick="show('single')">뒤로가기</button><div id="singleSetupMsg" class="message"></div></div></section>
-
-<section id="singleRole" class="hidden"><div class="card"><h2>🔒 역할 확인</h2><div id="singleRoleText" class="my-role"></div><div id="singleClueText"></div><div class="private-box small">이 화면은 현재 참가자만 확인하세요.<br>확인한 뒤 다음 사람에게 기기를 넘겨주세요.</div><button onclick="singleRoleNext()">확인했어요</button></div></section>
-
-<section id="singleHint" class="hidden"><div class="card"><h2>💬 힌트</h2><div id="singleHintPlayer" class="big-name"></div><div class="small">제시어를 직접 말하지 않는 힌트를 입력하세요.</div><input id="singleHintInput" type="text" maxlength="100" placeholder="힌트 입력"><button onclick="singleSubmitHint()">힌트 제출</button><div id="singleHintsList"></div><div id="singleHintMsg" class="message"></div></div></section>
-
-<section id="singleVote" class="hidden"><div class="card"><h2>🗳️ 투표</h2><div id="singleVotePlayer" class="big-name"></div><div class="private-box small">다른 사람이 보지 않게 투표하세요.</div><div id="singleVoteList" class="single-vote-grid"></div><div id="singleVoteMsg" class="message"></div></div></section>
-
-<section id="singleGuess" class="hidden"><div class="card"><h2>😈 라이어의 마지막 기회</h2><div class="big-name" id="singleGuessPlayer"></div><div class="small">라이어만 보고 제시어를 맞혀보세요.</div><input id="singleGuessInput" type="text" placeholder="제시어를 입력하세요"><button onclick="singleSubmitGuess()">제시어 제출</button><div id="singleGuessMsg" class="message"></div></div></section>
-
+<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="singleStartSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">한 기기에서 진행자가 게임을 진행합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 <section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">각자의 기기로 접속해서 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
-
-<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><p class="small">여러 기기로 접속해서 LIAR를 플레이합니다.</p><button onclick="show('create')">방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
-
-<section id="create" class="hidden"><div class="card"><h2>방 만들기</h2><label>내 이름</label><input id="createName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="createRoom()">방 만들기</button><button class="gray" onclick="show('multiLiar')">뒤로가기</button><div id="createMsg" class="message"></div></div></section>
-
+<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><div class="notice">진행자는 게임에 참여하지 않고 게임의 순서와 결과를 안내합니다.</div><button onclick="show('create')">방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
+<section id="create" class="hidden"><div class="card"><h2>방 만들기</h2><label>진행자 이름</label><input id="createName" type="text" maxlength="20" placeholder="진행자 이름을 입력하세요"><button onclick="createRoom()">방 만들기</button><button class="gray" onclick="show('multiLiar')">뒤로가기</button><div id="createMsg" class="message"></div></div></section>
 <section id="join" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="joinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="예: 0265"><label>내 이름</label><input id="joinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="joinRoom()">방 참가하기</button><button class="gray" onclick="show('multiLiar')">뒤로가기</button><div id="joinMsg" class="message"></div></div></section>
-
-<section id="waiting" class="hidden"><div class="card"><h2>대기실</h2><div class="room-label">방 번호</div><div id="roomNumber" class="room-number">0000</div><div id="roomStatus" class="room-status"></div></div><div class="card"><h2>참가자</h2><div id="playerCount" class="player-count"></div><div id="players"></div><button id="startBtn" class="hidden" onclick="startGame()">🎮 게임 시작</button><button class="red" onclick="leaveRoom()">방 나가기</button><div id="waitMsg" class="message"></div></div></section>
-
-<section id="setup" class="hidden"><div class="card"><h2>🎭 게임 설정</h2><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="cat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="cat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="cat" value="장소">📍 장소</label><label class="option"><input type="radio" name="cat" value="직업">💼 직업</label><label class="option"><input type="radio" name="cat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="cat" value="랜덤">🎲 랜덤</label><div class="title2">라이어 선택</div><label class="option"><input type="radio" name="ls" value="random" checked onchange="renderSetupPlayers()">🎲 랜덤으로 선택</label><label class="option"><input type="radio" name="ls" value="host" onchange="renderSetupPlayers()">👤 방장이 선택</label><div id="liarSelectArea"></div><button onclick="saveSetup()">🎮 게임 시작</button><div id="setupMsg" class="message"></div></div></section>
-
-<section id="role" class="hidden"><div class="card"><h2>🎭 내 역할</h2><div id="roleText" class="my-role"></div><div id="clueText"></div><div class="small">내 역할과 제시어는 다른 사람에게 공개되지 않습니다.</div><button id="roleConfirmBtn" onclick="confirmRole()">확인했어요</button><div id="roleMsg" class="message"></div></div></section>
-
-<section id="hint" class="hidden"><div class="card"><h2>💬 힌트</h2><div class="small">제출된 힌트는 화면에 표시됩니다. 방장은 모든 참가자의 힌트를 확인할 수 있습니다.</div><div id="hintList"></div><input id="hintInput" type="text" maxlength="100" placeholder="제시어를 직접 말하지 않는 힌트"><button onclick="submitHint()">힌트 제출</button><div id="hintMsg" class="message"></div></div></section>
-
+<section id="waiting" class="hidden"><div class="card"><h2>대기실</h2><div class="room-label">방 번호</div><div id="roomNumber" class="room-number">0000</div><div id="roomStatus" class="room-status"></div></div><div class="card"><div class="host-box">🎤 <b>진행자</b><div id="hostDisplay" class="small left"></div></div><h2>참가자</h2><div id="playerCount" class="player-count"></div><div id="players"></div><button id="startBtn" class="hidden" onclick="startGame()">🎮 게임 설정 시작</button><button class="red" onclick="leaveRoom()">방 나가기</button><div id="waitMsg" class="message"></div></div></section>
+<section id="setup" class="hidden"><div class="card"><h2>🎭 게임 설정</h2><div class="notice">진행자는 게임에 참여하지 않습니다. 아래 설정은 참가자에게 공개되지 않습니다.</div><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="cat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="cat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="cat" value="장소">📍 장소</label><label class="option"><input type="radio" name="cat" value="직업">💼 직업</label><label class="option"><input type="radio" name="cat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="cat" value="랜덤">🎲 랜덤</label><div class="title2">라이어 선택</div><label class="option"><input type="radio" name="ls" value="random" checked onchange="renderSetupPlayers()">🎲 랜덤으로 선택</label><label class="option"><input type="radio" name="ls" value="host" onchange="renderSetupPlayers()">👤 진행자가 선택</label><div id="liarSelectArea"></div><button onclick="saveSetup()">🎮 게임 시작</button><div id="setupMsg" class="message"></div></div></section>
+<section id="role" class="hidden"><div class="card"><h2>🎭 내 역할</h2><div id="roleText" class="role"></div><div id="clueText"></div><div class="small">내 역할과 제시어는 다른 사람에게 공개하지 마세요.</div><button id="roleConfirmBtn" onclick="confirmRole()">확인했어요</button><div id="roleMsg" class="message"></div></div></section>
+<section id="hint" class="hidden"><div class="card"><h2>💬 힌트</h2><div class="notice">제시어를 직접 말하지 않는 짧은 힌트를 한 번 제출해주세요. 다른 참가자의 힌트는 보이지 않습니다.</div><input id="hintInput" type="text" maxlength="100" placeholder="예: 디저트로도 먹을 수 있어요"><button onclick="submitHint()">힌트 제출</button><div id="hintMsg" class="message"></div></div></section>
+<section id="discussion" class="hidden"><div class="card"><h2>🗣️ 토론</h2><div class="notice">지금부터 1분 동안 자유롭게 서로 질문하고 의심 가는 사람을 찾아보세요.</div><div id="discussionTimer" class="countdown">60초</div></div></section>
 <section id="vote" class="hidden"><div class="card"><h2>🗳️ 투표</h2><div class="small">라이어라고 생각하는 사람을 선택하세요.</div><div id="voteList"></div><div id="voteMsg" class="message"></div></div></section>
-
-<section id="result" class="hidden"><div class="card"><h2>🔎 결과</h2><div id="resultText" class="result"></div><div id="voteResult"></div><div id="guessArea" class="hidden"><div class="title2">라이어의 마지막 기회</div><input id="guessInput" type="text" placeholder="제시어를 맞혀보세요"><button onclick="submitGuess()">제시어 제출</button><div id="guessMsg" class="message"></div></div></div></section>
-
-<section id="end" class="hidden"><div class="card"><div class="logo">🎉 GAME OVER</div><div id="endText" class="result"></div><button id="continueBtn" onclick="continueGame()">🔄 이어 하기</button><button class="gray" onclick="newGame()">🎮 다른 게임</button></div></section>
+<section id="host" class="hidden"><div class="card"><div class="phase" id="hostPhase"></div><div id="hostProgress" class="progress"></div><div class="title2">📢 진행 멘트</div><div id="hostScript" class="script"></div><div id="hostTimer"></div><div id="hostExtendWrap" class="hidden"><button class="gray" onclick="extendDiscussion()">⏱️ 토론 1분 추가</button></div></div><div class="card"><div class="title2">💬 참가자 힌트</div><div id="hostHints"></div></div><div class="card"><div class="title2">🔐 진행자 전용 정보</div><div id="hostSecret" class="notice"></div></div><div id="hostEndChoices" class="card hidden"><div class="title2">다음 선택</div><div class="notice">진행자를 포함해 방의 모든 사람이 같은 선택을 해야 이동합니다.</div><div class="choice-grid"><button onclick="chooseEnd('이어하기')">▶️ 이어하기</button><button class="gray" onclick="chooseEnd('다른게임')">🎮 다른 게임</button></div><div id="hostEndStatus" class="message"></div></div></section>
+<section id="result" class="hidden"><div class="card"><h2>🔎 결과</h2><div id="resultText" class="result"></div><div id="voteResult"></div><div id="guessArea" class="hidden"><div class="title2">라이어의 마지막 기회</div><input id="guessInput" type="text" maxlength="50" placeholder="진짜 제시어를 입력하세요"><button onclick="submitGuess()">제시어 제출</button><div id="guessMsg" class="message"></div></div></div></section>
+<section id="end" class="hidden"><div class="card"><h2>🎉 라운드 종료</h2><div id="endText" class="result"></div><div class="title2">다음 선택</div><div class="notice">진행자를 포함해 방의 모든 사람이 같은 선택을 해야 다음 단계로 이동합니다.</div><div class="choice-grid"><button onclick="chooseEnd('이어하기')">▶️ 이어하기</button><button class="gray" onclick="chooseEnd('다른게임')">🎮 다른 게임</button></div><div id="endStatus" class="message"></div></div></section>
+<section id="singleSetup" class="hidden"><div class="card"><h2>📱 한 기기 LIAR</h2><div class="notice">진행자가 기기를 들고 참가자에게 순서대로 보여주는 방식입니다. 진행자는 게임에 참여하지 않습니다.</div><div class="title2">참가자 이름</div><div id="singleNames"></div><button class="gray" onclick="addSingleName()">+ 참가자 추가</button><button onclick="singleContinue()">다음</button><button class="gray" onclick="show('home')">뒤로가기</button><div id="singleMsg" class="message"></div></div></section>
+<section id="singleGame" class="hidden"><div class="card"><div id="singlePhase" class="phase"></div><div id="singleBody"></div></div></section>
 </div>
-
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbww_aLAwgOVqBdRmDX6Wry51AjbKqfZKYWf_eSMTN-0pdnJW8Cmyid-7ULOv5UXnSw6/exec";
-let userId=localStorage.getItem("GAME_PARTY_USER_ID");if(!userId){userId="U_"+Date.now()+"_"+Math.random().toString(36).slice(2,10);localStorage.setItem("GAME_PARTY_USER_ID",userId)}
-let roomId=null,room=null,players=[],selectedLiarId=null,timer=null,lastPhase="",pollBusy=false,hintDraft="";
+let userId=localStorage.getItem('GAME_PARTY_USER_ID');if(!userId){userId='U_'+Date.now()+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('GAME_PARTY_USER_ID',userId)}
+let roomId=null,room=null,players=[],selectedLiarId=null,pollTimer=null,hostPollTimer=null,hostCountdownTimer=null,lastPhase='',votedRound=null;
+function show(id){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));const el=document.getElementById(id);if(el)el.classList.remove('hidden');}
+function message(id,t,cls=''){const el=document.getElementById(id);if(el){el.className='message '+cls;el.textContent=t||''}}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function api(action,params={}){return new Promise((resolve,reject)=>{const cb='cb_'+Date.now()+'_'+Math.random().toString(36).slice(2),s=document.createElement('script');let done=false;const tm=setTimeout(()=>{if(done)return;done=true;clean();reject(new Error('서버 응답 시간이 초과되었습니다.'))},15000);function clean(){clearTimeout(tm);try{delete window[cb]}catch(e){}s.remove()}window[cb]=d=>{if(done)return;done=true;clean();resolve(d)};s.onerror=()=>{if(done)return;done=true;clean();reject(new Error('서버에 연결할 수 없습니다.'))};const q=new URLSearchParams({action,callback:cb,...params});s.src=API_URL+'?'+q;document.body.appendChild(s)})}
+function startPoll(){if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(refresh,1500)}function stopPoll(){if(pollTimer){clearInterval(pollTimer);pollTimer=null}if(hostPollTimer){clearInterval(hostPollTimer);hostPollTimer=null}if(hostCountdownTimer){clearInterval(hostCountdownTimer);hostCountdownTimer=null}}
+async function createRoom(){const name=document.getElementById('createName').value.trim();if(!name){message('createMsg','진행자 이름을 입력해주세요.','error');return}try{const r=await api('createRoom',{playerName:name,userId});if(!r.success)throw Error(r.error);roomId=r.room.roomId;room=r.room;localStorage.setItem('GAME_PARTY_ROOM_ID',roomId);localStorage.setItem('GAME_PARTY_HOST','Y');openWaiting(r)}catch(e){message('createMsg',e.message,'error')}}
+async function joinRoom(){const n=document.getElementById('joinNumber').value.trim();const name=document.getElementById('joinName').value.trim();if(!/^\d{4}$/.test(n)||!name){message('joinMsg','방 번호 4자리와 이름을 입력해주세요.','error');return}try{const r=await api('joinRoom',{roomNumber:n,playerName:name,userId});if(!r.success)throw Error(r.error);roomId=r.room.roomId;room=r.room;localStorage.setItem('GAME_PARTY_ROOM_ID',roomId);localStorage.removeItem('GAME_PARTY_HOST');openWaiting(r)}catch(e){message('joinMsg',e.message,'error')}}
+function openWaiting(r){room=r.room;players=r.players||[];show('waiting');renderWaiting();startPoll()}
+function renderWaiting(){document.getElementById('roomNumber').textContent=String(room.roomNumber).padStart(4,'0');document.getElementById('roomStatus').textContent=room.status==='대기중'?'참가자를 기다리고 있습니다.':'게임을 준비하고 있습니다.';document.getElementById('hostDisplay').textContent='진행자 접속 완료';document.getElementById('playerCount').textContent=players.length+'명';document.getElementById('players').innerHTML=players.map(p=>`<div class="player"><span>${escapeHtml(p.name)}</span></div>`).join('');const b=document.getElementById('startBtn');if(room.hostId===userId&&room.status==='대기중'){b.classList.remove('hidden');b.disabled=players.length<3}else b.classList.add('hidden')}
+async function refresh(){if(!roomId)return;try{const r=await api('getRoomState',{roomId});if(!r.success)return;room=r.room;players=r.players||[];if(room.status==='종료'){stopPoll();return show('multiLiar')}if(room.status==='대기중'||room.status==='설정중'){if(room.status==='설정중'&&room.hostId===userId){stopPoll();openSetup()}else{show('waiting');renderWaiting()}}else if(room.status==='게임중'){loadGame()}}catch(e){}}
+async function startGame(){try{const r=await api('startGame',{roomId,hostId:userId});if(!r.success)throw Error(r.error);room=r.room;players=r.players||[];openSetup()}catch(e){message('waitMsg',e.message,'error')}}
+function openSetup(){stopPoll();show('setup');renderSetupPlayers()}
+function renderSetupPlayers(){const mode=document.querySelector('input[name="ls"]:checked').value,area=document.getElementById('liarSelectArea');if(mode!=='host'){area.innerHTML='';selectedLiarId=null;return}area.innerHTML='<div class="title2">라이어로 선택할 참가자</div>'+players.map(p=>`<button class="gray" onclick="selectLiar('${p.userId}',this)">${escapeHtml(p.name)}</button>`).join('')}
+function selectLiar(id,el){selectedLiarId=id;document.querySelectorAll('#liarSelectArea button').forEach(b=>b.style.border='');el.style.border='3px solid #222'}
+async function saveSetup(){const category=document.querySelector('input[name="cat"]:checked').value,mode=document.querySelector('input[name="ls"]:checked').value;if(mode==='host'&&!selectedLiarId){message('setupMsg','라이어를 선택해주세요.','error');return}try{const r=await api('saveGameSetup',{roomId,hostId:userId,category,liarSelect:mode,selectedLiarId:selectedLiarId||''});if(!r.success)throw Error(r.error);lastPhase='';startPoll();loadGame()}catch(e){message('setupMsg',e.message,'error')}}
+async function loadGame(){try{const r=await api('getGameState',{roomId,userId});if(!r.success)return;players=r.players||players;renderGame(r)}catch(e){}}
+function renderGame(r){if(r.isHost)renderHost(r);else renderPlayer(r)}
+function renderHost(r){if(pollTimer){clearInterval(pollTimer);pollTimer=null}show('host');document.getElementById('hostPhase').textContent=phaseTitle(r.phase);document.getElementById('hostProgress').innerHTML=`역할 확인 ${r.progress.roles}/${r.progress.total} · 힌트 ${r.progress.hints}/${r.progress.total} · 투표 ${r.progress.votes}/${r.progress.total}`;document.getElementById('hostScript').textContent=r.facilitator?.script||'';document.getElementById('hostSecret').innerHTML=`제시어: <b>${escapeHtml(r.facilitator?.clue||'')}</b><br>라이어: <b>${escapeHtml(r.facilitator?.liarName||'')}</b>`;document.getElementById('hostHints').innerHTML=(r.facilitator?.hints||[]).map(h=>`<div class="hint"><b>${escapeHtml(h.name)}</b><br>${h.submitted?escapeHtml(h.hint):'<span class="small left">아직 제출하지 않았습니다.</span>'}</div>`).join('');document.getElementById('hostEndChoices').classList.toggle('hidden',r.phase!=='종료');if(r.phase==='종료')document.getElementById('hostEndStatus').textContent=`현재 ${r.endChoiceCount||0}/${r.totalChoices||0}명이 선택했습니다.`;renderHostTimer(r);startPollHost()}
+function startPollHost(){if(!hostPollTimer)hostPollTimer=setInterval(loadGame,1500)}
+function renderHostTimer(r){const box=document.getElementById('hostTimer'),wrap=document.getElementById('hostExtendWrap');if(r.phase!=='토론'){box.innerHTML='';wrap.classList.add('hidden');if(hostCountdownTimer){clearInterval(hostCountdownTimer);hostCountdownTimer=null}return}wrap.classList.remove('hidden');const end=new Date(r.discussionEndsAt).getTime();const tick=()=>{const sec=Math.max(0,Math.ceil((end-Date.now())/1000));box.innerHTML=`<div class="countdown">${sec}초</div>`;if(sec<=0){clearInterval(hostCountdownTimer);hostCountdownTimer=null;loadGame()}};if(hostCountdownTimer)clearInterval(hostCountdownTimer);tick();hostCountdownTimer=setInterval(tick,500)}
+async function extendDiscussion(){try{const r=await api('extendDiscussion',{roomId,userId});if(!r.success)throw Error(r.error);loadGame()}catch(e){message('hostSecret',e.message,'error')}}
+function phaseTitle(p){return ({역할확인:'🎭 역할 확인',힌트:'💬 힌트 작성',토론:'🗣️ 토론',투표:'🗳️ 투표',라이어추리:'😈 라이어 최종 추리',종료:'🎉 게임 종료'}[p]||p)}
+function renderPlayer(r){if(r.phase==='역할확인')renderRole(r);else if(r.phase==='힌트')renderHint(r);else if(r.phase==='토론')renderDiscussion(r);else if(r.phase==='투표')renderVote(r);else if(r.phase==='라이어추리'||r.phase==='종료')renderResult(r)}
+function renderRole(r){show('role');document.getElementById('roleText').textContent=r.myRole==='라이어'?'😈 당신은 라이어입니다!':'🙂 당신은 시민입니다.';document.getElementById('clueText').innerHTML=r.myRole==='라이어'?'<div class="small">제시어를 볼 수 없습니다.</div>':`<div class="small">제시어</div><div class="clue">${escapeHtml(r.myClue)}</div>`;document.getElementById('roleConfirmBtn').disabled=r.roleConfirmed}
+async function confirmRole(){try{const r=await api('confirmRole',{roomId,userId});if(!r.success)throw Error(r.error);loadGame()}catch(e){message('roleMsg',e.message,'error')}}
+function renderHint(r){show('hint');document.getElementById('hintInput').value=r.myHint||'';document.getElementById('hintInput').disabled=!!r.myHint;document.querySelector('#hint button').disabled=!!r.myHint;message('hintMsg',r.myHint?'힌트를 제출했습니다. 다른 참가자의 제출을 기다리고 있습니다.':'')}
+async function submitHint(){const h=document.getElementById('hintInput').value.trim();if(!h){message('hintMsg','힌트를 입력해주세요.','error');return}try{const r=await api('submitHint',{roomId,userId,hint:h});if(!r.success)throw Error(r.error);loadGame()}catch(e){message('hintMsg',e.message,'error')}}
+function renderDiscussion(r){show('discussion');const end=new Date(r.discussionEndsAt).getTime();const tick=()=>{const sec=Math.max(0,Math.ceil((end-Date.now())/1000));document.getElementById('discussionTimer').textContent=sec+'초';if(sec<=0)loadGame()};if(hostCountdownTimer)clearInterval(hostCountdownTimer);tick();hostCountdownTimer=setInterval(tick,500)}
+function renderVote(r){show('vote');const already=votedRound===r.round;document.getElementById('voteList').innerHTML=r.players.map(p=>`<div class="vote"><span>${escapeHtml(p.name)}</span><button ${already?'disabled':''} onclick="vote('${p.userId}')">투표</button></div>`).join('');message('voteMsg',already?'투표가 완료되었습니다. 다른 참가자의 투표를 기다리고 있습니다.':'')}
+async function vote(id){try{const r=await api('submitVote',{roomId,userId,targetId:id});if(!r.success)throw Error(r.error);votedRound=(await api('getGameState',{roomId,userId})).round;loadGame()}catch(e){message('voteMsg',e.message,'error')}}
+function renderResult(r){show('result');let text='';if(r.phase==='라이어추리')text=`라이어로 지목된 사람은 <b>${escapeHtml(r.liarName)}</b>입니다.<br>라이어에게 마지막 기회가 있습니다.`;else text=`라이어는 <b>${escapeHtml(r.liarName||'')}</b>였습니다.<br>제시어는 <b>${escapeHtml(r.clue||'')}</b>입니다.<br><br>${r.winner==='라이어'?'😈 라이어 승리!':'🎉 시민 승리!'}`;document.getElementById('resultText').innerHTML=text;document.getElementById('voteResult').innerHTML=(r.votes||[]).map(v=>`<div class="player"><span>${escapeHtml(v.name)}</span><b>${v.count}표</b></div>`).join('');const ga=document.getElementById('guessArea');ga.classList.toggle('hidden',!(r.phase==='라이어추리'&&r.myRole==='라이어'));if(r.phase==='종료')renderEndFromResult(r)}
+function renderEndFromResult(r){show('end');document.getElementById('endText').innerHTML=`라이어: <b>${escapeHtml(r.liarName||'')}</b><br>제시어: <b>${escapeHtml(r.clue||'')}</b><br><br><b>${r.winner==='라이어'?'😈 라이어 승리!':'🎉 시민 승리!'}</b>`;const chosen=r.endChoiceCount||0;document.getElementById('endStatus').textContent=`현재 ${chosen}/${r.totalChoices}명이 선택했습니다.`}
+async function submitGuess(){const g=document.getElementById('guessInput').value.trim();if(!g){message('guessMsg','제시어를 입력해주세요.','error');return}try{const r=await api('submitGuess',{roomId,userId,guess:g});if(!r.success)throw Error(r.error);loadGame()}catch(e){message('guessMsg',e.message,'error')}}
+async function chooseEnd(choice){try{const r=await api('chooseEnd',{roomId,userId,choice});if(!r.success)throw Error(r.error);if(r.next==='메뉴'){stopPoll();roomId=null;localStorage.removeItem('GAME_PARTY_ROOM_ID');show('multiLiar');return}if(r.next==='설정'){show('waiting');startPoll();return}if(r.next==='재선택')message('endStatus','선택이 나뉘었습니다. 모두 같은 항목을 다시 선택해주세요.','error');else message('endStatus',`현재 ${r.chosen}/${r.total}명이 선택했습니다.`)}catch(e){message('endStatus',e.message,'error')}}
+async function leaveRoom(){try{if(roomId)await api('leaveRoom',{roomId,userId})}catch(e){}stopPoll();roomId=null;localStorage.removeItem('GAME_PARTY_ROOM_ID');show('multiLiar')}
+function restore(){const id=localStorage.getItem('GAME_PARTY_ROOM_ID');if(!id)return;roomId=id;api('getRoomState',{roomId}).then(r=>{if(!r.success)throw Error();room=r.room;players=r.players||[];openWaiting(r);if(room.status==='설정중'&&room.hostId===userId)openSetup();else if(room.status==='게임중')loadGame()}).catch(()=>{localStorage.removeItem('GAME_PARTY_ROOM_ID')})}
 
-function show(id){if(id==="single"&&single.players.length===0){single.players=["","",""];setTimeout(renderSinglePlayers,0)}document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id!=="waiting"&&id!=="role"&&id!=="hint"&&id!=="vote"&&id!=="result")stopPoll()}
-function msg(id,t){document.getElementById(id).textContent=t}
-function api(action,params={}){return new Promise((resolve,reject)=>{const cb="cb_"+Date.now()+"_"+Math.random().toString(36).slice(2),s=document.createElement("script");let done=false;const tm=setTimeout(()=>{if(done)return;done=true;clean();reject(new Error("서버 응답 시간이 초과되었습니다."))},15000);function clean(){clearTimeout(tm);try{delete window[cb]}catch(e){}s.remove()}window[cb]=d=>{if(done)return;done=true;clean();resolve(d)};const q=new URLSearchParams({action,callback:cb,...params});s.onerror=()=>{if(done)return;done=true;clean();reject(new Error("서버에 연결할 수 없습니다."))};s.src=API_URL+"?"+q;document.body.appendChild(s)})}
-function startPoll(){stopPoll();
-  const poll=async()=>{
-    if(pollBusy)return;
-    pollBusy=true;
-    try{
-      if(document.getElementById("waiting")&&!document.getElementById("waiting").classList.contains("hidden")) await refreshRoom();
-      else await loadGame();
-    }finally{pollBusy=false}
-  };
-  poll();
-  timer=setInterval(poll,1200);
-}
-function stopPoll(){if(timer){clearInterval(timer);timer=null}pollBusy=false}
-async function createRoom(){const name=document.getElementById("createName").value.trim();if(!name){msg("createMsg","이름을 입력해주세요.");return}try{const r=await api("createRoom",{playerName:name,userId});if(!r.success)throw Error(r.error);roomId=r.room.roomId;room=r.room;localStorage.setItem("GAME_PARTY_ROOM_ID",roomId);localStorage.setItem("GAME_PARTY_NAME",name);openWaiting(r)}catch(e){msg("createMsg",e.message)}}
-async function joinRoom(){const n=document.getElementById("joinNumber").value.trim().padStart(4,"0"),name=document.getElementById("joinName").value.trim();if(!/^\d{4}$/.test(n)||!name){msg("joinMsg","방 번호 4자리와 이름을 입력해주세요.");return}try{const r=await api("joinRoom",{roomNumber:n,playerName:name,userId});if(!r.success)throw Error(r.error);roomId=r.room.roomId;room=r.room;localStorage.setItem("GAME_PARTY_ROOM_ID",roomId);localStorage.setItem("GAME_PARTY_NAME",name);openWaiting(r)}catch(e){msg("joinMsg",e.message)}}
-function openWaiting(r){players=r.players||[];show("waiting");renderWaiting();startPoll()}
-function renderWaiting(){document.getElementById("roomNumber").textContent=String(room.roomNumber).padStart(4,"0");document.getElementById("playerCount").textContent=players.length+"명";document.getElementById("roomStatus").textContent=room.status==="대기중"?"참가자를 기다리고 있습니다.":"게임 설정 중입니다.";document.getElementById("players").innerHTML=players.map(p=>`<div class="player"><span>${escapeHtml(p.name)}</span>${p.host?'<span class="badge">방장</span>':''}</div>`).join("");const b=document.getElementById("startBtn");if(room.hostId===userId&&room.status==="대기중"){b.classList.remove("hidden");b.disabled=players.length<3}else b.classList.add("hidden")}
-async function refreshRoom(){try{const r=await api("getRoomState",{roomId});if(r.success){room=r.room;players=r.players;renderWaiting();if(room.status==="설정중"&&room.hostId===userId){openSetup()}if(room.status==="게임중")loadGame()}}catch(e){}}
-async function startGame(){try{const r=await api("startGame",{roomId,hostId:userId});if(!r.success)throw Error(r.error);room=r.room;players=r.players;openSetup()}catch(e){msg("waitMsg",e.message)}}
-function openSetup(){stopPoll();show("setup");renderSetupPlayers()}
-function renderSetupPlayers(){const mode=document.querySelector('input[name="ls"]:checked').value,area=document.getElementById("liarSelectArea");if(mode!=="host"){area.innerHTML="";selectedLiarId=null;return}area.innerHTML='<div class="title2">라이어로 선택할 참가자</div>'+players.map(p=>`<button class="gray" onclick="selectLiar('${p.userId}',this)">${escapeHtml(p.name)}</button>`).join("")}
-function selectLiar(id,el){selectedLiarId=id;document.querySelectorAll("#liarSelectArea button").forEach(b=>b.style.border="");el.style.border="3px solid #222"}
-async function saveSetup(){const category=document.querySelector('input[name="cat"]:checked').value,mode=document.querySelector('input[name="ls"]:checked').value;if(mode==="host"&&!selectedLiarId){msg("setupMsg","라이어를 선택해주세요.");return}try{const r=await api("saveGameSetup",{roomId,hostId:userId,category,liarSelect:mode,selectedLiarId:selectedLiarId||""});if(!r.success)throw Error(r.error);show("role");startPoll();loadGame()}catch(e){msg("setupMsg",e.message)}}
-async function loadGame(){if(!roomId)return;try{const r=await api("getGameState",{roomId,userId});if(!r.success)return;players=r.players||players;renderGame(r)}catch(e){console.log(e)}}
-function renderGame(r){if(r.phase!==lastPhase){lastPhase=r.phase;document.querySelectorAll("section").forEach(x=>{if(["home","create","join","waiting","setup"].indexOf(x.id)<0)x.classList.add("hidden")})}
-if(r.phase==="역할확인")renderRole(r);
-else if(r.phase==="힌트")renderHint(r);
-else if(r.phase==="투표")renderVote(r);
-else if(r.phase==="결과"||r.phase==="라이어추리")renderResult(r);
-else if(r.phase==="종료")renderEnd(r)}
-function renderRole(r){show("role");document.getElementById("roleText").textContent=r.myRole==="라이어"?"😈 당신은 라이어입니다!":"🙂 당신은 시민입니다.";document.getElementById("clueText").innerHTML=r.canSeeClue?`<div class="small">${r.isHost?"👑 방장 제시어":"제시어"}</div><div class="clue">${escapeHtml(r.myClue||r.clue||"")}</div>`:'<div class="small">제시어를 볼 수 없습니다.</div>';document.getElementById("roleConfirmBtn").disabled=r.confirmed}
-async function confirmRole(){try{const r=await api("confirmRole",{roomId,userId});if(!r.success)throw Error(r.error);loadGame()}catch(e){msg("roleMsg",e.message)}}
-function renderHint(r){
-  show("hint");
-  document.getElementById("hintList").innerHTML=(r.hints||[]).map(h=>`<div class="hint"><b>${escapeHtml(h.name)}</b><br>${h.hint?escapeHtml(h.hint):"아직 힌트를 제출하지 않았습니다."}</div>`).join("");
-  const input=document.getElementById("hintInput");
-  const isTyping=document.activeElement===input;
-  if(!isTyping){
-    input.value=r.myHint||hintDraft||"";
-  }
-  if(r.myHint){
-    hintDraft=r.myHint;
-    input.value=r.myHint;
-    input.disabled=true;
-    document.querySelector("#hint button").disabled=true;
-    msg("hintMsg","힌트가 제출되었습니다.");
-  }else{
-    input.disabled=false;
-    document.querySelector("#hint button").disabled=false;
-  }
-}
-async function submitHint(){
-  const input=document.getElementById("hintInput");
-  const h=input.value.trim();
-  if(!h){msg("hintMsg","힌트를 입력해주세요.");return}
-  hintDraft=h;
-  input.disabled=true;
-  document.querySelector("#hint button").disabled=true;
-  try{
-    const r=await api("submitHint",{roomId,userId,hint:h});
-    if(!r.success)throw Error(r.error);
-    input.value=r.myHint||h;
-    hintDraft=r.myHint||h;
-    document.getElementById("hintList").innerHTML=(r.hints||[]).map(x=>`<div class="hint"><b>${escapeHtml(x.name)}</b><br>${x.hint?escapeHtml(x.hint):"아직 힌트를 제출하지 않았습니다."}</div>`).join("");
-    msg("hintMsg","힌트가 제출되었습니다.");
-    if(r.phase==="투표") loadGame();
-  }catch(e){
-    input.disabled=false;
-    document.querySelector("#hint button").disabled=false;
-    msg("hintMsg",e.message);
-  }
-}
-function renderVote(r){show("vote");const voted=localStorage.getItem("VOTED_"+roomId+"_"+r.round)==="Y";document.getElementById("voteList").innerHTML=r.players.filter(p=>p.userId!==userId).map(p=>`<div class="vote"><span>${escapeHtml(p.name)}</span><button ${voted?"disabled":""} onclick="vote('${p.userId}')">투표</button></div>`).join("");if(voted)msg("voteMsg","투표가 완료되었습니다. 다른 참가자의 투표를 기다리고 있습니다.")}
-async function vote(id){try{const r=await api("submitVote",{roomId,userId,targetId:id});if(!r.success)throw Error(r.error);const state=await api("getGameState",{roomId,userId});if(state.phase==="결과")finalizeResult(state);localStorage.setItem("VOTED_"+roomId+"_"+state.round,"Y");loadGame()}catch(e){msg("voteMsg",e.message)}}
-function renderResult(r){
-  show("result");
-  const caught=r.caught;
-  const clueText=r.phase==="종료"&&r.clue?`<br>제시어는 <b>${escapeHtml(r.clue)}</b>입니다.`:"";
-  const caughtText=caught?"라이어가 지목되었습니다!":"라이어가 지목되지 않았습니다.";
-  document.getElementById("resultText").innerHTML=`라이어는 <b>${escapeHtml(r.liarName||"")}</b>였습니다.${clueText}<br><br>${caughtText}`;
-  document.getElementById("voteResult").innerHTML=(r.votes||[]).map(v=>`<div class="player"><span>${escapeHtml(v.name)}</span><b>${v.count}표</b></div>`).join("");
-  const ga=document.getElementById("guessArea");
-  if(r.phase==="라이어추리"&&r.myRole==="라이어")ga.classList.remove("hidden");
-  else ga.classList.add("hidden");
-}
-function finalizeResult(r){renderResult(r)}
-async function submitGuess(){const g=document.getElementById("guessInput").value.trim();if(!g){msg("guessMsg","제시어를 입력해주세요.");return}try{const r=await api("submitGuess",{roomId,userId,guess:g});if(!r.success)throw Error(r.error);document.getElementById("guessArea").classList.add("hidden");loadGame()}catch(e){msg("guessMsg",e.message)}}
-function renderEnd(r){stopPoll();show("end");document.getElementById("endText").innerHTML=`<b>${r.winner==="라이어"?"😈 라이어 승리!":"🎉 시민 승리!"}</b><br><br>라이어: ${escapeHtml(r.liarName||"")}<br>제시어: ${escapeHtml(r.clue||"")}`;document.getElementById("continueBtn").classList.toggle("hidden", room&&room.hostId!==userId)}
-
-function addSinglePlayer(name=""){
-  if(single.players.length>=12){msg("singleMsg","최대 12명까지 참가할 수 있습니다.");return}
-  single.players.push(name);
-  renderSinglePlayers();
-}
-function renderSinglePlayers(){
-  document.getElementById("singlePlayers").innerHTML=single.players.map((n,i)=>`<div class="player-input-row"><input id="sp_${i}" type="text" maxlength="20" placeholder="${i+1}번 참가자 이름" value="${escapeHtml(n)}" oninput="single.players[${i}]=this.value"><button class="red" onclick="removeSinglePlayer(${i})">×</button></div>`).join("");}
-function removeSinglePlayer(i){single.players.splice(i,1);renderSinglePlayers();}
-function startSingleGame(){
-  single.players=single.players.map(x=>String(x).trim()).filter(Boolean);
-  if(single.players.length<3){msg("singleMsg","최소 3명이 필요합니다.");renderSinglePlayers();return}
-  if(new Set(single.players).size!==single.players.length){msg("singleMsg","같은 이름은 사용할 수 없습니다.");return}
-  renderSinglePlayers();show("singleSetup");renderSingleLiarArea();
-}
-document.addEventListener("change",e=>{if(e.target&&e.target.name==="sliar")renderSingleLiarArea()});
-function renderSingleLiarArea(){
-  const area=document.getElementById("singleLiarArea");
-  if(!area)return;
-  const mode=document.querySelector('input[name="sliar"]:checked')?.value;
-  if(mode!=="host"){area.innerHTML="";return}
-  area.innerHTML='<div class="title2">라이어로 선택할 참가자</div>'+single.players.map((p,i)=>`<button class="gray ${single.liarIndex===i?'selected':''}" onclick="selectSingleLiar(${i})">${escapeHtml(p)}</button>`).join("");
-}
-function selectSingleLiar(i){single.liarIndex=i;renderSingleLiarArea()}
-function saveSingleSetup(){
-  const category=document.querySelector('input[name="scat"]:checked').value;
-  const mode=document.querySelector('input[name="sliar"]:checked').value;
-  if(mode==="host"&&single.liarIndex<0){msg("singleSetupMsg","라이어를 선택해주세요.");return}
-  const cats=["음식","동물","장소","직업","물건"];
-  single.category=category==="랜덤"?cats[Math.floor(Math.random()*cats.length)]:category;
-  const wordMap={
-    음식:["김치","피자","치킨","라면","김밥","떡볶이","햄버거","초밥","삼겹살","냉면","비빔밥","불고기","갈비","된장찌개","김치찌개","순두부찌개","잡채","만두","칼국수","우동","돈가스","떡국","부침개","파전","호떡","붕어빵","핫도그","샌드위치","토스트","스파게티","카레","짜장면","짬뽕","탕수육","볶음밥","국수","닭강정","족발","보쌈","갈비탕","설렁탕","삼계탕","팥빙수","아이스크림","케이크","초콜릿","도넛","과자","사과","수박"],
-    동물:["강아지","고양이","사자","호랑이","코끼리","기린","토끼","판다","원숭이","펭귄","곰","여우","늑대","다람쥐","햄스터","고슴도치","사슴","얼룩말","하마","코뿔소","캥거루","코알라","낙타","치타","표범","고릴라","침팬지","수달","비버","너구리","오리","독수리","부엉이","앵무새","참새","까치","갈매기","닭","소","돼지","말","양","염소","사막여우","돌고래","고래","상어","문어","거북이","개구리"],
-    장소:["학교","공원","병원","공항","도서관","편의점","놀이공원","바다","카페","영화관","마트","백화점","시장","식당","빵집","미용실","약국","은행","우체국","경찰서","소방서","기차역","버스터미널","지하철역","박물관","미술관","동물원","수족관","체육관","운동장","놀이터","수영장","해변","산","캠핑장","호텔","학교 운동장","교회","공연장","도서관 열람실","주유소","세탁소","꽃집","문구점","서점","회사","공장","농장","아파트","주차장"],
-    직업:["의사","선생님","경찰관","소방관","요리사","가수","배우","기자","운동선수","변호사","간호사","약사","수의사","치과의사","판사","검사","공무원","회사원","은행원","우체국 직원","미용사","사진작가","화가","작가","아나운서","방송인","유튜버","개발자","디자이너","건축가","목수","정비사","운전기사","택배기사","배달원","농부","어부","파일럿","승무원","호텔 직원","바리스타","제빵사","플로리스트","안경사","연구원","과학자","기상캐스터","축구선수","야구선수","소믈리에"],
-    물건:["우산","연필","휴대폰","가방","시계","안경","의자","컴퓨터","카메라","선풍기","책","공책","지우개","필통","볼펜","자","가위","풀","책상","침대","베개","이불","수건","칫솔","치약","비누","샴푸","빗","거울","컵","접시","숟가락","젓가락","냄비","프라이팬","냉장고","전자레인지","텔레비전","리모컨","헤드폰","마우스","키보드","충전기","이어폰","손전등","자전거","공","인형","지갑","열쇠"]
-  };
-  const list=wordMap[single.category]; single.clue=list[Math.floor(Math.random()*list.length)];
-  single.liarIndex=mode==="random"?Math.floor(Math.random()*single.players.length):single.liarIndex;
-  single.roles=single.players.map((name,i)=>({name,role:i===single.liarIndex?"라이어":"시민"}));
-  single.roleIndex=0;single.hints=[];single.hintIndex=0;single.votes={};single.voteIndex=0;single.caught=false;single.winner="";single.guess="";
-  renderSingleRole();
-}
-function renderSingleRole(){
-  show("singleRole");
-  const p=single.roles[single.roleIndex];
-  document.getElementById("singleRoleText").textContent=p.role==="라이어"?"😈 당신은 라이어입니다!":"🙂 당신은 시민입니다.";
-  document.getElementById("singleClueText").innerHTML=p.role==="라이어"?'<div class="small">제시어를 볼 수 없습니다.</div>':`<div class="small">제시어</div><div class="clue">${escapeHtml(single.clue)}</div>`;
-}
-function singleRoleNext(){single.roleIndex++;if(single.roleIndex<single.roles.length)renderSingleRole();else renderSingleHint();}
-function renderSingleHint(){show("singleHint");const p=single.roles[single.hintIndex];document.getElementById("singleHintPlayer").textContent=p.name+"님의 차례";document.getElementById("singleHintInput").value="";document.getElementById("singleHintMsg").textContent="";document.getElementById("singleHintsList").innerHTML=single.hints.map(h=>`<div class="hint"><b>${escapeHtml(h.name)}</b><br>${escapeHtml(h.hint)}</div>`).join("");}
-function singleSubmitHint(){const input=document.getElementById("singleHintInput"),h=input.value.trim();if(!h){msg("singleHintMsg","힌트를 입력해주세요.");return}single.hints.push({name:single.roles[single.hintIndex].name,hint:h});single.hintIndex++;if(single.hintIndex<single.roles.length)renderSingleHint();else renderSingleVote();}
-function renderSingleVote(){show("singleVote");const p=single.roles[single.voteIndex];document.getElementById("singleVotePlayer").textContent=p.name+"님의 투표";document.getElementById("singleVoteList").innerHTML=single.roles.map((x,i)=>i===single.voteIndex?"":`<button class="gray" onclick="singleCastVote(${i})">${escapeHtml(x.name)}</button>`).join("");}
-function singleCastVote(target){single.votes[target]=(single.votes[target]||0)+1;single.voteIndex++;if(single.voteIndex<single.roles.length)renderSingleVote();else finishSingleVote();}
-function finishSingleVote(){let max=-1,winners=[];Object.keys(single.votes).forEach(k=>{const c=single.votes[k];if(c>max){max=c;winners=[Number(k)]}else if(c===max)winners.push(Number(k))});single.caught=winners.length===1&&winners[0]===single.liarIndex;if(single.caught){single.winner="";document.getElementById("singleGuessPlayer").textContent=single.players[single.liarIndex]+"님의 마지막 기회";document.getElementById("singleGuessInput").value="";show("singleGuess");}else{single.winner="라이어";renderSingleEnd();}}
-function singleSubmitGuess(){const g=document.getElementById("singleGuessInput").value.trim();if(!g){msg("singleGuessMsg","제시어를 입력해주세요.");return}single.guess=g;single.winner=g===single.clue?"라이어":"시민";renderSingleEnd();}
-function renderSingleEnd(){show("end");document.getElementById("endText").innerHTML=`<b>${single.winner==="라이어"?"😈 라이어 승리!":"🎉 시민 승리!"}</b><br><br>라이어: ${escapeHtml(single.players[single.liarIndex])}<br>제시어: ${escapeHtml(single.clue)}`;document.getElementById("continueBtn").classList.remove("hidden");}
-function continueGame(){
-  if(roomId&&room&&room.hostId===userId){nextServerGame();return}
-  if(single.players.length){resetSingleRound();return}
-  newGame();
-}
-async function nextServerGame(){try{const r=await api("nextGame",{roomId,hostId:userId});if(!r.success)throw Error(r.error);room=r.room;players=r.players;openSetup()}catch(e){msg("endText",e.message)}}
-function resetSingleRound(){single.liarIndex=-1;single.clue="";single.roles=[];single.roleIndex=0;single.hints=[];single.hintIndex=0;single.votes={};single.voteIndex=0;single.caught=false;single.winner="";single.guess="";show("singleSetup");renderSingleLiarArea();}
-async function newGame(){stopPoll();if(roomId){try{await api("leaveRoom",{roomId,userId})}catch(e){}localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;room=null;players=[]}single={players:[],category:"",liarIndex:-1,clue:"",roles:[],roleIndex:0,hints:[],hintIndex:0,votes:{},voteIndex:0,caught:false,winner:"",guess:""};show("home");}
-
-async function leaveRoom(){try{await api("leaveRoom",{roomId,userId})}catch(e){}stopPoll();localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;show("multiLiar")}
-function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
-async function restore(){const id=localStorage.getItem("GAME_PARTY_ROOM_ID");if(!id)return;roomId=id;try{const r=await api("getRoomState",{roomId});if(!r.success)throw Error();room=r.room;players=r.players;openWaiting(r);if(room.status==="설정중"&&room.hostId===userId)openSetup();if(room.status==="게임중"){startPoll();loadGame()}}catch(e){localStorage.removeItem("GAME_PARTY_ROOM_ID")}}
-window.addEventListener("load",restore);
+let single={names:[],category:'음식',mode:'random',liarIndex:-1,clue:'',phase:'setup',hints:[],votes:[],turn:0};let singleDiscussionEnd=0;let singleDiscussionTimer=null;
+function singleStartSetup(){single={names:['','',''],category:'음식',mode:'random',liarIndex:-1,clue:'',phase:'setup',hints:[],votes:[],turn:0};renderSingleNames();show('singleSetup')}
+function renderSingleNames(){document.getElementById('singleNames').innerHTML=single.names.map((n,i)=>`<input type="text" maxlength="20" placeholder="참가자 ${i+1} 이름" value="${escapeHtml(n)}" oninput="single.names[${i}]=this.value">`).join('')}
+function addSingleName(){if(single.names.length>=12){message('singleMsg','최대 12명까지 참가할 수 있습니다.','error');return}single.names.push('');renderSingleNames()}
+function singleContinue(){single.names=single.names.map(x=>x.trim());if(single.names.some(x=>!x)){message('singleMsg','모든 참가자 이름을 입력해주세요.','error');return}if(new Set(single.names).size!==single.names.length){message('singleMsg','같은 이름을 사용할 수 없습니다.','error');return}single.phase='setup';renderSingleSetup()}
+function renderSingleSetup(){document.getElementById('singleBody').innerHTML=`<div class="notice">진행자는 화면을 조작하고 참가자에게 순서대로 기기를 전달합니다.</div><div class="title2">제시어 분야</div>${['음식','동물','장소','직업','물건','랜덤'].map((x,i)=>`<label class="option"><input type="radio" name="scat" value="${x}" ${i===0?'checked':''}>${x}</label>`).join('')}<div class="title2">라이어 선택</div><label class="option"><input type="radio" name="sl" value="random" checked>🎲 랜덤으로 선택</label><label class="option"><input type="radio" name="sl" value="host">👤 진행자가 선택</label><select id="singleLiarSelect" style="width:100%;height:56px;border:1px solid #ddd;border-radius:14px;padding:0 12px;font-size:17px;margin:8px 0">${single.names.map((n,i)=>`<option value="${i}">${escapeHtml(n)}</option>`).join('')}</select><button onclick="singleStartGame()">🎮 게임 시작</button>`;show('singleGame');document.getElementById('singlePhase').textContent='게임 설정'}
+function singleStartGame(){single.category=document.querySelector('input[name="scat"]:checked').value;single.mode=document.querySelector('input[name="sl"]:checked').value;if(single.category==='랜덤')single.category=['음식','동물','장소','직업','물건'][Math.floor(Math.random()*5)];single.clue=singleWord(single.category);single.liarIndex=single.mode==='random'?Math.floor(Math.random()*single.names.length):Number(document.getElementById('singleLiarSelect').value);single.phase='role';single.turn=0;single.hints=[];single.votes=[];singleRoleScreen()}
+function singleWord(cat){const data={음식:['김치','피자','치킨','라면','김밥','떡볶이','햄버거','초밥','삼겹살'],동물:['강아지','고양이','사자','호랑이','토끼','판다','코끼리','기린','돌고래'],장소:['학교','공원','병원','공항','도서관','편의점','바다','산','놀이공원'],직업:['의사','요리사','경찰관','소방관','선생님','사진작가','운동선수','미용사','가수'],물건:['우산','시계','가방','의자','냉장고','휴대폰','책','안경','신발']};return data[cat][Math.floor(Math.random()*data[cat].length)]}
+function singleRoleScreen(){show('singleGame');const i=single.turn;document.getElementById('singlePhase').textContent='🎭 역할 확인';document.getElementById('singleBody').innerHTML=`<div class="notice">${i+1}번째 참가자 <b>${escapeHtml(single.names[i])}</b>님만 화면을 확인하세요.</div><div class="role">${i===single.liarIndex?'😈 당신은 라이어입니다!':'🙂 당신은 시민입니다.'}</div><div class="clue">${i===single.liarIndex?'제시어를 볼 수 없습니다.':escapeHtml(single.clue)}</div><button onclick="singleRoleNext()">확인했어요</button>`}
+function singleRoleNext(){single.turn++;if(single.turn<single.names.length){singleRoleScreen();return}single.phase='hint';single.turn=0;singleHintScreen()}
+function singleHintScreen(){show('singleGame');const i=single.turn;document.getElementById('singlePhase').textContent='💬 힌트';document.getElementById('singleBody').innerHTML=`<div class="notice"><b>${escapeHtml(single.names[i])}</b>님 차례입니다. 다른 참가자가 보지 않도록 화면을 확인하고 힌트를 입력하세요.</div><textarea id="singleHint" maxlength="100" placeholder="제시어를 직접 말하지 않는 힌트"></textarea><button onclick="singleHintNext()">힌트 제출</button>`}
+function singleHintNext(){const h=document.getElementById('singleHint').value.trim();if(!h){return}single.hints.push({name:single.names[single.turn],hint:h});single.turn++;if(single.turn<single.names.length){singleHintScreen();return}single.phase='discussion';singleDiscussion()}
+function singleDiscussion(){show('singleGame');if(singleDiscussionTimer)clearInterval(singleDiscussionTimer);singleDiscussionEnd=Date.now()+60000;document.getElementById('singlePhase').textContent='🗣️ 토론';document.getElementById('singleBody').innerHTML='<div class="notice">지금부터 1분 동안 자유롭게 서로 질문하고 의심 가는 사람을 찾아보세요.</div><div id="singleCount" class="countdown">60초</div><button class="gray" onclick="singleAddDiscussionMinute()">⏱️ 토론 1분 추가</button>';singleDiscussionTimer=setInterval(()=>{const sec=Math.max(0,Math.ceil((singleDiscussionEnd-Date.now())/1000));const el=document.getElementById('singleCount');if(el)el.textContent=sec+'초';if(sec<=0){clearInterval(singleDiscussionTimer);singleDiscussionTimer=null;single.phase='vote';single.turn=0;singleVoteScreen()}},250);}
+function singleAddDiscussionMinute(){if(single.phase!=='discussion')return;singleDiscussionEnd=Math.max(Date.now(),singleDiscussionEnd)+60000;}
+function singleVoteScreen(){show('singleGame');document.getElementById('singlePhase').textContent='🗳️ 투표';document.getElementById('singleBody').innerHTML=`<div class="notice"><b>${escapeHtml(single.names[single.turn])}</b>님이 투표할 차례입니다. 다른 사람에게 선택을 보여주지 마세요.</div>`+single.names.map((n,i)=>`<button class="gray" onclick="singleVote(${i})">${escapeHtml(n)}</button>`).join('')}
+function singleVote(i){if(i===single.turn)return;single.votes.push({voter:single.turn,target:i});single.turn++;if(single.turn<single.names.length){singleVoteScreen();return}const counts=single.names.map(()=>0);single.votes.forEach(v=>counts[v.target]++);let max=Math.max(...counts),top=counts.map((x,i)=>x===max?i:-1).filter(i=>i>=0);single.caught=top.length===1&&top[0]===single.liarIndex;single.phase=single.caught?'guess':'result';if(single.caught)singleGuessScreen();else singleResultScreen('라이어')}
+function singleGuessScreen(){show('singleGame');document.getElementById('singlePhase').textContent='😈 라이어 최종 추리';document.getElementById('singleBody').innerHTML='<div class="notice">라이어에게 마지막 기회가 있습니다. 진짜 제시어를 맞혀보세요.</div><input id="singleGuess" type="text" placeholder="진짜 제시어"><button onclick="singleGuess()">제출</button>'}
+function singleGuess(){const g=document.getElementById('singleGuess').value.trim();if(!g)return;singleResultScreen(g===single.clue?'라이어':'시민')}
+function singleResultScreen(winner){single.phase='result';show('singleGame');document.getElementById('singlePhase').textContent='🎉 게임 종료';document.getElementById('singleBody').innerHTML=`<div class="result">라이어: <b>${escapeHtml(single.names[single.liarIndex])}</b><br>제시어: <b>${escapeHtml(single.clue)}</b><br><br>${winner==='라이어'?'😈 라이어 승리!':'🎉 시민 승리!'}</div><div class="title2">다음 선택</div><div class="choice-grid"><button onclick="singleStartSetup()">▶️ 이어하기</button><button class="gray" onclick="show('home')">🎮 다른 게임</button></div>`}
+window.addEventListener('load',restore);
 </script>
 </body>
 </html>
