@@ -38,7 +38,7 @@
 <div class="container">
 <section id="home"><div class="logo">🎮 GAME PARTY</div><div class="card"><h2>플레이 방식 선택</h2><button onclick="show('single')">📱 한 기기로 플레이</button><button onclick="show('multi')">🌐 여러 기기로 플레이</button></div></section>
 
-<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">한 기기에서 여러 명이 함께 플레이하는 방식입니다.</div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">폰 한 대를 돌려가며 함께 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
 <section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">각자의 기기로 접속해서 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
@@ -65,6 +65,12 @@
 <section id="result" class="hidden"><div class="card"><h2>🔎 결과</h2><div id="resultText" class="result"></div><div id="voteResult"></div><div id="guessArea" class="hidden"><div class="title2">라이어의 마지막 기회</div><input id="guessInput" type="text" placeholder="제시어를 맞혀보세요"><button onclick="submitGuess()">제시어 제출</button><div id="guessMsg" class="message"></div></div></div></section>
 
 <section id="end" class="hidden"><div class="card"><div class="logo">🎉 GAME OVER</div><div id="endText" class="result"></div><div id="endVotes"></div><button onclick="goHome()">처음으로</button></div></section>
+
+<section id="soloSetup" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><label>참가자 이름</label><div style="display:flex;gap:8px"><input id="soloName" type="text" maxlength="20" placeholder="이름을 입력하세요" style="margin:0" onkeydown="if(event.key==='Enter')soloAddName()"><button class="mini" style="min-height:58px;padding:0 18px" onclick="soloAddName()">추가</button></div><div id="soloNames" style="margin-top:12px"></div><div id="soloCount" class="small"></div><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="scat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="scat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="scat" value="장소">📍 장소</label><label class="option"><input type="radio" name="scat" value="직업">💼 직업</label><label class="option"><input type="radio" name="scat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="scat" value="랜덤">🎲 랜덤</label><button onclick="soloStart()">🎮 게임 시작</button><button class="gray" onclick="show('single')">뒤로가기</button><div id="soloMsg" class="message error"></div></div></section>
+
+<section id="solo" class="hidden"><div class="card"><div id="soloMount"></div><div id="soloActs"></div></div><div id="soloDetailCard" class="card hidden"><div id="soloDetail"></div></div></section>
+
+<section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
 
 <!-- 진행 카드: 방장 화면(대기실, 게임 설정, 진행자 화면)으로 옮겨 다니며 사용 -->
@@ -88,7 +94,7 @@ let roomId=null,room=null,players=[],selectedLiarId=null,timer=null,inGame=false
 /* ===== 진행 멘트 =====
    시트(LIAR_멘트)에서 불러와 폰에 저장해 두고, 실패하면 저장본 → 아래 기본 멘트 순서로 사용
    [단계, 상황, 모드, 순서, 멘트] */
-const PLAY_MODE="여러기기";
+let PLAY_MODE="여러기기";
 const SCRIPT_KEY="GAME_PARTY_SCRIPTS_LIAR";
 const DEFAULT_SCRIPTS=[
 ["시작","기본","공통",1,"자, 여러분! 지금부터 '라이어 게임'을 시작할게요!"],
@@ -255,8 +261,62 @@ function renderEnd(r){stopPoll();show("end");document.getElementById("endText").
 function updateTimers(){if(!discussEnd)return;const s=Math.max(0,Math.ceil((discussEnd-Date.now())/1000)),t=`⏱️ ${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;document.getElementById("discussTimer").textContent=t;document.getElementById("hcTimer").textContent=t}
 setInterval(updateTimers,500);
 
+/* ===== 한 기기로 플레이 ===== */
+const SOLO_MIN=3,SOLO_MAX=12;
+const WORD_KEY="GAME_PARTY_WORDS_LIAR";
+const DEFAULT_WORDS={"음식":["김치","피자","치킨","라면","김밥","떡볶이","햄버거","초밥","삼겹살","냉면","비빔밥","불고기","갈비","된장찌개","김치찌개","순두부찌개","잡채","만두","칼국수","우동","돈가스","떡국","부침개","파전","호떡","붕어빵","핫도그","샌드위치","토스트","스파게티","카레","짜장면","짬뽕","탕수육","볶음밥","국수","닭강정","족발","보쌈","갈비탕","설렁탕","삼계탕","팥빙수","아이스크림","케이크","초콜릿","도넛","과자","사과","수박"],"동물":["강아지","고양이","사자","호랑이","코끼리","기린","토끼","판다","원숭이","펭귄","곰","여우","늑대","다람쥐","햄스터","고슴도치","사슴","얼룩말","하마","코뿔소","캥거루","코알라","낙타","치타","표범","고릴라","침팬지","수달","비버","너구리","오리","독수리","부엉이","앵무새","참새","까치","갈매기","닭","소","돼지","말","양","염소","사막여우","돌고래","고래","상어","문어","거북이","개구리"],"장소":["학교","공원","병원","공항","도서관","편의점","놀이공원","바다","카페","영화관","마트","백화점","시장","식당","빵집","미용실","약국","은행","우체국","경찰서","소방서","기차역","버스터미널","지하철역","박물관","미술관","동물원","수족관","체육관","운동장","놀이터","수영장","해변","산","캠핑장","호텔","학교 운동장","교회","공연장","도서관 열람실","주유소","세탁소","꽃집","문구점","서점","회사","공장","농장","아파트","주차장"],"직업":["의사","선생님","경찰관","소방관","요리사","가수","배우","기자","운동선수","변호사","간호사","약사","수의사","치과의사","판사","검사","공무원","회사원","은행원","우체국 직원","미용사","사진작가","화가","작가","아나운서","방송인","유튜버","개발자","디자이너","건축가","목수","정비사","운전기사","택배기사","배달원","농부","어부","파일럿","승무원","호텔 직원","바리스타","제빵사","플로리스트","안경사","연구원","과학자","기상캐스터","축구선수","야구선수","소믈리에"],"물건":["우산","연필","휴대폰","가방","시계","안경","의자","컴퓨터","카메라","선풍기","책","공책","지우개","필통","볼펜","자","가위","풀","책상","침대","베개","이불","수건","칫솔","치약","비누","샴푸","빗","거울","컵","접시","숟가락","젓가락","냄비","프라이팬","냉장고","전자레인지","텔레비전","리모컨","헤드폰","마우스","키보드","충전기","이어폰","손전등","자전거","공","인형","지갑","열쇠"]};
+let WORDS=DEFAULT_WORDS;
+try{const w=JSON.parse(localStorage.getItem(WORD_KEY)||"null");if(w&&typeof w==="object"&&Object.keys(w).length)WORDS=w}catch(e){}
+/* 제시어도 멘트처럼 시트에서 불러와 폰에 저장. 실패하면 저장본 → 기본 제시어 */
+async function loadWords(){try{const r=await api("getWords");if(r.success&&r.words&&Object.keys(r.words).length){WORDS=r.words;try{localStorage.setItem(WORD_KEY,JSON.stringify(r.words))}catch(e){}}}catch(e){}}
+let solo={names:[],players:[],liar:"",clue:"",cat:"",stage:"시작",votes:{},caught:false,winner:"",guess:"",secret:false};
+try{solo.names=JSON.parse(localStorage.getItem("GP_SOLO_NAMES")||"[]")}catch(e){}
+function saveSoloNames(){try{localStorage.setItem("GP_SOLO_NAMES",JSON.stringify(solo.names))}catch(e){}}
+function openSoloSetup(){show("soloSetup");renderSoloNames();msg("soloMsg","");loadWords()}
+function renderSoloNames(){const n=solo.names.length;document.getElementById("soloNames").innerHTML=solo.names.map((x,i)=>`<div class="player"><span>${i+1}. ${escapeHtml(x)}</span><button class="mini" aria-label="${escapeHtml(x)} 빼기" onclick="soloRemove(${i})">✕</button></div>`).join("");document.getElementById("soloCount").textContent=`${n}명 · 최소 ${SOLO_MIN}명, 최대 ${SOLO_MAX}명`}
+function soloAddName(){const inp=document.getElementById("soloName"),v=inp.value.trim();if(!v)return;if(solo.names.includes(v)){msg("soloMsg","같은 이름이 이미 있어요.");return}if(solo.names.length>=SOLO_MAX){msg("soloMsg",`최대 ${SOLO_MAX}명까지 참가할 수 있어요.`);return}solo.names.push(v);inp.value="";inp.focus();msg("soloMsg","");saveSoloNames();renderSoloNames()}
+function soloRemove(i){solo.names.splice(i,1);saveSoloNames();renderSoloNames()}
+function pickSoloWord(cat){const cats=["음식","동물","장소","직업","물건"].filter(c=>(WORDS[c]||[]).length);const c=cat==="랜덤"||!(WORDS[cat]||[]).length?cats[Math.floor(Math.random()*cats.length)]:cat;const list=WORDS[c];let recent=[];try{recent=JSON.parse(localStorage.getItem("GP_SOLO_RECENT")||"[]")}catch(e){}let cand=list.filter(w=>!recent.includes(w));if(!cand.length)cand=list;const w=cand[Math.floor(Math.random()*cand.length)];recent.push(w);try{localStorage.setItem("GP_SOLO_RECENT",JSON.stringify(recent.slice(-40)))}catch(e){}return {cat:c,word:w}}
+function soloStart(){const cat=(document.querySelector('input[name="scat"]:checked')||{}).value||"랜덤";if(solo.names.length<SOLO_MIN){msg("soloMsg",`참가자를 ${SOLO_MIN}명 이상 입력해 주세요.`);return}
+ PLAY_MODE="한기기";hcReset();discussEnd=0;const ps=solo.names.map((n,i)=>({userId:"S"+i,name:n}));const w=pickSoloWord(cat);
+ Object.assign(solo,{players:ps,liar:ps[Math.floor(Math.random()*ps.length)].name,clue:w.word,cat:w.cat,stage:"시작",votes:{},caught:false,winner:"",guess:"",secret:false});
+ const s=Math.floor(Math.random()*ps.length);players=ps.slice(s).concat(ps.slice(0,s));/* 힌트 첫 순서는 무작위 */
+ renderSolo()}
+function soloR(){const c={};Object.values(solo.votes).forEach(t=>c[t]=(c[t]||0)+1);return {phase:solo.stage,facilitator:{clue:solo.clue,liarName:solo.liar},votes:solo.players.map(p=>({name:p.name,count:c[p.name]||0})),caught:solo.caught,winner:solo.winner}}
+function renderSolo(){show("solo");hcMount("soloMount");const r=soloR(),n=solo.players.length;
+ const prog={시작:`참가자 ${n}명 · 분야 ${solo.cat}`,역할확인:"모두 역할을 확인했어요",힌트:"힌트 말하기",토론:"토론 중",투표:"투표 준비",라이어추리:"라이어의 마지막 기회",종료:"게임 종료"}[solo.stage]||"";
+ const sec=solo.secret?`제시어 <b>${escapeHtml(solo.clue)}</b> · 라이어 <b>${escapeHtml(solo.liar)}</b>`:"제시어 ••• · 라이어 •••";
+ document.getElementById("hcInfo").classList.remove("hidden");setHtml("hcInfo",`<span>${escapeHtml(prog)}<br><span style="font-size:13px;color:#888">${sec}</span></span><button class="mini" onclick="solo.secret=!solo.secret;renderSolo()">${solo.secret?"가리기":"보기"}</button>`);
+ document.getElementById("hcTimer").classList.toggle("hidden",solo.stage!=="토론");
+ hcSetCurrent(phaseTab(solo.stage),r);updateTimers();
+ const B=(t,f,c)=>`<button class="${c||""}" onclick="${f}">${t}</button>`;
+ const quit='<button class="linkbtn" style="display:block;margin-top:14px" onclick="soloQuit()">게임 그만두기</button>';
+ const acts={시작:B("🎭 역할 나눠주기","soloRoles(0)")+quit,역할확인:B("💬 힌트 시작","soloGo('힌트')")+quit,힌트:B("🗣️ 토론 시작 (1분)","soloDiscuss()")+quit,토론:B("⏱️ 토론 1분 추가","soloExtend()","gray")+B("🗳️ 투표로 넘어가기","soloGo('투표')")+quit,투표:B("🗳️ 투표 시작하기","soloVoteBegin()")+quit,라이어추리:B(`🎯 ${escapeHtml(solo.liar)}에게 폰 건네기`,"soloGuessPass()")+quit,종료:B("🔁 같은 멤버로 다시하기","soloStart()")+B("처음으로","goHome()","gray")}[solo.stage];
+ setHtml("soloActs",acts);
+ let d="";if(solo.stage==="라이어추리"||solo.stage==="종료")d='<div class="title2" style="margin-top:0">투표 결과</div>'+votesHtml(r.votes);
+ if(solo.stage==="종료")d+=`<div class="result" style="margin-top:14px"><b>${solo.winner==="라이어"?"😈 라이어 승리":"🎉 시민 승리"}</b><br>라이어: ${escapeHtml(solo.liar)} · 제시어: ${escapeHtml(solo.clue)}${solo.guess?`<br>라이어의 답: ${escapeHtml(solo.guess)}`:""}</div>`;
+ setHtml("soloDetail",d);document.getElementById("soloDetailCard").classList.toggle("hidden",!d)}
+function soloGo(st){solo.stage=st;renderSolo()}
+function soloQuit(){if(confirm("게임을 그만두고 처음으로 갈까요?"))goHome()}
+function soloDiscuss(){discussEnd=Date.now()+60000;soloGo("토론")}
+function soloExtend(){discussEnd=Math.max(Date.now(),discussEnd)+60000;updateTimers()}
+function passShow(html){show("pass");document.getElementById("passBody").innerHTML=html;window.scrollTo(0,0)}
+/* 역할 확인: 폰 건네기 → 역할 보기 → 가리고 다음 사람 */
+function soloRoles(i){const n=solo.players.length;if(i>=n){soloGo("역할확인");return}const p=solo.players[i];passShow(`<div class="small">역할 확인 ${i+1} / ${n}</div><div class="my-role">📱 ${escapeHtml(p.name)}에게<br>폰을 건네주세요</div><div class="small">다른 사람은 화면을 보지 마세요.</div><button onclick="soloRoleShow(${i})">${escapeHtml(p.name)}, 내 역할 보기</button>`)}
+function soloRoleShow(i){const p=solo.players[i],liar=p.name===solo.liar;passShow(`<div class="small">${escapeHtml(p.name)}의 역할</div><div class="my-role">${liar?"😈 당신은 라이어입니다!":"🙂 당신은 시민입니다."}</div>${liar?'<div class="small">제시어를 볼 수 없습니다.<br>들키지 않게 연기해 보세요!</div>':`<div class="small">제시어</div><div class="clue">${escapeHtml(solo.clue)}</div>`}<button onclick="soloRoles(${i+1})">확인했어요 (화면 가리기)</button>`)}
+/* 투표: 한 명씩 돌아가며 몰래 선택 */
+function soloVoteBegin(){solo.votes={};soloVote(0)}
+function soloVote(i){const n=solo.players.length;if(i>=n){soloTally();return}const p=solo.players[i];passShow(`<div class="small">투표 ${i+1} / ${n}</div><div class="my-role">📱 ${escapeHtml(p.name)}의<br>투표 차례예요</div><div class="small">다른 사람은 화면을 보지 마세요.</div><button onclick="soloVotePick(${i})">투표하기</button>`)}
+function soloVotePick(i){const me=solo.players[i];passShow(`<div class="title2" style="margin-top:0">${escapeHtml(me.name)}, 라이어라고 생각하는 사람을 고르세요</div>`+solo.players.map((p,j)=>j===i?"":`<button class="gray" onclick="soloVoteSet(${i},${j})">${escapeHtml(p.name)}</button>`).join(""))}
+function soloVoteSet(i,j){solo.votes[solo.players[i].name]=solo.players[j].name;soloVote(i+1)}
+function soloTally(){const t=topVoted(soloR().votes);solo.caught=!t.tie&&t.name===solo.liar;if(solo.caught)solo.stage="라이어추리";else{solo.stage="종료";solo.winner="라이어"}renderSolo()}
+/* 라이어의 마지막 추리 */
+function soloGuessPass(){passShow(`<div class="my-role">📱 ${escapeHtml(solo.liar)}에게<br>폰을 건네주세요</div><button onclick="soloGuessInput()">제시어 맞히기</button>`)}
+function soloGuessInput(){passShow(`<div class="title2" style="margin-top:0">진짜 제시어는 무엇일까요?</div><input id="soloGuess" type="text" maxlength="30" placeholder="제시어를 입력하세요" onkeydown="if(event.key==='Enter')soloGuessSubmit()"><button onclick="soloGuessSubmit()">제출</button><div id="soloGuessMsg" class="message error"></div>`)}
+function soloGuessSubmit(){const g=document.getElementById("soloGuess").value.trim();if(!g){msg("soloGuessMsg","제시어를 입력해 주세요.");return}const norm=s=>s.replace(/\s+/g,"");solo.guess=g;solo.winner=norm(g)===norm(solo.clue)?"라이어":"시민";solo.stage="종료";renderSolo()}
+
 async function leaveRoom(){try{await api("leaveRoom",{roomId,userId})}catch(e){}stopPoll();inGame=false;hcReset();localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;show("multiLiar")}
-function goHome(){stopPoll();inGame=false;hcReset();localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;show("home")}
+function goHome(){stopPoll();inGame=false;hcReset();PLAY_MODE="여러기기";discussEnd=0;localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;show("home")}
 async function restore(){const id=localStorage.getItem("GAME_PARTY_ROOM_ID");if(!id)return;roomId=id;try{const r=await api("getRoomState",{roomId});if(!r.success||r.room.status==="종료")throw Error();room=r.room;players=r.players;if(room.status==="게임중"){inGame=true;await loadGame();startPoll()}else if(room.status==="설정중"&&room.hostId===userId)openSetup();else openWaiting(r)}catch(e){localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null}}
 window.addEventListener("load",()=>{loadScripts();restore()});
 </script>
