@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GAME PARTY</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="theme-color" content="#222222">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GAME PARTY">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#222;font-family:Arial,"Noto Sans KR",sans-serif}.container{max-width:620px;margin:auto;padding:20px 15px 40px}.card{background:#fff;border-radius:24px;padding:28px;margin-bottom:18px;box-shadow:0 5px 20px rgba(0,0,0,.06)}.logo{text-align:center;font-size:32px;font-weight:900;margin:10px 0 30px}h2{text-align:center;font-size:28px;margin:0 0 25px}label{display:block;font-weight:700;margin:0 0 9px}input[type=text]{width:100%;height:58px;border:1px solid #ddd;border-radius:14px;padding:0 16px;font-size:17px;margin-bottom:17px}button{width:100%;min-height:56px;border:0;border-radius:14px;background:#222;color:#fff;font-size:17px;font-weight:700;margin-top:10px;padding:10px;cursor:pointer}button:disabled{background:#aaa}.gray{background:#eee;color:#222}.red{background:#ef493d}.hidden{display:none!important}.message{text-align:center;margin-top:15px;font-weight:700;white-space:pre-wrap;line-height:1.5}.error{color:#e5483e}.room-label{text-align:center;color:#777}.room-number{text-align:center;font-size:52px;font-weight:900;letter-spacing:7px;margin:18px}.room-status{text-align:center;color:#777}.player-count{text-align:center;color:#777;margin-bottom:10px}.player{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #eee}.badge{background:#222;color:#fff;border-radius:8px;padding:4px 8px;font-size:12px}.title2{font-size:19px;font-weight:800;margin:25px 0 12px}.option{display:flex;gap:10px;align-items:center;padding:14px;border:1px solid #ddd;border-radius:14px;margin-bottom:9px;font-weight:500}.option input{width:19px;height:19px}.hint{padding:14px;background:#f5f5f5;border-radius:12px;margin-bottom:8px}.vote{display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:14px;padding:14px;margin-bottom:9px}.vote button{width:auto;min-width:100px;margin:0}.result{font-size:18px;text-align:center;line-height:1.7}.my-role{text-align:center;font-size:30px;font-weight:900;margin:20px 0}.clue{font-size:36px;font-weight:900;text-align:center;margin:25px 0}.small{text-align:center;color:#777;line-height:1.6}.left{text-align:left}.game-choice{display:flex;align-items:center;gap:16px;border:1px solid #ddd;border-radius:16px;padding:18px;margin:12px 0}.game-choice.clickable{cursor:pointer}.game-icon{font-size:36px}.game-name{font-size:21px;font-weight:900}.arrow{margin-left:auto;font-size:34px;color:#999}
 /* 진행 카드 */
@@ -47,7 +54,7 @@
 .bmb{white-space:pre-line;padding:0 12px 12px;font-size:15px;line-height:1.65;word-break:keep-all}
 .bmb .nm{background:#fff}
 .blb{font-size:12px;color:#2459d1;font-weight:700;margin:0 0 3px}
-.btime{font-size:34px;font-weight:900;text-align:center;margin:0 0 12px}
+.btime{font-size:34px;font-weight:900;text-align:center;margin:0 0 12px}#balHostCd{position:sticky;top:0;z-index:20;background:#fff;padding:8px 0;margin:0 0 8px;border-bottom:1px solid #eee;box-shadow:0 4px 8px -6px rgba(0,0,0,.25)}
 .btime.warn{color:#e5483e}
 .bpres{background:#fff3e0;color:#5a3000;border-radius:12px;padding:12px;margin:12px 0 0;line-height:1.7}
 .bq.seen{color:#aaa}
@@ -65,9 +72,59 @@
 .abtn:disabled b{background:#bbb;color:#fff}
 .abtn.sel:disabled{background:#222;color:#fff;border-color:#222}
 .abtn.sel:disabled b{background:#fff;color:#222}
+
+/* 큰 글씨 · 고대비 */
+body{background:#fff;color:#000;overflow-wrap:break-word;word-break:keep-all}
+.container{zoom:1}
+html[data-fs="2"] .container{zoom:1.3}
+html[data-fs="3"] .container{zoom:1.6}
+html[data-fs="2"] .card,html[data-fs="3"] .card{padding:18px}
+#fsBar{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 18px 0;font-size:15px;font-weight:700;color:#000}
+#fsBar .fsl{font-size:15px;font-weight:800;white-space:nowrap}
+#fsBar .fsa{font-weight:900;line-height:1}
+#fsRange{-webkit-appearance:none;appearance:none;flex:1;max-width:240px;height:44px;margin:0;padding:0;background:transparent;border:0;cursor:pointer}
+#fsRange::-webkit-slider-runnable-track{height:10px;border-radius:5px;background:#000}
+#fsRange::-moz-range-track{height:10px;border-radius:5px;background:#000}
+#fsRange::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-12px;border-radius:50%;background:#ffe600;border:4px solid #000}
+#fsRange::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#ffe600;border:4px solid #000}
+.card{border:3px solid #000;box-shadow:none;border-radius:20px}
+button{border:3px solid #000}
+button:disabled{background:#6b6b6b;color:#fff;border-color:#6b6b6b}
+.gray,.mini{background:#fff;color:#000;border:3px solid #000}
+.red{background:#c4001a;color:#fff}
+.linkbtn{border:0;color:#0a2a8a;background:transparent}
+.bmh{border:0;color:#0a2a8a;background:transparent}
+input[type=text]{border:3px solid #000;color:#000}
+.error{color:#b00020}
+.room-label,.room-status,.player-count,.small,.names,.chint,.dots,.cprev,.chead{color:#000}
+.arrow{color:#000}
+.game-choice,.option,.vote,.bab,.ccard{border:3px solid #000}
+.player,.bq{border-bottom:2px solid #000}
+.hint,.info-row{background:#fff;border:2px solid #000;color:#000}
+.bms{background:#fff;border:3px solid #000}
+.blb{color:#0a2a8a}
+.bpres{background:#fff;color:#000;border:3px solid #000}
+.bchip{background:#fff;color:#000;border:2px solid #000}
+.bchip.on{background:#000;color:#fff}
+.bq .bn{color:#333}
+.bq.seen{color:#555}
+.bq.hl{background:#fff200;color:#000;border:2px solid #000}
+.bq.cur{background:#fff;border:3px solid #000}
+.bq.cur .btag{color:#0a2a8a}
+.btime.warn{color:#c00000}
+#balHostCd{background:#fff;border-bottom:3px solid #000}
+.abtn{background:#fff;color:#000;border:3px solid #000}
+.abtn b{background:#000;color:#fff}
+.abtn.sel,.abtn.sel:disabled{background:#ffe600;color:#000;border:5px solid #000}
+.abtn.sel b,.abtn.sel:disabled b{background:#000;color:#fff}
+.abtn:disabled{background:#fff;color:#444;border:3px dashed #444}
+.abtn:disabled b{background:#444;color:#fff}
+.chip{color:#333}.chip i{background:#999}.chip.cur i{background:#000}.chip.cur{color:#000}
+.nm{background:#fff200;color:#000}
 </style>
 </head>
 <body>
+<div id="fsBar"><span class="fsa" style="font-size:15px">A</span><input id="fsRange" type="range" min="1" max="3" step="1" value="1" aria-label="글씨 크기" oninput="setFs(this.value)"><span class="fsa" style="font-size:30px">A</span></div>
 <div class="container">
 <section id="home"><div class="logo">🎮 GAME PARTY</div><div class="card"><h2>플레이 방식 선택</h2><button onclick="show('single')">📱 한 기기로 플레이</button><button onclick="show('multi')">🌐 여러 기기로 플레이</button></div></section>
 
@@ -559,6 +616,10 @@ async function balPick(p){if(!bal.q||bal.phase!=="open"||bal.pending)return;bal.
  finally{bal.pending=false}}
 
 window.addEventListener("load",()=>{balRestore()});
+</script>
+<script>
+function setFs(n){document.documentElement.setAttribute("data-fs",n);try{localStorage.setItem("GP_FS",n)}catch(e){}var r=document.getElementById("fsRange");if(r)r.value=n}
+(function(){var n=1;try{n=parseInt(localStorage.getItem("GP_FS"))||1}catch(e){}setFs(n>=1&&n<=3?n:1)})();
 </script>
 </body>
 </html>
