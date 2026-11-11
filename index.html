@@ -32,6 +32,39 @@
 .sl{animation:sl .22s ease-out}.sr{animation:sr .22s ease-out}
 @keyframes sl{from{transform:translateX(36px);opacity:.3}to{transform:none;opacity:1}}
 @keyframes sr{from{transform:translateX(-36px);opacity:.3}to{transform:none;opacity:1}}
+/* 밸런스 게임 */
+.bab{display:flex;gap:10px;align-items:flex-start;border:1px solid #ddd;border-radius:14px;padding:14px;margin-bottom:8px;font-size:18px;font-weight:700;line-height:1.5;word-break:keep-all}
+.bab b{flex:0 0 auto;background:#222;color:#fff;border-radius:8px;padding:0 9px;font-size:15px;line-height:26px}
+.names{line-height:1.7;color:#444;word-break:keep-all}
+.bchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.bchip{padding:8px 12px;border-radius:20px;background:#eee;color:#444;font-size:14px;font-weight:700;cursor:pointer}
+.bchip.on{background:#222;color:#fff}
+.bq{display:flex;gap:10px;align-items:flex-start;padding:12px 6px;border-bottom:1px solid #eee;cursor:pointer;line-height:1.5;word-break:keep-all}
+.bq .bn{flex:0 0 26px;color:#999;font-size:13px;padding-top:2px}
+.bq i{color:#ef493d;font-style:normal;font-weight:800;font-size:13px}
+.bms{background:#eaf1ff;border-radius:12px;margin:0 0 12px;overflow:hidden}
+.bmh{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:0;margin:0;padding:10px 12px;border:0;background:transparent;color:#2459d1;font-size:13px;font-weight:700;border-radius:0}
+.bmb{white-space:pre-line;padding:0 12px 12px;font-size:15px;line-height:1.65;word-break:keep-all}
+.bmb .nm{background:#fff}
+.blb{font-size:12px;color:#2459d1;font-weight:700;margin:0 0 3px}
+.btime{font-size:34px;font-weight:900;text-align:center;margin:0 0 12px}
+.btime.warn{color:#e5483e}
+.bpres{background:#fff3e0;color:#5a3000;border-radius:12px;padding:12px;margin:12px 0 0;line-height:1.7}
+.bq.seen{color:#aaa}
+.bq.hl{background:#fff200;color:#1a1a1a;border-radius:10px;font-weight:700}
+.bq.hl .bn{color:#1a1a1a}
+.bq.hl i{color:#b3261e}
+.btag{margin-left:auto;flex:0 0 auto;align-self:center;font-size:11px;font-weight:800;padding:1px 8px;border-radius:8px;background:#fff;color:#1a1a1a}
+.bq.cur .btag{color:#2459d1}
+.bq.cur{background:#f0f4ff;border-radius:10px}
+.abtn{display:block;width:100%;min-height:96px;margin:0 0 14px;padding:20px;text-align:left;font-size:21px;font-weight:800;line-height:1.5;word-break:keep-all;background:#fff;color:#222;border:2px solid #ddd;border-radius:18px}
+.abtn b{display:inline-block;background:#222;color:#fff;border-radius:8px;padding:0 10px;margin-right:8px;font-size:16px;line-height:28px}
+.abtn.sel{background:#222;color:#fff;border-color:#222}
+.abtn.sel b{background:#fff;color:#222}
+.abtn:disabled{background:#f3f3f3;color:#aaa;border-color:#eee}
+.abtn:disabled b{background:#bbb;color:#fff}
+.abtn.sel:disabled{background:#222;color:#fff;border-color:#222}
+.abtn.sel:disabled b{background:#fff;color:#222}
 </style>
 </head>
 <body>
@@ -40,9 +73,9 @@
 
 <section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">폰 한 대를 돌려가며 함께 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">각자의 기기로 접속해서 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">각자의 기기로 접속해서 플레이합니다.</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div><div class="small left">사회자가 문제를 고르면 모두의 폰에 A/B가 뜹니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><p class="small">여러 기기로 접속해서 LIAR를 플레이합니다.</p><button onclick="show('create')">방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
+<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><p class="small">여러 기기로 접속해서 LIAR를 플레이합니다.</p><button onclick="show('create')">사회자 방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
 
 <section id="create" class="hidden"><div class="card"><h2>방 만들기</h2><label>내 이름</label><input id="createName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,createRoom)">방 만들기</button><button class="gray" onclick="show('multiLiar')">뒤로가기</button><div id="createMsg" class="message"></div></div></section>
 
@@ -69,6 +102,14 @@
 <section id="soloSetup" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><label>참가자 이름</label><div style="display:flex;gap:8px"><input id="soloName" type="text" maxlength="20" placeholder="이름을 입력하세요" style="margin:0" onkeydown="if(event.key==='Enter')soloAddName()"><button class="mini" style="min-height:58px;padding:0 18px" onclick="soloAddName()">추가</button></div><div id="soloNames" style="margin-top:12px"></div><div id="soloCount" class="small"></div><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="scat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="scat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="scat" value="장소">📍 장소</label><label class="option"><input type="radio" name="scat" value="직업">💼 직업</label><label class="option"><input type="radio" name="scat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="scat" value="랜덤">🎲 랜덤</label><button onclick="soloStart()">🎮 게임 시작</button><button class="gray" onclick="show('single')">뒤로가기</button><div id="soloMsg" class="message error"></div></div></section>
 
 <section id="solo" class="hidden"><div class="card"><div id="soloMount"></div><div id="soloActs"></div></div><div id="soloDetailCard" class="card hidden"><div id="soloDetail"></div></div></section>
+
+<section id="balMenu" class="hidden"><div class="card"><h2>⚖️ 밸런스 게임</h2><p class="small">사회자가 문제를 고르면 모두의 폰에 A/B가 뜨고,<br>누가 무엇을 골랐는지는 사회자만 볼 수 있어요.</p><button onclick="once(this,balCreate)">사회자 방 만들기</button><button class="gray" onclick="show('balJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="balMenuMsg" class="message error"></div></div></section>
+
+<section id="balJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="balJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="balJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,balJoin)">입장하기</button><button class="gray" onclick="show('balMenu')">뒤로가기</button><div id="balJoinMsg" class="message error"></div></div></section>
+
+<section id="balHost" class="hidden"><div class="card"><div id="balRoomInfo"></div><button class="linkbtn" style="display:block" onclick="balEnd()">방 종료</button></div><div class="card"><div id="balHostCd" class="btime hidden"></div><div id="balNow"></div><div id="balHostMsg" class="message error"></div></div><div class="card"><div id="balList"></div></div></section>
+
+<section id="balPlay" class="hidden"><div class="card"><div id="balCd" class="btime hidden"></div><div id="balPlayBody"></div><div id="balPlayMsg" class="message"></div></div><button class="gray" onclick="balLeave()">방 나가기</button></section>
 
 <section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
@@ -138,11 +179,11 @@ async function loadScripts(){try{const r=await api("getScripts",{gameCode:"LIAR"
 function lines(step,sit){return SCRIPTS.filter(x=>x.step===step&&x.sit===sit&&(x.mode==="공통"||x.mode===PLAY_MODE)).sort((a,b)=>a.order-b.order).map(x=>x.text)}
 
 /* ===== 공통 ===== */
-function show(id){document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll()}
+function show(id){document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll()}
 function msg(id,t){document.getElementById(id).textContent=t}
 /* 버튼을 여러 번 눌러도 요청이 끝날 때까지 한 번만 실행 */
 async function once(btn,fn){if(btn.dataset.busy)return;btn.dataset.busy="1";btn.disabled=true;try{await fn()}finally{delete btn.dataset.busy;btn.disabled=false}}
-function api(action,params={}){return new Promise((resolve,reject)=>{const cb="cb_"+Date.now()+"_"+Math.random().toString(36).slice(2),s=document.createElement("script");let done=false;const tm=setTimeout(()=>{if(done)return;done=true;clean();reject(new Error("서버 응답 시간이 초과되었습니다."))},15000);function clean(){clearTimeout(tm);try{delete window[cb]}catch(e){}s.remove()}window[cb]=d=>{if(done)return;done=true;clean();resolve(d)};const q=new URLSearchParams({action,callback:cb,...params});s.onerror=()=>{if(done)return;done=true;clean();reject(new Error("서버에 연결할 수 없습니다."))};s.src=API_URL+"?"+q;document.body.appendChild(s)})}
+function api(action,params={},base){return new Promise((resolve,reject)=>{const cb="cb_"+Date.now()+"_"+Math.random().toString(36).slice(2),s=document.createElement("script");let done=false;const tm=setTimeout(()=>{if(done)return;done=true;clean();reject(new Error("서버 응답 시간이 초과되었습니다."))},15000);function clean(){clearTimeout(tm);try{delete window[cb]}catch(e){}s.remove()}window[cb]=d=>{if(done)return;done=true;clean();resolve(d)};const q=new URLSearchParams({action,callback:cb,...params});s.onerror=()=>{if(done)return;done=true;clean();reject(new Error("서버에 연결할 수 없습니다."))};s.src=(base||API_URL)+"?"+q;document.body.appendChild(s)})}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 
 /* 폴링: 대기실에서는 방 상태를, 게임 중에는 게임 상태를 확인 */
@@ -319,6 +360,205 @@ async function leaveRoom(){try{await api("leaveRoom",{roomId,userId})}catch(e){}
 function goHome(){stopPoll();inGame=false;hcReset();PLAY_MODE="여러기기";discussEnd=0;localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null;show("home")}
 async function restore(){const id=localStorage.getItem("GAME_PARTY_ROOM_ID");if(!id)return;roomId=id;try{const r=await api("getRoomState",{roomId});if(!r.success||r.room.status==="종료")throw Error();room=r.room;players=r.players;if(room.status==="게임중"){inGame=true;await loadGame();startPoll()}else if(room.status==="설정중"&&room.hostId===userId)openSetup();else openWaiting(r)}catch(e){localStorage.removeItem("GAME_PARTY_ROOM_ID");roomId=null}}
 window.addEventListener("load",()=>{loadScripts();restore()});
+</script>
+
+<script>
+/* ===== 밸런스 게임 (여러 기기) =====
+   사회자가 문제를 고르면 참가자 폰에 A/B가 뜨고, 선택 현황은 사회자만 봄.
+   서버: balance-server.gs (기존 LIAR 서버에 합쳤다면 API_URL 그대로, 따로 배포했다면 아래 주소만 바꾸세요) */
+const BAL_API_URL=API_URL;
+const BAL_CATS=["워밍업","음식","여행·MT","웃긴 문제","성경 유머 + 나눔"];
+/* [분야번호, A, B, 설명(사회자용), 종류 H=성경유머 N=나눔] */
+const BAL_Q=[
+[0,"평생 아침형 인간","평생 저녁형 인간"],
+[0,"한 달간 핸드폰 없이 살기","한 달간 TV·유튜브 없이 살기"],
+[0,"여름만 계속되는 나라","겨울만 계속되는 나라"],
+[0,"평생 라면만 먹기","평생 치킨만 먹기"],
+[0,"매일 지각하는 친구","매일 약속을 취소하는 친구"],
+[0,"잠을 하루 3시간만 자도 되는 몸","먹는 걸 마음껏 먹어도 살 안 찌는 몸"],
+[0,"말을 못 하는 대신 글은 잘 쓰기","말은 잘하지만 글을 못 쓰기"],
+[0,"내 카톡 대화를 가족이 본다","내 검색 기록을 친구들이 본다"],
+[0,"평생 샤워 찬물로만 하기","평생 양치 후 오렌지주스 마시기"],
+[0,"10년 전으로 돌아가기","10년 후 미래로 가보기"],
+[0,"아무 데나 순간이동하는 능력","모든 언어를 구사하는 능력"],
+[0,"하루 종일 노래로만 대화하기","하루 종일 존댓말로만 대화하기"],
+[1,"민트초코","반민초"],
+[1,"부먹","찍먹"],
+[1,"치킨 없는 인생","라면 없는 인생"],
+[1,"평생 매운 음식만","평생 싱거운 음식만"],
+[1,"아침 거르기","저녁 거르기"],
+[1,"고기 없는 삼겹살","김치 없는 라면"],
+[1,"여름에 뜨거운 국밥","겨울에 차가운 냉면"],
+[1,"평생 단 음식 금지","평생 짠 음식 금지"],
+[1,"좋아하는 음식 하루 3끼 한 달","싫어하는 음식 한 끼"],
+[1,"라면 국물 다 마시기","국물은 남기고 면만"],
+[2,"비 오는 날 캠핑","눈 오는 날 해수욕"],
+[2,"잠자리 불편한 대신 경치 좋은 곳","잠자리 편한 대신 경치 없는 곳"],
+[2,"밤새 이야기하기","푹 자고 일찍 일어나기"],
+[2,"새벽 일출 보러 가기","늦잠 자고 점심 먹기"],
+[2,"여행 가서 계획대로 움직이기","즉흥으로 다니기"],
+[2,"12시간 버스 타고 가는 해외","1시간 거리 국내"],
+[2,"방 배정 마음대로","방 배정 제비뽑기"],
+[2,"여행 중 핸드폰 반납","여행 중 사진 찍기 금지"],
+[2,"화장실 멀리 있는 편한 방","화장실 가까운 좁은 방"],
+[2,"장기자랑 먼저 나가기","맨 마지막에 나가기"],
+[2,"맛집 줄 1시간 서기","편의점 도시락 바로 먹기"],
+[2,"숙소에서 코고는 사람 옆","이불 뺏는 사람 옆"],
+[3,"하루 종일 양말 한 짝만 신고 다니기","하루 종일 신발 한 짝만 신고 다니기"],
+[3,"모두 앞에서 노래 한 곡 부르기","모두 앞에서 춤 한 곡 추기"],
+[3,"내 흑역사가 단체방에 올라온다","내 비밀번호가 단체방에 올라온다"],
+[3,"평생 자기소개를 개사해서 하기","평생 인사를 90도로 하기"],
+[3,"하루 종일 내 말에 에코가 울리기","하루 종일 내 목소리가 로봇처럼 나오기"],
+[3,"머리카락이 순식간에 자라기","눈썹이 사라지기"],
+[3,"대화할 때마다 \"~했당\" 붙이기","대화할 때마다 \"ㅋㅋㅋ\" 소리 내서 말하기"],
+[3,"친구 결혼식에서 사회 보기","친구 결혼식에서 축가 부르기"],
+[3,"엘리베이터에서 아는 사람 만나 10층 가기","모르는 사람이 계속 말 걸어 10층 가기"],
+[3,"잘 때마다 방귀 소리가 크게 나기","깨어 있을 때 딸꾹질 계속하기"],
+[3,"평생 웃음 참기","평생 하품 참기"],
+[3,"내가 한 말이 3초 뒤 그대로 반복되기","내가 한 행동이 슬로모션으로 보이기"],
+[4,"광야 40년 걷기","물고기 뱃속에서 3일 있기","광야 40년: 이스라엘 백성이 이집트를 나온 뒤 약속의 땅에 들어가기까지 광야를 떠돈 기간입니다.\n물고기 뱃속 3일: 요나가 하나님의 명령을 피해 도망치다 큰 물고기에게 삼켜져 있었던 이야기입니다.","H"],
+[4,"내 신앙의 약한 모습을 모임에서 솔직하게 털어놓기","믿음 좋은 모습만 보여주며 지내기","","N"],
+[4,"사자 굴에 들어가기","풀무불(불타는 용광로)에 들어가기","사자 굴: 다니엘이 기도를 금지한 왕의 명령을 어기고 기도하다 던져진 곳입니다(다니엘 6장).\n풀무불: 다니엘의 세 친구가 금신상에 절하기를 거부하다 던져진 불구덩이입니다(다니엘 3장). 두 경우 모두 하나님이 지켜 주셨습니다.","H"],
+[4,"힘들 때 곁에서 말없이 있어 주는 친구","힘들 때 따끔하게 조언해 주는 친구","","N"],
+[4,"홍해 가르기 능력","물 위를 걷는 능력","홍해 가르기: 모세가 이집트 군대에 쫓길 때 바다가 갈라져 마른 땅으로 건넌 사건입니다(출애굽기 14장).\n물 위를 걷기: 예수님이 호수 위를 걸어오신 이야기입니다(마태복음 14장).","H"],
+[4,"교회 일은 열심히 하는데 가정에는 소홀한 사람","교회 일은 적게 하지만 가정에 충실한 사람","교회 일: 봉사, 모임, 사역 같은 교회 안의 섬김을 뜻합니다.","N"],
+[4,"삼손의 힘","솔로몬의 지혜","삼손: 괴력의 사사(이스라엘의 지도자)로, 머리카락에 힘의 비밀이 있었습니다.\n솔로몬: 하나님께 지혜를 구해 받은 왕이고, 두 여인이 한 아기를 두고 다투는 재판이 유명합니다.","H"],
+[4,"나를 오해한 사람에게 먼저 찾아가 풀기","시간이 해결해 줄 때까지 기다리기","","N"],
+[4,"엘리야처럼 불 내리기","모세처럼 지팡이로 뱀 만들기","엘리야: 갈멜산에서 바알 선지자들과 대결해, 기도하자 하늘에서 불이 내려 제물을 태웠습니다(열왕기상 18장).\n모세: 하나님의 명령으로 지팡이를 던지면 뱀이 되는 표징을 보였습니다(출애굽기 4장).","H"],
+[4,"믿음이 없는 가족에게 계속 전도하기","말 없이 삶으로 보여주기","전도: 믿지 않는 사람에게 예수님을 전하는 것입니다.","N"],
+[4,"노아처럼 120년 방주 짓기","느헤미야처럼 52일 만에 성벽 쌓기","노아: 홍수를 앞두고 방주를 지었습니다. \"120년\"은 창세기 6장 3절을 근거로 전해 내려오는 해석이라 정확한 기간은 아닙니다.\n느헤미야: 무너진 예루살렘 성벽을 52일 만에 완성했습니다(느헤미야 6장).","H"],
+[4,"성경 지식은 많은데 적용이 안 되는 사람","지식은 적지만 순종은 빠른 사람","순종: 말씀대로 실제로 행하는 것을 뜻합니다.","N"],
+[4,"다윗처럼 물매로 거인 쓰러뜨리기","기드온처럼 300명으로 군대 이기기","다윗: 돌을 던지는 물매 하나로 거인 골리앗을 쓰러뜨렸습니다(사무엘상 17장).\n기드온: 사람 수를 300명으로 줄인 뒤 나팔과 횃불만 들고 수많은 미디안 군대를 물리쳤습니다(사사기 7장).","H"],
+[4,"예배 때 눈물이 나도록 은혜받지만 평일엔 그대로인 삶","예배는 담담하지만 평일에 꾸준히 변해가는 삶","","N"],
+[4,"만나만 평생 먹기","메추라기만 평생 먹기","만나: 광야에서 하늘에서 내려 주신 음식으로, 맛이 꿀 섞은 과자 같다고 합니다.\n메추라기: 백성이 고기를 달라고 불평하자 하나님이 주신 고기입니다. 한 달 내내 먹어 질릴 정도였다는 기록도 있습니다(민수기 11장).","H"],
+[4,"매일 새벽기도 1시간","매일 성경 읽기 1시간","새벽기도: 이른 아침에 드리는 기도입니다.","N"],
+[4,"요셉처럼 꿈 해석 잘하기","다니엘처럼 모든 학문에 능통하기","요셉: 감옥에서 이집트 왕의 꿈을 해석해 총리가 되었습니다(창세기 41장).\n다니엘: 하나님이 모든 학문과 지혜에 능통하게 하셨다고 합니다. 다니엘도 꿈 해석을 했지만 이 문제에서는 \"학문 쪽\"이라고 설명하면 됩니다.","H"],
+[4,"찬양 인도하기 1시간","말씀 전하기 1시간","찬양 인도: 예배에서 노래를 이끄는 일입니다.\n말씀 전하기: 설교하거나 성경을 가르치는 일입니다.","N"],
+[4,"바울처럼 편지 쓰기","요한처럼 환상 보기","바울: 여러 교회에 편지를 써서, 그 편지들이 신약성경의 큰 부분이 되었습니다.\n요한: 밧모섬에서 환상을 보았고, 그 내용이 요한계시록입니다.","H"],
+[4,"선교사로 평생 해외에서 사역","한국에서 평생 평신도 사역","평신도 사역: 목사나 선교사가 아닌 일반 성도가 일상과 교회에서 하는 섬김입니다.","N"],
+[4,"베드로처럼 물 위를 걷다 빠지기","아예 배에 남아 있기","베드로: 예수님이 \"오라\" 하시자 물 위를 걷다가, 바람을 보고 두려워하다 빠졌지만 예수님이 손을 잡아 주셨습니다(마태복음 14장).","H"],
+[4,"믿음 좋은 친구 한 명","편하게 놀 수 있는 친구 열 명","","N"],
+[4,"야곱처럼 14년 일하고 결혼","이삭처럼 우물 파다가 계속 뺏기기","야곱: 사랑하는 라헬과 결혼하려고 7년을 일했는데, 장인에게 속아 7년을 더 일했습니다(창세기 29장).\n이삭: 우물을 파도 블레셋 사람들이 계속 빼앗았지만 다투지 않고 다른 곳에 다시 팠습니다(창세기 26장).","H"],
+[4,"내가 고쳐야 할 점을 솔직하게 말해주는 사람","항상 격려만 해주는 사람","","N"],
+[4,"혼자 조용히 기도하는 시간","함께 소리 내어 기도하는 시간","","N"]
+].map((r,i)=>({id:i,c:r[0],a:r[1],b:r[2],d:r[3]||"",k:r[4]||""}));
+(function(){const n={};BAL_Q.forEach(x=>{n[x.c]=(n[x.c]||0)+1;x.n=n[x.c]})})();
+/* 사회자 멘트: [소개 멘트, 한 걸음 더] — 문제 번호(BAL_Q 순서)와 같은 순서 */
+const BAL_M=[["하루 중 내 뇌가 가장 싱싱한 시간은? 눈뜨자마자 텐션 터지는 아침형 vs 해 지면 영혼이 살아나는 저녁형!", ""], ["문명과의 단절 선언! 한 달 동안 '스마트폰 뺏기기' vs 'TV·유튜브·스트리밍 싹 끊기', 뭐가 더 피말릴까요?", ""], ["지구 온난화 극단 선택! 평생 땀 뻘뻘 흘리는 '무한 여름' vs 평생 덜덜 떠는 '무한 겨울'!", ""], ["평생 딱 한 메뉴만 먹고 살아야 한다면? 영혼의 구원자 '라면' vs 야식의 왕 '치킨'!", ""], ["우정 파괴주의자들의 대결! 약속 시간마다 30분씩 늦는 친구 vs 약속 10분 전에 '나 오늘 못 가' 취소하는 친구!", ""], ["신이 준 사기급 초능력! 하루 3시간만 자도 피로 제로인 몸 vs 삼시 세끼 야식까지 폭식해도 살 안찌는 몸!", ""], ["언어 능력의 불균형! 입만 열면 유재석인데 글 쓰면 초딩 수준 vs 글은 신의 영역인데 입만 열면 어버버!", ""], ["나의 모든 치부가 드러난다! 내 카톡 대화방 전체를 '가족'이 보기 vs 내 검색창 검색 기록 전체를 '친구들'이 보기!", ""], ["고문 수준의 괴로움! 한겨울 얼음물로 샤워하기 vs 양치하자마자 오렌지주스 꿀꺽하기!", ""], ["타임머신 탑승 안내! 10년 전 과거로 돌아가서 인생 새로 쓰기 vs 10년 후 미래로 가서 내 모습 확인하기!", ""], ["탐나는 사기 캐릭터 초능력! 지각 걱정 없는 '지구 어디든 순간이동' vs 벼락치기 없이 '지구상 모든 언어 완벽 구사'!", ""], ["오늘 하루 룰 지정! 모든 말을 뮤지컬처럼 '노래'로만 하기 vs 제일 친한 친구한테도 극존칭 '존댓말'만 쓰기!", ""], ["드디어 터졌습니다. 세대 갈등보다 치열한 맛의 전쟁! '상큼한 치약 맛' 민초파 vs '치약은 양치할 때나 써라' 반민초파!", ""], ["탕수육 앞에서의 영원한 숙제! 촉촉하게 탕수육 소스를 부어버린다 '부먹' vs 바삭함을 사수한다 '찍먹'!", ""], ["지구 멸망급 재앙! 전 세계에서 '치킨'이 영원히 사라지기 vs '라면'이 영원히 사라지기!", ""], ["미각의 극단 체험! 평생 불닭 수준의 '극강 매운맛'만 먹기 vs 평생 소금기 zero '심심하고 싱거운 맛'만 먹기!", ""], ["하루 한 끼를 영원히 굶어야 한다면? '아침 식사' 포기 vs 맛있는 거 다 모여있는 '저녁 식사' 포기!", ""], ["앙꼬 없는 찐빵 시리즈! 상추와 파채만 씹어야 하는 '고기 없는 삼겹살' vs 단무지도 없이 맨 입에 먹는 '김치 없는 라면'!", ""], ["이열치열 vs 이한치한! 섭씨 35도 한여름 땡볕에 '팔팔 끓는 국밥' vs 영하 10도 한겨울에 '살얼음 둥둥 얼음 냉면'!", ""], ["미각 억제제 투여! 평생 케이크·초콜릿 금지 '단맛 봉인' vs 평생 찌개·라면·치킨 금지 '짠맛 봉인'!", ""], ["식단 고문! 제일 좋아하는 음식을 삼시 세끼 '한 달 내내' 먹기 vs 제일 싫어하는 음식을 토 나올 때까지 '딱 한 끼' 먹기!", ""], ["라면 파해법! '라면은 국물이 진국이지!' 원샷 파 vs '칼로리와 건강을 위해 면만 싹 건져먹기' 파!", ""], ["날씨가 안 도와주는 억까 여행! 축축함의 끝판왕 '장대비 속 캠핑' vs 입술 파래지는 '폭설 속 바다 입수'!", ""], ["숙소 선택의 길로! 창문 열면 감성 터지지만 침대가 돌바닥인 곳 vs 창문 열면 벼랑 끝 벽뷰지만 5성급 침구류인 곳!", ""], ["오늘 밤 MT 분위기 결정! 새벽 5시까지 목 쉴 때까지 '밤샘 수다' vs 10시에 불 끄고 들어가서 '꿀잠 모드'!", ""], ["내일 아침 기상 조 결정! 새벽 5시에 일어나서 다 같이 '일출 감상' vs 11시까지 침대와 한 몸 돼서 '점심 아점'!", ""], ["여행 스타일 솔직 고백! 분 단위로 엑셀 정리해서 움직이는 '계획파' vs 발길 닿는 대로 일단 가보는 '즉흥파'!", ""], ["이동 거리냐 보상이냐! 비행기만 12시간 타고 가는 '유럽/미국' vs 집에서 1시간이면 도착하는 '가까운 국내 휴양지'!", ""], ["방 배정의 운명! 친한 사람끼리 모이는 '자유 배정' vs 내 운명을 하늘에 맡기는 '랜덤 제비뽑기'!", ""], ["여행 금기 사항! 여행 내내 '핸드폰 싹 압수당하기' vs 눈으로만 담아야 한다 '사진 촬영 절대 금지'!", ""], ["새벽에 오줌 마려울 때 왔을 때! 50m 걸어가야 하지만 쾌적한 화장실 vs 방 바로 옆에 붙어있지만 소리 다 들리는 화장실!", ""], ["무대 중압감 극복! 매도 먼저 맞는 게 낫다 '1번으로 매를 맞자' vs 기대감 폭발하는 '마지막 엔딩을 장식하자'!", ""], ["배고픔 앞에서의 선택! 인스타 핫플 맛집 앞에서 '1시간 대기' vs 3분 만에 삼각김밥으로 '배 채우기'!", ""], ["수면 방해 공작! 밤새 귓가에 탱크 소리 내는 '코골이 룸메' vs 자는 동안 이불 혼자 다 말아쥐는 '이불 도둑 룸메'!", ""], ["외출 패션의 완성! 하루 종일 '양말 한 짝만' 벗고 다니기 vs 하루 종일 '신발 한 짝만' 벗고 까치발로 다니기!", ""], ["수치심 대결! 100명 앞에서 무반주로 '노래 한 곡 완창' vs 100명 앞에서 무반주로 '아이돌 춤 완곡'!", ""], ["소름 돋는 보안 사고! 내 제일 부끄러운 '중2병 흑역사 사진' 단톡방 공개 vs 내 '모든 사이트 아이디/비번' 단톡방 공개!", ""], ["평생 짊어질 컨셉! 누구 만날 때마다 노래 개사해서 '자기소개'하기 vs 누구 만날 때마다 90도로 폴더 인사하기!", ""], ["내 목소리의 변신! 하루 종일 동굴 속에 있는 것처럼 '에코 울리기' vs 알파고처럼 딱딱하게 '로봇음 출력'!", ""], ["외모의 비상사태! 자고 일어났더니 '라푼젤처럼 머리 길어짐' vs 자고 일어났더니 '모나리자처럼 눈썹 싹 사라짐'!", ""], ["괴로운 말버릇! 무조건 말끝을 '~했당, 그랬당' 혀 짧은 소리 내기 vs 진지한 얘기 할 때도 입으로 '크크크' 소리 내기!", ""], ["결혼식 극한 직업! 땀 뻘뻘 흘리며 멘트 쳐야 하는 '결혼식 사회' vs 삑사리 날까 봐 덜덜 떠는 '결혼식 축가'!", ""], ["숨 막히는 정적! 세상에서 제일 어색한 아는 사람과 둘이 타기 vs 처음 보는 사람이 나한테 계속 들이대는 엘베 타기!", ""], ["민망함의 결정판! 엄숙한 회의실에서 '뿡!' 소리 크게 나기 vs 조용한 독서실에서 10분에 한 번씩 '딸깍!' 딸꾹질하기!", ""], ["본능과의 싸움! 웃기면 안 되는 자리에서 '웃음 참기' vs 졸려 죽겠는데 눈물 흘리며 '하품 참기'!", ""], ["특수효과 인간! 내가 말하면 3초 뒤에 에코처럼 딜레이되어 나오기 vs 내가 움직일 때마다 0.5배속 슬로모션으로 보이기!", ""], ["구약성경 최고 고난 코스! 끝없는 모래바람 속 '광야 40년버티기' vs 소화액 냄새 진동하는 '물고기 뱃속 3일 버티기', 어디가 더 참을 만할까요?", "내 인생에서 거칠고 막막했던 '나만의 광야 시기'가 있었다면, 그때 나를 끝까지 버티게 해 준 것은 무엇이었나요?"], ["교회 다니면서 거룩한 척 완벽한 척하기 vs 연약함 다 드러내고 속 시원해지기!", "우리 공동체(모임) 안에서 내가 솔직한 연약함을 선뜻 꺼내놓기 주저하게 만드는 고민이나 분위기는 무엇일까요?"], ["믿음 사수 극한 테스트! 으르렁거리는 사자 밥이 될 위기의 '사자 굴' vs 7배나 뜨거운 '용광로 불꽃 속', 꼭 가야 한다면 어디로?", "내 삶에서 도저히 답이 안 보였던 극심한 위기 속에, '아, 정말 하나님이 나를 지켜주셨구나' 느꼈던 순간이 있나요?"], ["힘들어하는 친구 곁에서 끊임없이 따뜻한 조언해 주기 vs 아무 말 없이 옆에서 조용히 손잡아 주고 울어주기!", "최근 누군가 마음 아파할 때 그저 곁을 지켜준 적이 있나요? 반대로 누군가의 무언의 위로에 큰 힘을 얻었던 적이 있나요?"], ["스펙터클 시각 효과 체험! 거대한 홍해 바다를 쫙 갈라버리는 '모세 능력' vs 기적처럼 수면 위를 사뿐사뿐 걷는 '예수님 능력'!", "꽉 막힌 벽처럼 답답했던 내 인생에서, 하나님이 생각지도 못한 길을 쫙 열어주셨던 경험을 나눠볼까요?"], ["일주일 내내 교회에서 살다시피 하기 vs 교회 일 일절 안 하고 딱 주일 예배만 드리기!", "교회 봉사와 개인/가정 생활의 건강한 균형을 위해, 내가 꼭 지키고 싶은 나만의 기준이나 선은 무엇인가요?"], ["신이 내린 꿀 스펙! 당장 턱뼈 하나로 군대를 때려잡는 '삼손의 무적의 힘' vs 세상 모든 이치를 꿰뚫는 '솔로몬의 천재적 지혜'!", "지금 내 삶의 문제 앞에서 내게 가장 절실하게 필요한 것은 '돌파할 힘'일까요, '분별할 지혜'일까요?"], ["누군가 나를 오해했을 때! 자존심 굽히고 내가 먼저 가서 풀기 vs 억울하지만 상대가 깨닫고 올 때까지 꾹 참고 기다리기!", "어색하거나 틀어졌던 관계에서, 용기 내어 먼저 다가가 회복되었던 기적 같은 경험이 있다면 공유해 주세요."], ["하나님의 기적 퍼포먼스! 하늘에서 벼락같은 '불을 뚝 떨어뜨리는 에프터서비스' vs 지팡이를 던지면 '진짜 뱀으로 변하는 변신술'!", "기도할 때 '하나님 진짜 계시면 딱 눈앞에 뚜렷한 증거 하나만 보여주세요!' 하고 떼쓰거나 구했던 적이 있나요?"], ["안 믿는 내 가족을 향한 전도법! 만날 때마다 예수님 전하는 '말씀 전파파' vs 잠자코 묵묵히 섬기는 '삶의 모범파'!", "내가 가족이나 주변 사람들에게 '예수 믿는 사람으로서' 꼭 보여주고 싶은 가장 닮고 싶은 모습은 무엇인가요?"], ["신앙의 프로젝트 스타일! 남들이 비웃어도 120년 동안 묵묵히 짓는 '롱런 인내파' vs 52일 만에 잠 안 자고 벼락치기 끝내는 '단기 집중파'!", "시간이 오래 걸리고 더뎌도, 내가 끝까지 포기하지 않고 붙들어야 할 '내 인생의 과제/기도제목'은 무엇인가요?"], ["신앙의 양심 고백! 말씀은 찰떡같이 다 알지만 실천이 안 되는 삶 vs 의욕은 넘치는데 무식해서 마음대로 살아가는 삶!", "최근 말씀이나 설교를 통해 머리로는 분명히 아는데, 내 고집이나 환경 때문에 순종하기 가장 힘들었던 부분은 무엇이었나요?"], ["말도 안 되는 승리 시리즈! 조그만 돌멩이 하나로 거인을 때려잡기 vs 딱 300명 들고 13만 대군 쳐부수기!", "지금 내 삶을 가로막고 있는 감당하기 힘든 '골리앗 같은 큰 문제'나 장벽은 무엇인가요?"], ["크리스천의 딜레마! 주일 예배 때 눈물 흘리며 감격하기 vs 평일 월요일부터 금요일까지 세상에서 진짜 거룩하게 살기!", "이번 한 주간, 내 일상(학교, 직장, 집)에서 아주 작은 것 하나라도 구체적으로 변화시켜 보고 싶은 부분이 있다면 무엇인가요?"], ["광야의 뷔페 메뉴! 매일매일 일정하게 내려오는 '담백한 만나' vs 한 번 먹을 때 신나게 터지는 '고기 폭탄 메추라기'!", "나는 지금 하나님이 이미 내게 주신 일상의 은혜들에 '감사'하고 있나요, 아니면 없는 것만 바라보며 '더 달라고 떼'쓰고 있나요?"], ["신앙의 기초 체력 훈련! 매일 1시간씩 하나님께 부르짖는 '기도의 시간' vs 매일 1시간씩 성경책 파고드는 '말씀 묵상의 시간'!", "지금 내 영적 상태를 돌아봤을 때, 나에게 가장 솔직히 결핍되어 있고 보완이 필요한 신앙 습관은 무엇인가요?"], ["하나님이 주신 특별 은사! 남의 꿈과 미래를 척척 풀어내는 '꿈 해몽 능력' vs 세상 모든 학문과 지식을 섭렵하는 '천재적 사기 스펙'!", "하나님께서 나에게 공동체나 세상을 섬기라고 주신 나만의 특별한 '달란트(재능)'는 무엇이라고 생각하나요?"], ["은혜의 통로! 은혜로운 찬양과 음악으로 사람들의 마음을 녹이기 vs 정갈하고 깊이 있는 말씀 전파로 사람들을 깨우기!", "내가 하나님과 모임을 위해 가장 부담 없이, 그리고 즐겁게 섬길 수 있는 '나만의 섬김 스타일'은 무엇인가요?"], ["영적 감성! 글로 꾹꾹 눌러써서 마음을 전하는 '바울의 편지 감성' vs 신비롭고 거대한 영적 세계를 눈으로 직접 보는 '요한의 환상 감성'!", "오늘 내 마음속에 문득 떠오르는 사람이 있다면, 그 사람에게 진심을 담아 어떤 따뜻한 한마디를 건네고 싶나요?"], ["하나님의 소명 대결! 문명의 혜택을 포기하고 오지로 떠나는 '선교사의 삶' vs 내가 살고 있는 세상 일터 한가운데서 믿음을 지켜내는 '평신도의 삶'!", "요즘 하나님이 나를 '이곳으로 보내셨다' 혹은 '이 상황을 견디게 하신다'고 느껴지는 삶의 현장은 어디인가요?"], ["믿음의 도전! 물에 빠져 꼬르륵거리더라도 주님 보고 '물 위로 뛰어내리기' vs 무서우니까 조용히 '배 안에서 안전하게 관망하기'!", "지금 내 삶에서 두려움을 무릅쓰고 용기 있게 '배 밖으로 발을 내딛어야 할 도전'은 무엇인가요?"], ["인맥의 깊이! 내 모든 영적 고민과 기도를 함께 나눌 '믿음의 동역자 1명' vs 같이 놀고 떡볶이 먹기 딱 좋은 '그냥 편한 친구 10명'!", "내 삶에 힘든 일이 찾아왔을 때, 조용히 찾아가 기도를 부탁할 수 있는 '믿음의 동역자'가 있나요? 그분에게 어떤 고마움을 느끼나요?"], ["믿음의 인내와 양보! 사랑하는 사람을 위해 14년 동안 헌신하는 '집념의 머슴파' vs 죽어라 판 우물을 남들이 빼앗아 가도 다 주는 '대인배 양보파'!", "손해 보는 것 같고 억울해도, 내가 믿음으로 끝까지 포기하지 않고 '참아내거나 기다리고 있는 것'은 무엇인가요?"], ["나를 살리는 조언! 나를 위해 아프지만 꼭 필요한 말을 해주는 '뼈 때리는 직언' vs 잘했든 못했든 무조건 품어주고 감싸주는 '따뜻한 격려'!", "지금 나에게 가장 필요한 건 '정신 차리게 해 줄 따뜻한 채찍'일까요, 아니면 '지친 마음을 토닥여 줄 격려'일까요?"], ["마지막 문제! 불 다 꺼진 방에서 혼자 조용히 깊게 들어가는 '골방 기도' vs 다 같이 합심해서 뜨겁게 부르짖는 '통성 기도'!", "오늘 밸런스 게임을 마치며, 우리 서로의 마음과 오늘 나눈 기도제목들을 위해 다 함께 마음 모아 기도하고 마칠까요?"]];
+
+/* 사회자 멘트: 시작·마무리 멘트는 여기서 고치면 됩니다 (문제별 멘트는 위 BAL_M) */
+const BAL_MENT_START="자, 이제 서로의 생각을 더 깊이, 그리고 재미있게 알아가는 밸런스 게임 시간입니다!\n제가 질문을 읽어드리면 각자 스마트폰으로 A나 B를 골라주세요. 결과는 저만 볼 수 있으니 부담 갖지 마시고 편안하게 선택해 주세요. 마음이 바뀌면 마감 전까지 얼마든지 바꾸셔도 됩니다.\n맞고 틀린 답은 없습니다! 다름을 확인하고 왜 그런 마음이 들었는지 솔직한 이야기를 나누는 시간이니까요. 마음을 열고 가볍게 첫 문제부터 가볼까요?";
+const BAL_MENT_END="오늘 준비한 밸런스 게임은 아쉽지만 여기까지입니다!\n\n진짜 다들 너무 재미있어서 시간 가는 줄 몰랐네요! 같은 질문인데도 각자 고른 이유나 취향이 제각각이라 정말 재미있었습니다.\n\n오늘 서로에 대해 새롭게 알게 된 사실들을 잘 기억해 주시고, 모두 고생 많으셨습니다!";
+
+/* phase: idle(문제 없음) → ready(문제 표시, 선택 잠김) → open(선택 중, 타이머) → closed(마감) */
+let bal={num:"",role:"",q:null,phase:"idle",endAt:0,firstSec:60,addSec:30,myPick:"",players:[],a:[],b:[],none:[],presenters:[],cat:0,asked:{},showDesc:false,mOpen:true,special:"",busy:false,pending:false,seq:0,fired:false};
+let balTimer=null;
+function balReset(){Object.assign(bal,{q:null,phase:"idle",endAt:0,myPick:"",players:[],a:[],b:[],none:[],presenters:[],cat:0,showDesc:false,mOpen:true,special:"",busy:false,pending:false,fired:false});bal.seq++}
+async function bapi(action,params){const r=await api(action,params,BAL_API_URL);if(!r||!r.success)throw new Error((r&&r.error)||"서버 응답이 올바르지 않습니다. 서버 코드가 적용되었는지 확인해 주세요.");return r}
+function balSaveRoom(){try{localStorage.setItem("GP_BAL_ROOM",JSON.stringify({num:bal.num,role:bal.role}))}catch(e){}}
+function balSaveAsked(){try{localStorage.setItem("GP_BAL_ASKED_"+bal.num,JSON.stringify(bal.asked))}catch(e){}}
+function balStartPoll(){balStopPoll();balTimer=setInterval(balTick,bal.role==="host"?1500:2500)}
+function balStopPoll(){if(balTimer){clearInterval(balTimer);balTimer=null}}
+function balClosed(t,silent){balStopPoll();bal.num="";bal.seq++;try{localStorage.removeItem("GP_BAL_ROOM")}catch(e){}show("balMenu");if(!silent)alert(t||"방이 종료되었습니다.")}
+async function balTick(){if(bal.busy||bal.pending||!bal.num)return;bal.busy=true;const sq=bal.seq,num=bal.num;try{const s=await bapi("bal_state",{roomNumber:num,userId});if(sq===bal.seq&&num===bal.num)balApply(s)}catch(e){if(sq===bal.seq&&/종료|만료|존재하지|참가자가 아닙/.test(e.message))balClosed(e.message)}finally{bal.busy=false}}
+function balEnter(role,s){balReset();bal.role=role;bal.num=s.num;try{bal.asked=JSON.parse(localStorage.getItem("GP_BAL_ASKED_"+bal.num)||"{}")}catch(e){bal.asked={}}balSaveRoom();show(role==="host"?"balHost":"balPlay");balApply(s);balStartPoll()}
+function balApply(s){const nr=s.q?(s.q.round||0):0,or=bal.q?(bal.q.round||0):0;
+ if(nr!==or){bal.showDesc=false;bal.mOpen=true;bal.special=""}
+ if(s.phase==="closed"&&bal.phase!=="closed")bal.mOpen=true;
+ bal.role=s.role;bal.q=s.q||null;bal.phase=s.phase||"idle";bal.endAt=s.phase==="open"?Date.now()+(s.remainingMs||0):0;bal.fired=false;
+ bal.firstSec=s.firstSec||60;bal.addSec=s.addSec||30;
+ bal.myPick=s.myPick||"";bal.players=s.players||[];bal.a=s.a||[];bal.b=s.b||[];bal.none=s.none||[];bal.presenters=s.presenters||[];
+ if(s.role==="host"&&s.q&&s.phase==="closed"&&bal.asked[s.q.id]!==2){bal.asked[s.q.id]=2;balSaveAsked()}
+ if(s.role==="host")balHostRender();else balPlayRender();
+ balClock()}
+/* 남은 시간 표시 (서버가 알려준 남은 시간을 기준으로 폰에서 초 단위로 줄여 보여줌). 마지막 10초는 빨간색 */
+function balClock(){const open=bal.phase==="open",ms=open?bal.endAt-Date.now():0,left=open?Math.max(0,Math.ceil(ms/1000)):0,t=`⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`;
+ [["balHostCd","host"],["balCd","player"]].forEach(x=>{const el=document.getElementById(x[0]);if(!el)return;const on=open&&bal.role===x[1];el.classList.toggle("hidden",!on);if(on){el.textContent=t;el.classList.toggle("warn",left<=10)}});
+ if(open&&ms<=0&&!bal.fired){bal.fired=true;balTick()}}
+setInterval(balClock,250);
+function balFmt(sec){return sec%60===0?(sec/60)+"분":sec+"초"}
+
+/* 방 만들기 / 참가 / 나가기 */
+async function balCreate(){msg("balMenuMsg","");try{const s=await bapi("bal_create",{userId});balEnter("host",s)}catch(e){msg("balMenuMsg",e.message)}}
+async function balJoin(){const n=document.getElementById("balJoinNumber").value.trim().padStart(4,"0"),name=document.getElementById("balJoinName").value.trim();if(!/^\d{4}$/.test(n)||!name){msg("balJoinMsg","방 번호 4자리와 이름을 입력해주세요.");return}msg("balJoinMsg","");try{const s=await bapi("bal_join",{roomNumber:n,playerName:name,userId});try{localStorage.setItem("GAME_PARTY_NAME",name)}catch(e){}balEnter("player",s)}catch(e){msg("balJoinMsg",e.message)}}
+async function balLeave(){const num=bal.num;balStopPoll();bal.seq++;try{await bapi("bal_leave",{roomNumber:num,userId})}catch(e){}balClosed("",true)}
+async function balEnd(){if(!confirm("방을 종료할까요? 모든 참가자가 나가게 됩니다."))return;await balLeave()}
+async function balRestore(){let sv=null;try{sv=JSON.parse(localStorage.getItem("GP_BAL_ROOM")||"null")}catch(e){}if(!sv||!sv.num||localStorage.getItem("GAME_PARTY_ROOM_ID"))return;try{const s=await bapi("bal_state",{roomNumber:sv.num,userId});balEnter(s.role,s)}catch(e){if(/종료|만료|존재하지|참가자가 아닙/.test(e.message))try{localStorage.removeItem("GP_BAL_ROOM")}catch(x){}}}
+
+/* 사회자 화면 */
+function balNames(a){return a.length?a.map(escapeHtml).join(", "):"-"}
+function balMentBody(){
+ if(bal.special==="start")return `<p class="blb">시작 멘트</p>${escapeHtml(BAL_MENT_START)}`;
+ if(bal.special==="end")return `<p class="blb">마무리 멘트</p>${escapeHtml(BAL_MENT_END)}`;
+ const q=bal.q;if(!q)return "";const m=BAL_M[q.id]||["",""];
+ if(bal.phase!=="closed")return m[0]?`<p class="blb">소개 멘트</p>${escapeHtml(m[0])}`:"";
+ return `<p class="blb">마감 멘트</p>${balCloseMent()}`+(m[1]?`<p class="blb" style="margin-top:12px">한 걸음 더</p>${escapeHtml(m[1])}`:"")}
+function balCloseMent(){const na=bal.a.length,nb=bal.b.length,nm=n=>`<span class="nm">${escapeHtml(n)}</span>`;
+ if(na+nb===0)return "아무도 고르지 않았어요. 시간을 조금 더 드릴까요?";
+ let h=`선택 마감! A ${na}명, B ${nb}명이에요. `;
+ if(na===nb)h+="정확히 반반이네요! ";else{const mi=Math.min(na,nb),ma=Math.max(na,nb);if(mi===0)h+="모두 같은 선택이네요! ";else if(mi===1&&ma>=3)h+="와, 거의 한쪽이네요! "}
+ const ps=bal.presenters;
+ if(ps.length===2)h+=`이번 발표자는 ${nm(ps[0].name)}님(${ps[0].pick})과 ${nm(ps[1].name)}님(${ps[1].pick})! 각자 그렇게 고른 이유를 들려주세요.`;
+ else if(ps.length===1)h+=`이번 발표자는 ${nm(ps[0].name)}님! ${ps[0].pick}를 고른 이유를 들려주세요.`;
+ return h}
+function balHostRender(){
+ const q=bal.q,total=bal.players.length,picked=bal.a.length+bal.b.length,ph=bal.phase;
+ setHtml("balRoomInfo",`<div class="room-label">방 번호</div><div class="room-number" style="margin:8px">${escapeHtml(bal.num)}</div><div class="player-count">참가자 ${total}명 (사회자 제외)</div><div class="small">${total?bal.players.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`);
+ const body=balMentBody();let h="";
+ if(body)h+=`<div class="bms"><button class="bmh" onclick="balMToggle()" aria-expanded="${bal.mOpen}"><span>💬 사회자 멘트</span><span>${bal.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${bal.mOpen?`<div class="bmb">${body}</div>`:""}</div>`;
+ if(!q){if(!body)h+='<div class="small" style="margin-bottom:12px">아래 목록에서 문제를 골라 주세요.</div>'}
+ else{const src=BAL_Q[q.id]||{},d=src.d;
+  const st={ready:"⏸ 시작 전 (참가자는 아직 고를 수 없어요)",open:"✋ 선택 중",closed:"🔒 마감됨"}[ph]||"";
+  h+=`<div class="small" style="margin-bottom:8px">${escapeHtml(BAL_CATS[src.c]||"")} · ${q.round}번째 문제</div>
+<div class="bab"><b>A</b><span>${escapeHtml(q.a)}</span></div><div class="bab"><b>B</b><span>${escapeHtml(q.b)}</span></div>
+<div class="info-row"><span>${st} · ${picked}/${total}명 선택</span>${d?'<button class="mini" onclick="balDesc()">💡 설명</button>':""}</div>
+${bal.showDesc&&d?`<div class="hint" style="margin-top:8px;white-space:pre-wrap;line-height:1.6">${escapeHtml(d)}</div>`:""}`;
+  const canReopen=ph==="closed"&&bal.none.length>0;
+  const sLabel=ph==="open"?`＋${balFmt(bal.addSec)}`:ph==="closed"?`↻ 다시 열기 (${balFmt(bal.addSec)})`:`▶ START (${balFmt(bal.firstSec)})`;
+  const sOn=ph==="ready"||ph==="open"||canReopen;
+  h+=`<div style="display:flex;gap:8px;margin-top:6px"><button onclick="balStart()"${sOn?"":" disabled"}>${sLabel}</button><button class="red" onclick="balStop()"${ph==="open"?"":" disabled"}>⏹ STOP</button></div>`;
+  if(ph==="closed"&&!canReopen&&bal.none.length===0&&total>0)h+='<div class="small" style="margin-top:6px">모두 선택해서 다시 열 수 없어요.</div>';
+  if(ph==="closed"&&bal.presenters.length)h+=`<div class="bpres"><div class="blb" style="color:#8a4b00">🎤 발표자 (사회자에게만 보여요)</div>${bal.presenters.map(p=>`<div><b>${escapeHtml(p.name)}</b> · ${escapeHtml(p.pick)} 선택</div>`).join("")}</div>`;
+  h+=`<div class="title2">A · ${bal.a.length}명</div><div class="names">${balNames(bal.a)}</div>
+<div class="title2">B · ${bal.b.length}명</div><div class="names">${balNames(bal.b)}</div>
+<div class="title2">아직 선택 안 함 · ${bal.none.length}명</div><div class="names">${balNames(bal.none)}</div>`}
+ h+=`<div style="display:flex;gap:8px;margin-top:12px"><button class="gray" onclick="balSpecial('start')">🎬 시작 멘트</button><button class="gray" onclick="balSpecial('end')">🏁 마무리 멘트</button></div>`;
+ setHtml("balNow",h);balListRender();balClock()}
+function balListRender(){
+ const chips=BAL_CATS.map((c,i)=>`<div class="bchip${i===bal.cat?" on":""}" onclick="balCat(${i})">${escapeHtml(c)}</div>`).join("");
+ const items=BAL_Q.filter(x=>x.c===bal.cat).map(x=>{const st=bal.asked[x.id],cur=bal.q&&bal.q.id===x.id;
+  const cls=st===2?"hl":cur?"cur":st?"seen":"",tag=st===2?'<span class="btag">마감</span>':cur?'<span class="btag">진행 중</span>':"";
+  return `<div class="bq ${cls}" onclick="balPickQ(${x.id})"><span class="bn">${st===2||(st&&!cur)?"✓":x.n}</span><span>${x.k==="H"?"😄 ":x.k==="N"?"🙏 ":""}${escapeHtml(x.a)} <i>vs</i> ${escapeHtml(x.b)}</span>${tag}</div>`}).join("");
+ setHtml("balList",`<div class="bchips">${chips}</div>${items}`)}
+function balCat(i){bal.cat=i;balListRender()}
+function balDesc(){bal.showDesc=!bal.showDesc;balHostRender()}
+function balMToggle(){bal.mOpen=!bal.mOpen;balHostRender()}
+function balSpecial(k){bal.special=bal.special===k?"":k;bal.mOpen=true;balHostRender()}
+async function balPickQ(i){
+ if(bal.pending)return;
+ if(bal.q&&bal.phase==="open"&&bal.a.length+bal.b.length>0&&!confirm("지금 문제를 닫고 이 문제로 바꿀까요?\n(지금까지의 선택은 사라져요)"))return;
+ bal.pending=true;bal.seq++;msg("balHostMsg","");const x=BAL_Q[i];bal.special="";
+ try{const s=await bapi("bal_setq",{roomNumber:bal.num,userId,qid:i,a:x.a,b:x.b});if(!bal.asked[i])bal.asked[i]=1;balSaveAsked();balApply(s);window.scrollTo({top:0,behavior:"smooth"})}catch(e){msg("balHostMsg",e.message)}finally{bal.pending=false}}
+async function balHostAct(action){if(bal.pending)return;bal.pending=true;bal.seq++;msg("balHostMsg","");try{balApply(await bapi(action,{roomNumber:bal.num,userId}))}catch(e){msg("balHostMsg",e.message);try{balApply(await bapi("bal_state",{roomNumber:bal.num,userId}))}catch(x){}}finally{bal.pending=false}}
+function balStart(){balHostAct("bal_start")}
+function balStop(){balHostAct("bal_stop")}
+
+/* 참가자 화면 */
+function balPlayRender(){
+ const q=bal.q,ph=bal.phase;let h,m="";
+ if(!q)h='<div class="my-role" style="font-size:24px">⏳ 사회자가 문제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
+ else{const dis=ph==="open"?"":"disabled";
+  h=`<div class="small" style="margin-bottom:14px">${q.round}번째 문제</div>
+<button class="abtn${bal.myPick==="A"?" sel":""}" ${dis} onclick="balPick('A')"><b>A</b>${escapeHtml(q.a)}</button>
+<button class="abtn${bal.myPick==="B"?" sel":""}" ${dis} onclick="balPick('B')"><b>B</b>${escapeHtml(q.b)}</button>`;
+  m=ph==="ready"?"사회자가 시작하면 고를 수 있어요.":ph==="open"?(bal.myPick?`${bal.myPick}를 골랐어요! 시간이 끝나기 전까지는 바꿀 수 있어요.`:"A 또는 B를 골라 주세요."):(bal.myPick?`🔒 마감되었어요 · 내 선택: ${bal.myPick}`:"🔒 마감되었어요 · 선택하지 않았어요")}
+ msg("balPlayMsg",m);setHtml("balPlayBody",h)}
+async function balPick(p){if(!bal.q||bal.phase!=="open"||bal.pending)return;bal.pending=true;bal.seq++;const round=bal.q.round;
+ try{balApply(await bapi("bal_pick",{roomNumber:bal.num,userId,pick:p,round}))}
+ catch(e){try{balApply(await bapi("bal_state",{roomNumber:bal.num,userId}))}catch(x){}msg("balPlayMsg",e.message)}
+ finally{bal.pending=false}}
+
+window.addEventListener("load",()=>{balRestore()});
 </script>
 </body>
 </html>
