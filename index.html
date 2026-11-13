@@ -121,6 +121,16 @@ input[type=text]{border:3px solid #000;color:#000}
 .abtn:disabled b{background:#444;color:#fff}
 .chip{color:#333}.chip i{background:#999}.chip.cur i{background:#000}.chip.cur{color:#000}
 .nm{background:#fff200;color:#000}
+
+/* 초성 퀴즈 · 이심전심 */
+#cqHostCd,#ihHostCd{position:sticky;top:0;z-index:20;background:#fff;padding:8px 0;margin:0 0 8px;border-bottom:3px solid #000}
+.cqcho{font-size:56px;font-weight:900;text-align:center;letter-spacing:8px;margin:10px 0 14px;overflow-wrap:anywhere;line-height:1.2}
+.cqpress{min-height:150px;font-size:34px;font-weight:900;border-radius:24px;background:#ffe600;color:#000;border:5px solid #000;margin:6px 0 0}
+.cqpress:disabled{background:#fff;color:#444;border:3px dashed #444}
+.ihtopic{font-size:26px;font-weight:900;text-align:center;line-height:1.4;margin:10px 0 16px;word-break:keep-all}
+.ihg{border:3px solid #000;border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px;font-size:18px;font-weight:800;color:#000;cursor:pointer}
+.ihg.sel{outline:5px solid #0a2a8a}
+.ihn{flex-basis:100%;font-size:14px;font-weight:500;margin-top:2px}
 </style>
 </head>
 <body>
@@ -128,11 +138,11 @@ input[type=text]{border:3px solid #000;color:#000}
 <div class="container">
 <section id="home"><div class="logo">🎮 GAME PARTY</div><div class="card"><h2>플레이 방식 선택</h2><button onclick="show('single')">📱 한 기기로 플레이</button><button onclick="show('multi')">🌐 여러 기기로 플레이</button></div></section>
 
-<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">폰 한 대를 돌려가며 함께 플레이합니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div><div class="small left">각자의 기기로 접속해서 플레이합니다.</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div><div class="small left">사회자가 문제를 고르면 모두의 폰에 A/B가 뜹니다.</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><p class="small">여러 기기로 접속해서 LIAR를 플레이합니다.</p><button onclick="show('create')">사회자 방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
+<section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><button onclick="show('create')">사회자 방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
 
 <section id="create" class="hidden"><div class="card"><h2>방 만들기</h2><label>내 이름</label><input id="createName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,createRoom)">방 만들기</button><button class="gray" onclick="show('multiLiar')">뒤로가기</button><div id="createMsg" class="message"></div></div></section>
 
@@ -160,7 +170,7 @@ input[type=text]{border:3px solid #000;color:#000}
 
 <section id="solo" class="hidden"><div class="card"><div id="soloMount"></div><div id="soloActs"></div></div><div id="soloDetailCard" class="card hidden"><div id="soloDetail"></div></div></section>
 
-<section id="balMenu" class="hidden"><div class="card"><h2>⚖️ 밸런스 게임</h2><p class="small">사회자가 문제를 고르면 모두의 폰에 A/B가 뜨고,<br>누가 무엇을 골랐는지는 사회자만 볼 수 있어요.</p><button onclick="once(this,balCreate)">사회자 방 만들기</button><button class="gray" onclick="show('balJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="balMenuMsg" class="message error"></div></div></section>
+<section id="balMenu" class="hidden"><div class="card"><h2>⚖️ 밸런스 게임</h2><button onclick="once(this,balCreate)">사회자 방 만들기</button><button class="gray" onclick="show('balJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="balMenuMsg" class="message error"></div></div></section>
 
 <section id="balJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="balJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="balJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,balJoin)">입장하기</button><button class="gray" onclick="show('balMenu')">뒤로가기</button><div id="balJoinMsg" class="message error"></div></div></section>
 
@@ -168,6 +178,14 @@ input[type=text]{border:3px solid #000;color:#000}
 
 <section id="balPlay" class="hidden"><div class="card"><div id="balCd" class="btime hidden"></div><div id="balPlayBody"></div><div id="balPlayMsg" class="message"></div></div><button class="gray" onclick="balLeave()">방 나가기</button></section>
 
+<section id="cqMenu" class="hidden"><div class="card"><h2>🔤 초성 퀴즈</h2><button onclick="once(this,CQ.create)">사회자 방 만들기</button><button class="gray" onclick="show('cqJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="cqMenuMsg" class="message error"></div></div></section>
+<section id="cqJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="cqJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="cqJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,CQ.join)">입장하기</button><button class="gray" onclick="show('cqMenu')">뒤로가기</button><div id="cqJoinMsg" class="message error"></div></div></section>
+<section id="cqHost" class="hidden"><div class="card"><div id="cqRoomInfo"></div><button class="linkbtn" style="display:block" onclick="CQ.end()">방 종료</button></div><div class="card"><div id="cqHostCd" class="btime hidden"></div><div id="cqNow"></div><div id="cqHostMsg" class="message error"></div></div><div class="card"><div id="cqTeam"></div><div id="cqTeamMsg" class="message error"></div></div><div class="card"><div id="cqList"></div></div></section>
+<section id="cqPlay" class="hidden"><div class="card"><div id="cqCd" class="btime hidden"></div><div id="cqPlayBody"></div><div id="cqPlayMsg" class="message"></div></div><button class="gray" onclick="CQ.leave()">방 나가기</button></section>
+<section id="ihMenu" class="hidden"><div class="card"><h2>🤝 이심전심</h2><button onclick="once(this,IH.create)">사회자 방 만들기</button><button class="gray" onclick="show('ihJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="ihMenuMsg" class="message error"></div></div></section>
+<section id="ihJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="ihJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="ihJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,IH.join)">입장하기</button><button class="gray" onclick="show('ihMenu')">뒤로가기</button><div id="ihJoinMsg" class="message error"></div></div></section>
+<section id="ihHost" class="hidden"><div class="card"><div id="ihRoomInfo"></div><button class="linkbtn" style="display:block" onclick="IH.end()">방 종료</button></div><div class="card"><div id="ihHostCd" class="btime hidden"></div><div id="ihNow"></div><div id="ihHostMsg" class="message error"></div></div><div class="card"><div id="ihList"></div></div></section>
+<section id="ihPlay" class="hidden"><div class="card"><div id="ihCd" class="btime hidden"></div><div id="ihPlayBody"></div><div id="ihPlayMsg" class="message"></div></div><button class="gray" onclick="IH.leave()">방 나가기</button></section>
 <section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
 
@@ -236,7 +254,7 @@ async function loadScripts(){try{const r=await api("getScripts",{gameCode:"LIAR"
 function lines(step,sit){return SCRIPTS.filter(x=>x.step===step&&x.sit===sit&&(x.mode==="공통"||x.mode===PLAY_MODE)).sort((a,b)=>a.order-b.order).map(x=>x.text)}
 
 /* ===== 공통 ===== */
-function show(id){document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll()}
+function show(id){document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll();if(typeof CQ!=="undefined"){if(id!=="cqHost"&&id!=="cqPlay")CQ.stopPoll();if(id!=="ihHost"&&id!=="ihPlay")IH.stopPoll()}}
 function msg(id,t){document.getElementById(id).textContent=t}
 /* 버튼을 여러 번 눌러도 요청이 끝날 때까지 한 번만 실행 */
 async function once(btn,fn){if(btn.dataset.busy)return;btn.dataset.busy="1";btn.disabled=true;try{await fn()}finally{delete btn.dataset.busy;btn.disabled=false}}
@@ -518,7 +536,7 @@ function balStartPoll(){balStopPoll();balTimer=setInterval(balTick,bal.role==="h
 function balStopPoll(){if(balTimer){clearInterval(balTimer);balTimer=null}}
 function balClosed(t,silent){balStopPoll();bal.num="";bal.seq++;try{localStorage.removeItem("GP_BAL_ROOM")}catch(e){}show("balMenu");if(!silent)alert(t||"방이 종료되었습니다.")}
 async function balTick(){if(bal.busy||bal.pending||!bal.num)return;bal.busy=true;const sq=bal.seq,num=bal.num;try{const s=await bapi("bal_state",{roomNumber:num,userId});if(sq===bal.seq&&num===bal.num)balApply(s)}catch(e){if(sq===bal.seq&&/종료|만료|존재하지|참가자가 아닙/.test(e.message))balClosed(e.message)}finally{bal.busy=false}}
-function balEnter(role,s){balReset();bal.role=role;bal.num=s.num;try{bal.asked=JSON.parse(localStorage.getItem("GP_BAL_ASKED_"+bal.num)||"{}")}catch(e){bal.asked={}}balSaveRoom();show(role==="host"?"balHost":"balPlay");balApply(s);balStartPoll()}
+function balEnter(role,s){if(typeof xOthers==="function")xOthers("bal");balReset();bal.role=role;bal.num=s.num;try{bal.asked=JSON.parse(localStorage.getItem("GP_BAL_ASKED_"+bal.num)||"{}")}catch(e){bal.asked={}}balSaveRoom();show(role==="host"?"balHost":"balPlay");balApply(s);balStartPoll()}
 function balApply(s){const nr=s.q?(s.q.round||0):0,or=bal.q?(bal.q.round||0):0;
  if(nr!==or){bal.showDesc=false;bal.mOpen=true;bal.special=""}
  if(s.phase==="closed"&&bal.phase!=="closed")bal.mOpen=true;
@@ -616,6 +634,172 @@ async function balPick(p){if(!bal.q||bal.phase!=="open"||bal.pending)return;bal.
  finally{bal.pending=false}}
 
 window.addEventListener("load",()=>{balRestore()});
+</script>
+<script>
+/* ================= 초성 퀴즈 · 이심전심 (여러 기기) =================
+   서버: Code-merged.gs 의 cq_ / ih_ 요청. 문제와 멘트는 아래 상수만 고치면 됩니다. */
+const CQ_CATS=["음식", "성경 인물", "성경 사건·물건", "교회·신앙", "여행·MT", "한국 상식", "동물·자연", "일상", "직업·학교"];
+/* [분야번호, 초성, 정답, 설명(사회자용, 없으면 "")] */
+const CQ_Q=[[0, "ㅂㅂㅂ", "비빔밥", ""], [0, "ㄸㅂㅇ", "떡볶이", ""], [0, "ㅉㅈㅁ", "짜장면", ""], [0, "ㅅㄱㅅ", "삼겹살", ""], [0, "ㅊㅋ", "치킨", ""], [0, "ㄱㅂ", "김밥", ""], [0, "ㄹㅁ", "라면", ""], [0, "ㅌㅅㅇ", "탕수육", ""], [0, "ㅇㅇㅅㅋㄹ", "아이스크림", ""], [0, "ㅂㄷㅉㄱ", "부대찌개", ""], [0, "ㅅㄷㄱ", "순대국", ""], [0, "ㄱㅊㅉㄱ", "김치찌개", ""], [0, "ㄴㅁ", "냉면", ""], [0, "ㅎㅂㄱ", "햄버거", ""], [0, "ㅊㅋㄹ", "초콜릿", ""], [0, "ㅅㄷㅇㅊ", "샌드위치", ""], [0, "ㅂㄱㄱ", "불고기", ""], [0, "ㅈㅊ", "잡채", ""], [0, "ㅈㅂ", "족발", ""], [0, "ㄱㅈㅌ", "감자탕", ""], [0, "ㅎㄸ", "호떡", ""], [0, "ㅂㅇㅃ", "붕어빵", ""], [1, "ㅁㅅ", "모세", "이스라엘 백성을 이집트에서 이끌어 낸 지도자예요. 홍해를 가르고 시내산에서 십계명을 받았어요(출애굽기)."], [1, "ㄷㅇ", "다윗", "양치기 소년으로 물맷돌 하나로 골리앗을 이기고 이스라엘의 왕이 된 사람이에요. 시편을 많이 썼어요(사무엘상 17장)."], [1, "ㅅㅅ", "삼손", "머리카락을 자르지 않는 약속(나실인)으로 괴력을 받은 사사예요. 들릴라에게 비밀을 말해 힘을 잃었어요(사사기 13~16장)."], [1, "ㄴㅇ", "노아", "하나님의 말씀대로 방주를 지어 가족과 동물을 홍수에서 구한 사람이에요(창세기 6~9장)."], [1, "ㅇㄴ", "요나", "니느웨로 가라는 명령을 피해 도망가다 큰 물고기 뱃속에서 3일을 지낸 선지자예요(요나서)."], [1, "ㅇㅂㄹㅎ", "아브라함", "믿음의 조상이에요. 고향을 떠나 가나안으로 갔고, 늦은 나이에 아들 이삭을 얻었어요(창세기 12~22장)."], [1, "ㅇㄱ", "야곱", "이삭의 아들이에요. 사랑하는 라헬을 위해 14년을 일했고, 열두 아들이 이스라엘 열두 지파가 됐어요(창세기 29장)."], [1, "ㅇㅅ", "요셉", "야곱의 아들이에요. 형들에게 팔려 이집트로 갔다가 총리가 되어 가족을 살렸어요(창세기 37~50장)."], [1, "ㄷㄴㅇ", "다니엘", "바벨론에 끌려간 포로예요. 기도를 멈추지 않아 사자 굴에 던져졌지만 하나님이 지켜 주셨어요(다니엘 6장)."], [1, "ㅅㄹㅁ", "솔로몬", "다윗의 아들이에요. 지혜를 구해서 지혜의 왕이 되었고 예루살렘 성전을 지었어요(열왕기상 3~8장)."], [1, "ㅇㄹㅇ", "엘리야", "선지자예요. 갈멜산에서 바알 선지자들과 겨루어 하늘에서 불이 내려오게 했어요(열왕기상 18장)."], [1, "ㅇㅅㄷ", "에스더", "페르시아의 왕비예요. 목숨을 걸고 유다 백성을 학살 계획에서 구했어요(에스더서)."], [1, "ㅂㅇ", "바울", "예수님을 믿는 사람들을 핍박하다 다메섹 길에서 예수님을 만나 사도가 됐어요. 신약의 편지 여러 권을 썼어요(사도행전 9장)."], [1, "ㅂㄷㄹ", "베드로", "열두 제자 중 한 명이에요. 물 위를 걷다 빠졌고, 예수님을 세 번 모른다고 했지만 용서받았어요(마태복음 14, 26장)."], [1, "ㅁㄹㅇ", "마리아", "예수님의 어머니예요. 천사에게 소식을 듣고 성령으로 예수님을 잉태했어요(누가복음 1장)."], [1, "ㅅㅁㅇ", "사무엘", "어릴 때 하나님의 부르심을 들은 선지자예요. 사울과 다윗에게 기름을 부었어요(사무엘상 3, 16장)."], [1, "ㄱㄹㅇ", "골리앗", "블레셋의 거인 장수예요. 다윗이 던진 물맷돌에 맞아 쓰러졌어요(사무엘상 17장)."], [1, "ㄷㅂㅂㅅ", "동방박사", "별을 보고 아기 예수님께 경배하러 온 동방의 학자들이에요. 황금, 유향, 몰약을 선물했어요(마태복음 2장)."], [1, "ㄴㅎㅁㅇ", "느헤미야", "페르시아 왕의 술 관원이었어요. 무너진 예루살렘 성벽을 52일 만에 다시 쌓았어요(느헤미야 6장)."], [2, "ㅇㅂㅇㅇ", "오병이어", "보리떡 5개와 물고기 2마리로 5천 명을 먹이신 예수님의 기적이에요(요한복음 6장)."], [2, "ㅂㅂㅌ", "바벨탑", "사람들이 하늘에 닿으려고 쌓은 탑이에요. 하나님이 언어를 갈라 놓으셨어요(창세기 11장)."], [2, "ㅅㄱㅁ", "십계명", "시내산에서 모세가 돌판에 받은 열 가지 계명이에요(출애굽기 20장)."], [2, "ㅇㄹㄱㅅ", "여리고성", "이스라엘 백성이 7일 동안 성을 돌고 나팔을 불자 성벽이 무너졌어요(여호수아 6장)."], [2, "ㅍㅁㅂ", "풀무불", "사드락, 메삭, 아벳느고가 금신상에 절하지 않아 던져진 뜨거운 불 가마예요. 다치지 않고 나왔어요(다니엘 3장)."], [2, "ㅎㅎ", "홍해", "모세가 갈라서 이스라엘 백성이 마른 땅으로 건넌 바다예요(출애굽기 14장)."], [2, "ㅇㄷㄷㅅ", "에덴동산", "아담과 하와가 살던 첫 동산이에요. 선악과를 먹고 쫓겨났어요(창세기 2~3장)."], [2, "ㅁㅈㄱ", "무지개", "홍수 뒤에 다시는 물로 세상을 심판하지 않겠다는 하나님의 약속의 표예요(창세기 9장)."], [2, "ㅌㅈ", "탕자", "아버지의 재산을 탕진하고 돌아온 아들을 아버지가 기쁘게 맞아 준 예수님의 비유예요(누가복음 15장)."], [2, "ㄱㅈㅆ", "겨자씨", "가장 작은 씨가 큰 나무로 자란다는 믿음과 천국의 비유예요(마태복음 13장)."], [2, "ㅍㄷㄴㅁ", "포도나무", "예수님이 \"나는 포도나무요 너희는 가지\"라고 하신 말씀이에요(요한복음 15장)."], [2, "ㅅㅈㄱ", "십자가", "예수님이 죄인들을 대신해 못 박혀 죽으신 곳이에요. 구원의 상징이에요."], [2, "ㅂㅎ", "부활", "예수님이 십자가에서 죽으신 지 3일 만에 다시 살아나신 일이에요. 부활절에 기념해요(마태복음 28장)."], [2, "ㅅㄹ", "성령", "삼위일체 하나님 중 한 분이에요. 오순절에 제자들에게 오셔서 돕고 위로하세요(요한복음 14장, 사도행전 2장)."], [2, "ㅅㅎㅅㅁㄹㅇㅇ", "선한사마리아인", "강도 만난 사람을 사마리아 사람이 도와준 예수님의 비유예요. 이웃 사랑을 가르쳐요(누가복음 10장)."], [2, "ㅂㅈ", "방주", "노아가 하나님의 말씀대로 지은 큰 배예요(창세기 6~8장)."], [2, "ㅇㅅㅈ", "오순절", "예수님 부활 후 50일째, 성령이 제자들에게 임하신 날이에요. 교회의 시작으로 봐요(사도행전 2장)."], [3, "ㅇㅂ", "예배", "하나님께 드리는 모임이에요. 찬양, 기도, 말씀으로 이루어져요."], [3, "ㅊㅇ", "찬양", "노래로 하나님을 높이고 감사하는 것이에요."], [3, "ㄱㄷ", "기도", "하나님께 말씀드리고 듣는 대화예요."], [3, "ㅅㅇㅈ", "십일조", "수입의 10분의 1을 하나님께 드리는 것이에요(말라기 3장 10절)."], [3, "ㅁㅅㄴ", "목사님", "교회를 돌보고 말씀을 전하는 사역자예요."], [3, "ㅈㄷㅅ", "전도사", "목사가 되기 전 단계이거나 교회에서 교육·돌봄을 맡는 사역자예요."], [3, "ㅅㄱㅊ", "성경책", "구약 39권과 신약 27권, 모두 66권이에요."], [3, "ㅈㅇㅎㄱ", "주일학교", "어린이와 청소년이 주일에 모여 예배하고 성경을 배우는 교회학교예요."], [3, "ㅅㄹㅎ", "수련회", "며칠 동안 모여 말씀, 기도, 교제를 함께하는 모임이에요."], [3, "ㅅㅂㄱㄷ", "새벽기도", "이른 새벽에 교회에 모여 드리는 기도예요."], [3, "ㅈㅈㅎㄹ", "제자훈련", "예수님의 제자로 자라도록 말씀과 삶을 함께 배우는 훈련이에요."], [3, "ㄱㅈ", "간증", "하나님이 내 삶에서 하신 일을 이야기로 나누는 것이에요."], [3, "ㅅㄱ", "설교", "성경 말씀을 풀어 전하는 것이에요."], [3, "ㅅㅊㅅ", "성찬식", "빵과 포도즙을 나누며 예수님의 몸과 피를 기억하는 예식이에요(고린도전서 11장)."], [3, "ㄱㅇㅁㅇ", "구역모임", "교인들이 작은 모임으로 모여 말씀을 나누고 기도하는 모임이에요. 교회에 따라 셀, 목장이라고도 불러요."], [3, "ㅂㅎㅎ", "부흥회", "특별 강사를 모시고 며칠 동안 집중해서 드리는 집회예요."], [3, "ㅊㅂ", "축복", "하나님의 은혜와 복을 빌어 주는 것이에요."], [4, "ㅋㅍ", "캠핑", ""], [4, "ㅁㄷㅂ", "모닥불", ""], [4, "ㅈㅂㅃㄱ", "제비뽑기", ""], [4, "ㅈㄱㅈㄹ", "장기자랑", ""], [4, "ㅅㄹㅍ", "슬리퍼", ""], [4, "ㅂㄷㄱㅇ", "보드게임", ""], [4, "ㅂㅁ", "불멍", ""], [4, "ㅅㄱㄱㅂ", "삼각김밥", ""], [4, "ㅎㄱㅅ", "휴게소", ""], [4, "ㅂㄱㅆㅇ", "베개싸움", ""], [4, "ㅌㅌ", "텐트", ""], [4, "ㅊㄴ", "침낭", ""], [4, "ㄷㅈㄹ", "돗자리", ""], [4, "ㅂㅂㅋ", "바비큐", ""], [4, "ㄹㅍㅌ", "래프팅", ""], [4, "ㄷㅅ", "등산", ""], [4, "ㅎㅅㅇㅈ", "해수욕장", ""], [4, "ㅂㅎㄱ", "비행기", ""], [5, "ㅂㄷㅅ", "백두산", ""], [5, "ㅈㅈㄷ", "제주도", ""], [5, "ㄷㄷ", "독도", ""], [5, "ㅅㅈㄷㅇ", "세종대왕", ""], [5, "ㅇㅅㅅ", "이순신", ""], [5, "ㅌㄱㄱ", "태극기", ""], [5, "ㅎㅂ", "한복", ""], [5, "ㄱㅊ", "김치", ""], [5, "ㅎㄱ", "한글", ""], [5, "ㄱㅂㄱ", "경복궁", ""], [5, "ㅎㄹㅅ", "한라산", ""], [5, "ㅅㅇㅅ", "설악산", ""], [5, "ㄴㅅㅌㅇ", "남산타워", ""], [5, "ㄱㅎㅁ", "광화문", ""], [5, "ㅈㅎㅊ", "지하철", ""], [5, "ㅊㅅ", "추석", ""], [5, "ㅅㄴ", "설날", ""], [5, "ㅇㄷ", "온돌", ""], [6, "ㅋㄲㄹ", "코끼리", ""], [6, "ㄱㄹ", "기린", ""], [6, "ㅎㄹㅇ", "호랑이", ""], [6, "ㄱㅇㅇ", "고양이", ""], [6, "ㄱㅇㅈ", "강아지", ""], [6, "ㅍㄱ", "펭귄", ""], [6, "ㄷㄱㄹ", "돌고래", ""], [6, "ㅎㅂㄹㄱ", "해바라기", ""], [6, "ㄷㅍ", "단풍", ""], [6, "ㄴㅅㄹ", "눈사람", ""], [6, "ㅅㄴㄱ", "소나기", ""], [6, "ㅇㅎㅅ", "은하수", ""], [6, "ㄱㅂㅇ", "거북이", ""], [6, "ㄷㄹㅈ", "다람쥐", ""], [7, "ㄴㅈㄱ", "냉장고", ""], [7, "ㅅㅌㄱ", "세탁기", ""], [7, "ㅊㅅㄱ", "청소기", ""], [7, "ㅎㄷㅍ", "휴대폰", ""], [7, "ㅇㅇㅍ", "이어폰", ""], [7, "ㅈㄱ", "지갑", ""], [7, "ㅂㄱ", "베개", ""], [7, "ㄹㅁㅋ", "리모컨", ""], [7, "ㅊㅈㄱ", "충전기", ""], [7, "ㅅㅍㄱ", "선풍기", ""], [8, "ㅅㅂㄱ", "소방관", ""], [8, "ㅅㅅㄴ", "선생님", ""], [8, "ㄱㅊㄱ", "경찰관", ""], [8, "ㅇㄹㅅ", "요리사", ""], [8, "ㄷㅅㄱ", "도서관", ""], [8, "ㅇㄷㅈ", "운동장", ""], [8, "ㄱㅅ", "급식", ""], [8, "ㅅㅎ", "시험", ""], [8, "ㅊㅇㄱ", "체육관", ""], [8, "ㄱㄱㅅ", "교과서", ""]].map((r,i)=>({id:i,c:r[0],cho:r[1],ans:r[2],d:r[3]||"",n:0}));
+(function(){const cnt={};CQ_Q.forEach(q=>{cnt[q.c]=(cnt[q.c]||0)+1;q.n=cnt[q.c]})})();
+const IH_CATS=["일상", "여행·MT", "음식", "성경·신앙", "재미·상상"];
+/* [분야번호, 주제] */
+const IH_Q=[[0, "여름 하면 떠오르는 음식"], [0, "비 오는 날 생각나는 음식"], [0, "겨울 간식 하면 떠오르는 것"], [0, "월요일 하면 떠오르는 단어"], [0, "새벽 하면 떠오르는 것"], [0, "1부터 10 중 떠오르는 숫자 하나"], [0, "아침에 눈 뜨자마자 하는 것"], [0, "가장 좋아하는 요일"], [0, "집에 가면 제일 먼저 하는 것"], [0, "주말에 가장 하고 싶은 것"], [0, "스트레스 풀 때 하는 것"], [0, "밤 12시에 생각나는 음식"], [1, "여행 갈 때 꼭 챙기는 물건"], [1, "캠핑 하면 떠오르는 것"], [1, "휴게소에서 꼭 사 먹는 것"], [1, "동물원에서 가장 인기 있는 동물"], [1, "밤새 놀 때 필요한 것"], [1, "1박2일 하면 떠오르는 단어"], [1, "수련회 하면 떠오르는 음식"], [1, "수련회 하면 떠오르는 게임"], [1, "가장 가고 싶은 나라"], [1, "바다 하면 떠오르는 것"], [1, "버스에서 하는 일"], [1, "여행지에서 사 오는 기념품"], [2, "라면에 넣으면 맛있는 것"], [2, "노란색 음식 하면 떠오르는 것"], [2, "치킨과 함께 먹는 음료"], [2, "빨간색 과일"], [2, "한국 사람이 제일 많이 먹는 반찬"], [2, "야식 하면 떠오르는 메뉴"], [2, "피자에 올려 먹으면 맛있는 것"], [2, "떡볶이와 같이 먹는 것"], [2, "가장 좋아하는 과자"], [2, "생일에 먹는 음식"], [2, "고기 먹을 때 꼭 필요한 것"], [2, "달콤한 디저트 하면 떠오르는 것"], [3, "성경 인물 하면 가장 먼저 떠오르는 사람"], [3, "구약성경 책 이름 하나"], [3, "성경에 나오는 동물"], [3, "교회 하면 떠오르는 것"], [3, "찬양 하면 떠오르는 것"], [3, "예배 끝나고 가장 먹고 싶은 음식"], [3, "기도할 때 가장 많이 하는 말"], [3, "천국 하면 떠오르는 색"], [3, "제자훈련 하면 떠오르는 단어"], [3, "신약성경 책 이름 하나"], [3, "성경에 나오는 음식"], [3, "좋아하는 찬양 제목 한 곡"], [3, "교회에서 가장 인기 있는 자리"], [3, "성경 속 여행지 하나"], [3, "예수님 하면 떠오르는 단어"], [4, "무인도에 가져가고 싶은 물건 하나"], [4, "로또 당첨되면 제일 먼저 사는 것"], [4, "초능력을 하나 갖는다면"], [4, "내일 하루 쉰다면 하고 싶은 것"], [4, "귀신보다 무서운 것"], [4, "우리 모임 하면 떠오르는 단어"], [4, "연예인 하면 떠오르는 사람 한 명"], [4, "웃음이 나올 때 하는 소리"], [4, "세상에서 제일 맛있는 라면 이름"], [4, "가장 갖고 싶은 동물 친구"]].map((r,i)=>({id:i,c:r[0],t:r[1],n:0}));
+(function(){const cnt={};IH_Q.forEach(q=>{cnt[q.c]=(cnt[q.c]||0)+1;q.n=cnt[q.c]})})();
+
+/* 사회자 멘트 (초안: 여기서 고치세요) */
+const CQ_MENT_START="지금부터 초성 퀴즈를 시작합니다! 제가 문제를 내면 폰에 초성이 나타나요. 정답이 떠올랐으면 '정답!' 버튼을 가장 먼저 누르세요. 먼저 누른 분이 큰 소리로 답을 말하고, 틀리면 다음 분께 기회가 넘어갑니다. 정답을 맞히면 10점이에요!";
+const CQ_MENT_END="초성 퀴즈는 여기까지입니다! 점수판을 확인해 볼까요? 맞히신 분도 아쉬운 분도 모두 수고하셨습니다!";
+const IH_MENT_START="이번 게임은 이심전심입니다! 제가 주제를 내면 폰에 떠오르는 단어 하나를 적어 주세요. 다른 사람과 같은 답이 많이 나올수록 좋아요. 누가 무엇을 적었는지는 저만 볼 수 있으니 편하게 적어 주세요!";
+const IH_MENT_END="이심전심은 여기까지예요! 서로 얼마나 통하는지 확인해 보니 어땠나요? 의외의 답에 웃기도 했죠? 모두 수고하셨습니다!";
+
+const TEAM_ICON=["⚪","🔴","🔵","🟢","🟡"];
+function xFmtT(left){return `⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`}
+function xOthers(k){["bal","cq","ih"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll()}
+function xRoomInfo(num,names){return `<div class="room-label">방 번호</div><div class="room-number" style="margin:8px">${escapeHtml(num)}</div><div class="player-count">참가자 ${names.length}명 (사회자 제외)</div><div class="small">${names.length?names.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`}
+function xMentHtml(R,start,end){const sp=R.x.special;if(!sp)return "";const body=sp==="start"?start:end;return `<div class="bms"><button class="bmh" onclick="${R.k.toUpperCase()}.toggleMent()" aria-expanded="${R.x.mOpen}"><span>💬 사회자 멘트</span><span>${R.x.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${R.x.mOpen?`<div class="bmb"><p class="blb">${sp==="start"?"시작 멘트":"마무리 멘트"}</p>${escapeHtml(body)}</div>`:""}</div>`}
+function xMentBtns(k){const K=k.toUpperCase();return `<div style="display:flex;gap:8px;margin-top:12px"><button class="gray" onclick="${K}.special('start')">🎬 시작 멘트</button><button class="gray" onclick="${K}.special('end')">🏁 마무리 멘트</button></div>`}
+function xChips(cats,cur,fn){return `<div class="bchips">${cats.map((c,i)=>`<div class="bchip${i===cur?" on":""}" onclick="${fn}(${i})">${escapeHtml(c)}</div>`).join("")}</div>`}
+
+/* 방 하나를 다루는 공통 부품: 만들기·참가·상태 가져오기·타이머·나가기 */
+function mkRoom(k,cfg){
+ const K=k.toUpperCase(),R={k,num:"",role:"",s:null,seq:0,busy:false,pending:false,timer:null,endAt:0,fired:false,x:{}};
+ R.stopPoll=()=>{if(R.timer){clearInterval(R.timer);R.timer=null}};
+ R.startPoll=()=>{R.stopPoll();R.timer=setInterval(R.tick,R.role==="host"?1500:2500)};
+ R.saveRoom=()=>{try{localStorage.setItem("GP_"+K+"_ROOM",JSON.stringify({num:R.num,role:R.role}))}catch(e){}};
+ R.saveAsked=()=>{try{localStorage.setItem("GP_"+K+"_ASKED_"+R.num,JSON.stringify(R.x.asked))}catch(e){}};
+ R.closed=(t,silent)=>{R.stopPoll();R.num="";R.s=null;R.seq++;try{localStorage.removeItem("GP_"+K+"_ROOM")}catch(e){}show(k+"Menu");if(!silent)alert(t||"방이 종료되었습니다.")};
+ R.tick=async()=>{if(R.busy||R.pending||!R.num)return;R.busy=true;const sq=R.seq,num=R.num;try{const s=await bapi(k+"_state",{roomNumber:num,userId});if(sq===R.seq&&num===R.num)R.apply(s)}catch(e){if(sq===R.seq&&/종료|만료|존재하지|참가자가 아닙/.test(e.message))R.closed(e.message)}finally{R.busy=false}};
+ R.apply=s=>{const nr=s.q?(s.q.round||0):0,or=R.s&&R.s.q?(R.s.q.round||0):0;if(nr!==or){R.x.showDesc=false;R.x.special="";R.x.mOpen=true;R.x.sel=""}
+  R.role=s.role;R.s=s;R.endAt=s.phase==="open"?Date.now()+(s.remainingMs||0):0;R.fired=false;
+  if(s.role==="host"&&s.q){const done=cfg.doneAt(s);if(done&&R.x.asked[s.q.id]!==2){R.x.asked[s.q.id]=2;R.saveAsked()}}
+  cfg.render(R);R.clock()};
+ R.enter=(role,s)=>{xOthers(k);R.s=null;R.role=role;R.num=s.num;R.seq++;let a={};try{a=JSON.parse(localStorage.getItem("GP_"+K+"_ASKED_"+R.num)||"{}")}catch(e){}
+  R.x={cat:0,asked:a,showDesc:false,special:"",mOpen:true,sel:"",pickN:2};R.saveRoom();show(role==="host"?k+"Host":k+"Play");R.apply(s);R.startPoll()};
+ R.act=async(action,params,mid)=>{if(R.pending)return;R.pending=true;R.seq++;msg(mid,"");try{R.apply(await bapi(k+"_"+action,Object.assign({roomNumber:R.num,userId},params||{})))}catch(e){msg(mid,e.message);try{R.apply(await bapi(k+"_state",{roomNumber:R.num,userId}))}catch(x){}}finally{R.pending=false}};
+ R.create=async()=>{msg(k+"MenuMsg","");try{R.enter("host",await bapi(k+"_create",{userId}))}catch(e){msg(k+"MenuMsg",e.message)}};
+ R.join=async()=>{const n=document.getElementById(k+"JoinNumber").value.trim().padStart(4,"0"),name=document.getElementById(k+"JoinName").value.trim();if(!/^\d{4}$/.test(n)||!name){msg(k+"JoinMsg","방 번호 4자리와 이름을 입력해주세요.");return}msg(k+"JoinMsg","");try{const s=await bapi(k+"_join",{roomNumber:n,playerName:name,userId});try{localStorage.setItem("GAME_PARTY_NAME",name)}catch(e){}R.enter("player",s)}catch(e){msg(k+"JoinMsg",e.message)}};
+ R.leave=async()=>{const num=R.num;R.stopPoll();R.seq++;try{await bapi(k+"_leave",{roomNumber:num,userId})}catch(e){}R.closed("",true)};
+ R.end=async()=>{if(!confirm("방을 종료할까요? 모든 참가자가 나가게 됩니다."))return;await R.leave()};
+ R.restore=async()=>{let sv=null;try{sv=JSON.parse(localStorage.getItem("GP_"+K+"_ROOM")||"null")}catch(e){}if(!sv||!sv.num||localStorage.getItem("GAME_PARTY_ROOM_ID"))return;try{const s=await bapi(k+"_state",{roomNumber:sv.num,userId});R.enter(s.role,s)}catch(e){if(/종료|만료|존재하지|참가자가 아닙/.test(e.message))try{localStorage.removeItem("GP_"+K+"_ROOM")}catch(x){}}};
+ R.toggleMent=()=>{R.x.mOpen=!R.x.mOpen;cfg.render(R)};
+ R.special=sp=>{R.x.special=R.x.special===sp?"":sp;R.x.mOpen=true;cfg.render(R)};
+ R.cat=i=>{R.x.cat=i;cfg.render(R)};
+ R.desc=()=>{R.x.showDesc=!R.x.showDesc;cfg.render(R)};
+ R.clock=()=>{const open=R.s&&R.s.phase==="open",ms=open?R.endAt-Date.now():0,left=open?Math.max(0,Math.ceil(ms/1000)):0,t=xFmtT(left);
+  [[k+"HostCd","host"],[k+"Cd","player"]].forEach(x=>{const el=document.getElementById(x[0]);if(!el)return;const on=open&&R.role===x[1];el.classList.toggle("hidden",!on);if(on){el.textContent=t;el.classList.toggle("warn",left<=10)}});
+  if(open&&ms<=0&&!R.fired){R.fired=true;cfg.render(R);R.tick()}};
+ setInterval(R.clock,250);
+ return R}
+
+/* ---------------- 초성 퀴즈 ---------------- */
+const CQ=mkRoom("cq",{doneAt:s=>s.phase==="done",render:R=>R.role==="host"?cqHostRender(R):cqPlayRender(R)});
+function cqTimeOver(R){return R.s.phase==="open"&&R.endAt-Date.now()<=0}
+function cqHostRender(R){
+ const s=R.s,x=R.x,q=s.q,ph=s.phase,tm=cqTimeOver(R),names=s.players.map(p=>p.name);
+ setHtml("cqRoomInfo",xRoomInfo(s.num,names));
+ let h=xMentHtml(R,CQ_MENT_START,CQ_MENT_END);
+ if(!q){if(!h)h+='<div class="small" style="margin-bottom:12px">아래 목록에서 문제를 골라 주세요.</div>'}
+ else{const src=CQ_Q[q.id]||{},d=src.d,st=ph==="ready"?"⏸ 시작 전 (참가자는 아직 누를 수 없어요)":ph==="open"?(tm?"⌛ 시간 종료 (＋30초로 늘릴 수 있어요)":"✋ 진행 중"):"🔒 끝";
+  h+=`<div class="small" style="margin-bottom:6px">${escapeHtml(CQ_CATS[src.c]||"")} · ${q.round}번째 문제</div><div class="cqcho">${escapeHtml(q.cho)}</div>
+<div class="info-row"><span>정답: <b>${escapeHtml(q.ans)}</b></span>${d?'<button class="mini" onclick="CQ.desc()">💡 설명</button>':""}</div>
+${x.showDesc&&d?`<div class="hint" style="margin-top:8px;white-space:pre-wrap;line-height:1.6">${escapeHtml(d)}</div>`:""}
+<div class="info-row" style="margin-top:8px"><span>${st} · ${s.queue.length}명 누름</span></div>`;
+  const sLabel=ph==="open"?`＋${balFmt(s.addSec)}`:`▶ START (${balFmt(s.firstSec)})`,sOn=ph==="ready"||ph==="open";
+  h+=`<div style="display:flex;gap:8px;margin-top:6px"><button onclick="CQ.act('start',{},'cqHostMsg')"${sOn?"":" disabled"}>${sLabel}</button><button class="red" onclick="CQ.act('reveal',{},'cqHostMsg')"${ph==="done"?" disabled":""}>정답 공개 · 패스</button></div>`;
+  if(ph==="open"&&s.current)h+=`<div class="bpres"><div class="blb" style="color:#000">🎤 지금 답하는 사람</div><div style="font-size:26px;font-weight:900;margin:4px 0 8px">${escapeHtml(s.current.name)}님</div><div style="display:flex;gap:8px"><button onclick="CQ.act('judge',{verdict:'right'},'cqHostMsg')">⭕ 맞음 (+${s.point}점)</button><button class="red" onclick="CQ.act('judge',{verdict:'wrong'},'cqHostMsg')">❌ 틀림</button></div></div>`;
+  if(ph==="done")h+=`<div class="bpres"><div style="font-size:22px;font-weight:900">${s.result&&s.result.name?`🎉 ${escapeHtml(s.result.name)}님 정답! +${s.point}점`:"😅 아무도 못 맞혔어요"}</div></div>`;
+  if(s.queue.length){const ic={wait:"⏳",wrong:"❌",right:"⭕"};h+=`<div class="names" style="margin-top:10px">누른 순서: ${s.queue.map((e,i)=>`${i+1}. ${escapeHtml(e.name)} ${s.current&&s.current.id===e.id&&ph==="open"?"🎤":ic[e.status]}`).join(" · ")}</div>`}}
+ h+=xMentBtns("cq");
+ setHtml("cqNow",h);cqTeamRender(R);cqListRender(R)}
+function cqTeamRender(R){
+ const s=R.s,n=s.teamCount;if(n>=2&&!R.x.touched)R.x.pickN=n;const pn=R.x.pickN;
+ let h=`<div class="title2" style="margin-top:0">🏆 점수 · 팀</div><div class="bchips">${[2,3,4].map(t=>`<div class="bchip${t===pn?" on":""}" onclick="CQ.x.pickN=${t};CQ.x.touched=true;CQ.render()">${t}팀</div>`).join("")}</div>
+<div style="display:flex;gap:8px"><button onclick="cqTeams('random')">🎲 랜덤 배정</button><button class="gray" onclick="cqTeams('manual')">✋ 직접 지정</button></div>${n?'<button class="gray" onclick="cqTeams(0)">팀 없애기</button>':""}
+`;
+ if(n>=2)h+=`<div style="margin-top:8px">${s.teamScores.map((v,i)=>`<div class="info-row" style="margin-bottom:6px;font-size:18px;font-weight:800"><span>${TEAM_ICON[i+1]} ${i+1}팀</span><span>${v}점</span></div>`).join("")}</div>`;
+ h+=`<div class="title2">참가자 점수${n>=2?" (팀 표시를 누르면 팀이 바뀌어요)":""}</div>`;
+ h+=s.players.length?s.players.map(p=>`<div class="player" style="gap:6px"><span style="display:flex;align-items:center;gap:8px;min-width:0">${n>=2?`<button class="mini" style="min-width:48px;font-size:16px" onclick="cqSetTeam('${escapeHtml(p.id)}',${(p.team+1)%(n+1)})">${TEAM_ICON[p.team]}</button>`:""}<b>${escapeHtml(p.name)}</b></span><span style="display:flex;align-items:center;gap:6px"><button class="mini" style="min-width:40px" onclick="cqAdj('${escapeHtml(p.id)}',-10)">−</button><b style="min-width:52px;text-align:center;font-size:18px">${p.score}점</b><button class="mini" style="min-width:40px" onclick="cqAdj('${escapeHtml(p.id)}',10)">＋</button></span></div>`).join(""):'<div class="small">참가자가 들어오면 여기에 나와요.</div>';
+ h+='<button class="gray" onclick="cqResetScore()">점수 모두 0점으로</button>';
+ setHtml("cqTeam",h)}
+CQ.render=()=>CQ.s&&(CQ.role==="host"?cqHostRender(CQ):cqPlayRender(CQ));
+function cqTeams(mode){CQ.act("teams",{n:mode===0?0:CQ.x.pickN,mode:mode===0?"manual":mode},"cqTeamMsg")}
+function cqSetTeam(pid,t){CQ.act("setteam",{pid,team:t},"cqTeamMsg")}
+function cqAdj(pid,d){CQ.act("adjust",{pid,delta:d},"cqTeamMsg")}
+function cqResetScore(){if(confirm("모든 점수를 0점으로 되돌릴까요?"))CQ.act("resetscore",{},"cqTeamMsg")}
+function cqListRender(R){
+ const x=R.x,q=R.s.q,items=CQ_Q.filter(v=>v.c===x.cat).map(v=>{const st=x.asked[v.id],cur=q&&q.id===v.id;
+  const cls=st===2?"hl":cur?"cur":st?"seen":"",tag=st===2?'<span class="btag">마감</span>':cur?'<span class="btag">진행 중</span>':"";
+  return `<div class="bq ${cls}" onclick="cqPickQ(${v.id})"><span class="bn">${st===2||(st&&!cur)?"✓":v.n}</span><span><b>${escapeHtml(v.cho)}</b> · ${escapeHtml(v.ans)}</span>${tag}</div>`}).join("");
+ setHtml("cqList",xChips(CQ_CATS,x.cat,"CQ.cat")+items)}
+async function cqPickQ(i){const R=CQ;if(R.pending)return;const s=R.s;
+ if(s.q&&s.phase==="open"&&s.queue.length&&!confirm("지금 문제를 닫고 이 문제로 바꿀까요?"))return;
+ const v=CQ_Q[i];R.x.special="";await R.act("setq",{qid:i,cho:v.cho,ans:v.ans},"cqHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();cqListRender(R);window.scrollTo({top:0,behavior:"smooth"})}
+function cqPlayRender(R){
+ const s=R.s,q=s.q,ph=s.phase,tm=cqTimeOver(R);let h="",m="";
+ const teamLine=s.teamCount>=2?` · ${TEAM_ICON[s.myTeam]} ${s.myTeam?s.myTeam+"팀":"팀 배정 전"}`:"";
+ h+=`<div class="small" style="margin-bottom:6px">내 점수 <b>${s.myScore}점</b>${teamLine}</div>`;
+ if(!q)h+='<div class="my-role" style="font-size:24px">⏳ 사회자가 문제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
+ else{const my=s.myStatus;
+  h+=`<div class="small" style="margin-bottom:4px">${q.round}번째 문제</div><div class="cqcho">${escapeHtml(q.cho)}</div>`;
+  if(ph==="done"){h+=`<div class="bpres" style="text-align:center"><div class="blb" style="color:#000">정답</div><div style="font-size:30px;font-weight:900">${escapeHtml(q.ans)}</div><div style="margin-top:6px;font-weight:800">${s.winnerName?`🎉 ${escapeHtml(s.winnerName)}님 정답!`:"😅 아무도 못 맞혔어요"}</div></div>`;m="다음 문제를 기다려 주세요."}
+  else{const can=ph==="open"&&!tm&&!my;
+   h+=`<button class="cqpress" ${can?"":"disabled"} onclick="cqPress()">${my==="current"?"🎤 지금 답하세요!":my==="wrong"?"❌ 아쉬워요":my==="waiting"?"⏳ 순서를 기다려요":ph==="ready"?"곧 시작해요":tm?"⌛ 시간 종료":"✋ 정답!"}</button>`;
+   m=ph==="ready"?"사회자가 시작하면 누를 수 있어요.":my==="current"?"큰 소리로 정답을 말하세요!":s.currentName?`🎤 ${s.currentName}님이 답하는 중이에요.`:my==="wrong"?"틀렸어요. 다른 분의 차례를 지켜봐요.":tm?"시간이 끝났어요.":"정답이 떠오르면 빨리 누르세요!"}}
+ if(s.teamCount>=2)h+=`<div class="names" style="margin-top:14px;text-align:center">${s.teamScores.map((v,i)=>`${TEAM_ICON[i+1]} ${i+1}팀 ${v}점`).join(" · ")}</div>`;
+ if(s.ranking&&s.ranking.length&&s.ranking[0].score>0)h+=`<div class="names" style="margin-top:8px;text-align:center">🏅 ${s.ranking.filter(r=>r.score>0).map(r=>`${escapeHtml(r.name)} ${r.score}`).join(" · ")}</div>`;
+ msg("cqPlayMsg",m);setHtml("cqPlayBody",h)}
+async function cqPress(){const R=CQ;if(!R.s.q||R.s.phase!=="open"||R.pending)return;await R.act("press",{round:R.s.q.round},"cqPlayMsg")}
+
+/* ---------------- 이심전심 ---------------- */
+const IH=mkRoom("ih",{doneAt:s=>s.phase==="revealed",render:R=>R.role==="host"?ihHostRender(R):ihPlayRender(R)});
+IH.render=()=>IH.s&&(IH.role==="host"?ihHostRender(IH):ihPlayRender(IH));
+function ihBars(groups,pickable,R){
+ const max=Math.max(1,...groups.map(g=>g.count));
+ return groups.map((g,gi)=>{const pct=Math.round(g.count/max*100),sel=pickable&&R.x.sel===g.key;
+  return `<div class="ihg${sel?" sel":""}" style="background:linear-gradient(90deg,#ffe600 ${pct}%,#fff ${pct}%)"${pickable?` onclick="ihPickGroup(${gi})"`:""}><span class="ihl">${escapeHtml(g.label)}${g.mine?' <span class="btag">내 답</span>':""}</span><span class="ihc">${g.count}명</span>${g.names?`<div class="ihn">${g.names.map(escapeHtml).join(", ")}</div>`:""}</div>`}).join("")}
+function ihHostRender(R){
+ const s=R.s,x=R.x,q=s.q,ph=s.phase;
+ setHtml("ihRoomInfo",xRoomInfo(s.num,s.players));
+ let h=xMentHtml(R,IH_MENT_START,IH_MENT_END);
+ if(!q){if(!h)h+='<div class="small" style="margin-bottom:12px">아래 목록에서 주제를 골라 주세요.</div>'}
+ else{const src=IH_Q[q.id]||{},total=s.players.length,st={ready:"⏸ 시작 전 (참가자는 아직 적을 수 없어요)",open:"✋ 적는 중",closed:"🔒 마감 · 결과를 확인하세요",revealed:"📢 공개했어요"}[ph]||"";
+  h+=`<div class="small" style="margin-bottom:6px">${escapeHtml(IH_CATS[src.c]||"")} · ${q.round}번째 주제</div><div class="ihtopic">${escapeHtml(q.topic)}</div><div class="info-row"><span>${st} · ${s.submitted.length}/${total}명 입력</span></div>`;
+  const canReopen=ph==="closed"&&s.none.length>0,sLabel=ph==="open"?`＋${balFmt(s.addSec)}`:ph==="closed"?`↻ 다시 열기 (${balFmt(s.addSec)})`:`▶ START (${balFmt(s.firstSec)})`,sOn=ph==="ready"||ph==="open"||canReopen;
+  h+=`<div style="display:flex;gap:8px;margin-top:6px"><button onclick="IH.act('start',{},'ihHostMsg')"${sOn?"":" disabled"}>${sLabel}</button><button class="red" onclick="IH.act('stop',{},'ihHostMsg')"${ph==="open"?"":" disabled"}>⏹ STOP</button></div>`;
+  if(ph==="ready"||ph==="open")h+=`<div class="title2">입력함 · ${s.submitted.length}명</div><div class="names">${s.submitted.length?s.submitted.map(escapeHtml).join(", "):"-"}</div><div class="title2">아직 · ${s.none.length}명</div><div class="names">${s.none.length?s.none.map(escapeHtml).join(", "):"-"}</div>`;
+  if((ph==="closed"||ph==="revealed")&&s.groups){h+=`<div class="title2">결과 (이름은 사회자만 보여요)</div><div class="small" style="margin-bottom:8px">비슷한 답은 두 개를 차례로 눌러 합칠 수 있어요.</div>${s.groups.length?ihBars(s.groups,true,R):'<div class="small">아무도 적지 않았어요.</div>'}`;
+   if(s.groups.length&&s.groups[0].count>=2)h+=`<div class="bpres" style="text-align:center"><b>가장 많이 통한 답: ${escapeHtml(s.groups[0].label)} (${s.groups[0].count}명)</b></div>`;
+   h+=`<div style="display:flex;gap:8px;margin-top:6px">${ph==="closed"?`<button onclick="IH.act('reveal',{},'ihHostMsg')">📢 결과 공개</button>`:""}${s.merged?`<button class="gray" onclick="IH.x.sel='';IH.act('unmerge',{},'ihHostMsg')">↩ 합치기 되돌리기</button>`:""}</div>`}}
+ h+=xMentBtns("ih");
+ setHtml("ihNow",h);ihListRender(R)}
+function ihPickGroup(gi){const R=IH,s=R.s;if(R.pending||!s.groups||!s.groups[gi])return;const key=s.groups[gi].key;
+ if(!R.x.sel){R.x.sel=key;ihHostRender(R);return}
+ if(R.x.sel===key){R.x.sel="";ihHostRender(R);return}
+ const a=s.groups.find(g=>g.key===R.x.sel),b=s.groups.find(g=>g.key===key);if(!a||!b){R.x.sel="";ihHostRender(R);return}
+ if(!confirm(`'${a.label}'을(를) '${b.label}'에 합칠까요?`)){R.x.sel="";ihHostRender(R);return}
+ const f=R.x.sel;R.x.sel="";R.act("merge",{from:f,to:key},"ihHostMsg")}
+function ihListRender(R){
+ const x=R.x,q=R.s.q,items=IH_Q.filter(v=>v.c===x.cat).map(v=>{const st=x.asked[v.id],cur=q&&q.id===v.id;
+  const cls=st===2?"hl":cur?"cur":st?"seen":"",tag=st===2?'<span class="btag">마감</span>':cur?'<span class="btag">진행 중</span>':"";
+  return `<div class="bq ${cls}" onclick="ihPickQ(${v.id})"><span class="bn">${st===2||(st&&!cur)?"✓":v.n}</span><span>${escapeHtml(v.t)}</span>${tag}</div>`}).join("");
+ setHtml("ihList",xChips(IH_CATS,x.cat,"IH.cat")+items)}
+async function ihPickQ(i){const R=IH;if(R.pending)return;const s=R.s;
+ if(s.q&&s.phase==="open"&&s.submitted.length&&!confirm("지금 주제를 닫고 이 주제로 바꿀까요?\n(지금까지의 답은 사라져요)"))return;
+ R.x.special="";await R.act("setq",{qid:i,topic:IH_Q[i].t},"ihHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();ihListRender(R);window.scrollTo({top:0,behavior:"smooth"})}
+function ihPlayRender(R){
+ const s=R.s,q=s.q,ph=s.phase;let h="",m="";
+ if(!q)h='<div class="my-role" style="font-size:24px">⏳ 사회자가 주제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
+ else{h=`<div class="small" style="margin-bottom:6px">${q.round}번째 주제</div><div class="ihtopic">${escapeHtml(q.topic)}</div>`;
+  if(ph==="ready"||ph==="open"){const on=ph==="open";h+=`<input id="ihInput" type="text" maxlength="20" placeholder="떠오르는 단어 하나" value="${escapeHtml(s.myAnswer)}" ${on?"":"disabled"} onkeydown="if(event.key==='Enter')ihSubmit()"><button ${on?"":"disabled"} onclick="ihSubmit()">${s.myAnswer?"수정해서 제출":"제출"}</button>`;
+   m=ph==="ready"?"사회자가 시작하면 적을 수 있어요.":s.myAnswer?`'${s.myAnswer}'(으)로 냈어요. 시간이 끝나기 전까지는 바꿀 수 있어요.`:"한 단어로 적어 주세요."}
+  else if(ph==="closed"){h+=`<div class="bpres" style="text-align:center">${s.myAnswer?`내 답: <b>${escapeHtml(s.myAnswer)}</b>`:"적지 않았어요"}</div>`;m="🔒 마감되었어요. 사회자가 결과를 공개할 때까지 기다려 주세요."}
+  else{const g=s.groups||[],top=g[0];h+=g.length?ihBars(g,false,R):'<div class="small">아무도 적지 않았어요.</div>';
+   const mine=g.find(v=>v.mine);m=mine&&top&&mine.count===top.count&&top.count>=2?"🎉 이심전심! 가장 많은 사람과 통했어요!":mine?`내 답과 같은 사람은 ${mine.count}명이에요.`:"적지 않았어요."}}
+ msg("ihPlayMsg",m);setHtml("ihPlayBody",h)}
+async function ihSubmit(){const R=IH,el=document.getElementById("ihInput");if(!el||!R.s.q||R.s.phase!=="open"||R.pending)return;const t=el.value.trim();if(!t){msg("ihPlayMsg","답을 입력해주세요.");return}await R.act("answer",{text:t,round:R.s.q.round},"ihPlayMsg")}
+
+window.addEventListener("load",()=>{CQ.restore();IH.restore()});
 </script>
 <script>
 function setFs(n){document.documentElement.setAttribute("data-fs",n);try{localStorage.setItem("GP_FS",n)}catch(e){}var r=document.getElementById("fsRange");if(r)r.value=n}
