@@ -140,6 +140,18 @@ body,button,input{font-family:"Pretendard",-apple-system,"Noto Sans KR",Arial,sa
 .logo,h2,.room-number,.btime,.game-name,.my-role,.clue,.cqcho,.cqpress,.ihtopic,.result{font-family:"Jua","Pretendard","Noto Sans KR",sans-serif;font-weight:400}
 .cqpress{font-size:38px}
 .cqcho{font-size:60px}
+
+/* 사회자 탭 */
+#balHost,#cqHost,#ihHost{padding-bottom:84px}
+.btime{}
+#balHostCd,#cqHostCd,#ihHostCd{position:sticky;top:0;z-index:20;background:#fff;padding:8px 0;margin:0 0 12px;border-bottom:3px solid #000}
+.htabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:0;background:#fff;border-top:3px solid #000;max-width:620px;margin:auto}
+.htabs button{flex:1;width:auto;margin:0;border-radius:0;min-height:64px;padding:8px 2px;font-size:17px;background:#fff;color:#000;border:0;border-right:2px solid #000;box-shadow:none}
+.htabs button:last-child{border-right:0}
+.htabs button.on{background:#ffe14d;color:#000;font-weight:900}
+.endbtn{display:block;margin:6px auto 0}
+.stepbar{display:flex;gap:4px;margin:0 0 12px}.stepbar span{flex:1;text-align:center;font-size:13px;font-weight:700;color:#555;padding-top:5px;border-top:5px solid #ccc}.stepbar span.cur{color:#000;border-top-color:#000;font-weight:900}.stepbar span.done{border-top-color:#888}
+#hostAct.pinned{position:fixed;left:15px;right:15px;bottom:12px;z-index:40;width:auto;max-width:590px;margin:0 auto}
 </style>
 </head>
 <body>
@@ -161,17 +173,17 @@ body,button,input{font-family:"Pretendard",-apple-system,"Noto Sans KR",Arial,sa
 
 <section id="setup" class="hidden"><div id="setupMount" class="card"></div><div class="card"><h2>🎭 게임 설정</h2><div class="title2">제시어 분야</div><label class="option"><input type="radio" name="cat" value="음식" checked>🍔 음식</label><label class="option"><input type="radio" name="cat" value="동물">🐶 동물</label><label class="option"><input type="radio" name="cat" value="장소">📍 장소</label><label class="option"><input type="radio" name="cat" value="직업">💼 직업</label><label class="option"><input type="radio" name="cat" value="물건">🧸 물건</label><label class="option"><input type="radio" name="cat" value="랜덤">🎲 랜덤</label><div class="title2">라이어 선택</div><label class="option"><input type="radio" name="ls" value="random" checked onchange="renderSetupPlayers()">🎲 랜덤으로 선택</label><label class="option"><input type="radio" name="ls" value="host" onchange="renderSetupPlayers()">👤 방장이 선택</label><div id="liarSelectArea"></div><button onclick="once(this,saveSetup)">🎮 게임 시작</button><div id="setupMsg" class="message"></div></div></section>
 
-<section id="host" class="hidden"><div class="card"><div id="hostMount"></div><button id="hostAct" class="hidden"></button><div id="hostMsg" class="message"></div></div><div id="hostDetailCard" class="card hidden"><div class="title2" style="margin-top:0">참가자 현황</div><div id="hostDetail"></div></div></section>
+<section id="host" class="hidden" style="padding-bottom:84px"><div class="card"><div id="hostMount"></div><button id="hostAct" class="hidden"></button><div id="hostMsg" class="message"></div></div><div id="hostDetailCard" class="card hidden"><div class="title2" style="margin-top:0">참가자 현황</div><div id="hostDetail"></div></div></section>
 
-<section id="role" class="hidden"><div class="card"><h2>🎭 내 역할</h2><div id="roleText" class="my-role"></div><div id="clueText"></div><div class="small">내 역할과 제시어는 다른 사람에게 공개되지 않습니다.</div><button id="roleConfirmBtn" onclick="confirmRole()">확인했어요</button><div id="roleMsg" class="message"></div></div></section>
+<section id="role" class="hidden"><div class="card"><div class="stepbar"></div><h2>🎭 내 역할</h2><div id="roleText" class="my-role"></div><div id="clueText"></div><div class="small">내 역할과 제시어는 다른 사람에게 공개되지 않습니다.</div><button id="roleConfirmBtn" onclick="confirmRole()">확인했어요</button><div id="roleMsg" class="message"></div></div></section>
 
-<section id="hint" class="hidden"><div class="card"><h2>💬 힌트</h2><div id="hintList"></div><input id="hintInput" type="text" maxlength="100" placeholder="제시어를 직접 말하지 않는 힌트"><button id="hintBtn" onclick="submitHint()">힌트 제출</button><div id="hintMsg" class="message"></div></div></section>
+<section id="hint" class="hidden"><div class="card"><div class="stepbar"></div><h2>💬 힌트</h2><div id="hintList"></div><input id="hintInput" type="text" maxlength="100" placeholder="제시어를 직접 말하지 않는 힌트"><button id="hintBtn" onclick="submitHint()">힌트 제출</button><div id="hintMsg" class="message"></div></div></section>
 
-<section id="discuss" class="hidden"><div class="card"><h2>🗣️ 토론</h2><div class="small">누가 수상한지 자유롭게 이야기해 보세요!</div><div id="discussTimer" class="clue"></div><div id="discussHints"></div></div></section>
+<section id="discuss" class="hidden"><div class="card"><div class="stepbar"></div><h2>🗣️ 토론</h2><div class="small">누가 수상한지 자유롭게 이야기해 보세요!</div><div id="discussTimer" class="clue"></div><div id="discussHints"></div></div></section>
 
-<section id="vote" class="hidden"><div class="card"><h2>🗳️ 투표</h2><div class="small">라이어라고 생각하는 사람을 선택하세요.</div><div id="voteList"></div><div id="voteMsg" class="message"></div></div></section>
+<section id="vote" class="hidden"><div class="card"><div class="stepbar"></div><h2>🗳️ 투표</h2><div class="small">라이어라고 생각하는 사람을 선택하세요.</div><div id="voteList"></div><div id="voteMsg" class="message"></div></div></section>
 
-<section id="result" class="hidden"><div class="card"><h2>🔎 결과</h2><div id="resultText" class="result"></div><div id="voteResult"></div><div id="guessArea" class="hidden"><div class="title2">라이어의 마지막 기회</div><input id="guessInput" type="text" placeholder="제시어를 맞혀보세요"><button onclick="submitGuess()">제시어 제출</button><div id="guessMsg" class="message"></div></div></div></section>
+<section id="result" class="hidden"><div class="card"><div class="stepbar"></div><h2>🔎 결과</h2><div id="resultText" class="result"></div><div id="voteResult"></div><div id="guessArea" class="hidden"><div class="title2">라이어의 마지막 기회</div><input id="guessInput" type="text" placeholder="제시어를 맞혀보세요"><button onclick="submitGuess()">제시어 제출</button><div id="guessMsg" class="message"></div></div></div></section>
 
 <section id="end" class="hidden"><div class="card"><div class="logo">🎉 GAME OVER</div><div id="endText" class="result"></div><div id="endVotes"></div><button onclick="goHome()">처음으로</button></div></section>
 
@@ -183,17 +195,17 @@ body,button,input{font-family:"Pretendard",-apple-system,"Noto Sans KR",Arial,sa
 
 <section id="balJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="balJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="balJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,balJoin)">입장하기</button><button class="gray" onclick="show('balMenu')">뒤로가기</button><div id="balJoinMsg" class="message error"></div></div></section>
 
-<section id="balHost" class="hidden"><div class="card"><div id="balRoomInfo"></div><button class="linkbtn" style="display:block" onclick="balEnd()">방 종료</button></div><div class="card"><div id="balHostCd" class="btime hidden"></div><div id="balNow"></div><div id="balHostMsg" class="message error"></div></div><div class="card"><div id="balList"></div></div></section>
+<section id="balHost" class="hidden"><div id="balHostCd" class="btime hidden"></div><div class="hp"><div class="card"><div id="balRoomInfo"></div></div><div class="card"><div id="balNow"></div><div id="balHostMsg" class="message error"></div></div></div><div class="hp hidden"><div class="card"><div id="balList"></div></div><button class="linkbtn endbtn" onclick="balEnd()">방 종료</button></div><div class="htabs"><button class="on" onclick="hTab('balHost',0)">▶ 진행</button><button class="" onclick="hTab('balHost',1)">📋 문제 고르기</button></div></section>
 
 <section id="balPlay" class="hidden"><div class="card"><div id="balCd" class="btime hidden"></div><div id="balPlayBody"></div><div id="balPlayMsg" class="message"></div></div><button class="gray" onclick="balLeave()">방 나가기</button></section>
 
 <section id="cqMenu" class="hidden"><div class="card"><h2>🔤 초성 퀴즈</h2><button onclick="once(this,CQ.create)">사회자 방 만들기</button><button class="gray" onclick="show('cqJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="cqMenuMsg" class="message error"></div></div></section>
 <section id="cqJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="cqJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="cqJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,CQ.join)">입장하기</button><button class="gray" onclick="show('cqMenu')">뒤로가기</button><div id="cqJoinMsg" class="message error"></div></div></section>
-<section id="cqHost" class="hidden"><div class="card"><div id="cqRoomInfo"></div><button class="linkbtn" style="display:block" onclick="CQ.end()">방 종료</button></div><div class="card"><div id="cqHostCd" class="btime hidden"></div><div id="cqNow"></div><div id="cqHostMsg" class="message error"></div></div><div class="card"><div id="cqTeam"></div><div id="cqTeamMsg" class="message error"></div></div><div class="card"><div id="cqList"></div></div></section>
+<section id="cqHost" class="hidden"><div id="cqHostCd" class="btime hidden"></div><div class="hp"><div class="card"><div id="cqRoomInfo"></div></div><div class="card"><div id="cqNow"></div><div id="cqHostMsg" class="message error"></div></div></div><div class="hp hidden"><div class="card"><div id="cqList"></div></div></div><div class="hp hidden"><div class="card"><div id="cqTeam"></div><div id="cqTeamMsg" class="message error"></div></div><button class="linkbtn endbtn" onclick="CQ.end()">방 종료</button></div><div class="htabs"><button class="on" onclick="hTab('cqHost',0)">▶ 진행</button><button class="" onclick="hTab('cqHost',1)">📋 문제 고르기</button><button class="" onclick="hTab('cqHost',2)">👥 점수·팀</button></div></section>
 <section id="cqPlay" class="hidden"><div class="card"><div id="cqCd" class="btime hidden"></div><div id="cqPlayBody"></div><div id="cqPlayMsg" class="message"></div></div><button class="gray" onclick="CQ.leave()">방 나가기</button></section>
 <section id="ihMenu" class="hidden"><div class="card"><h2>🤝 이심전심</h2><button onclick="once(this,IH.create)">사회자 방 만들기</button><button class="gray" onclick="show('ihJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="ihMenuMsg" class="message error"></div></div></section>
 <section id="ihJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="ihJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="ihJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,IH.join)">입장하기</button><button class="gray" onclick="show('ihMenu')">뒤로가기</button><div id="ihJoinMsg" class="message error"></div></div></section>
-<section id="ihHost" class="hidden"><div class="card"><div id="ihRoomInfo"></div><button class="linkbtn" style="display:block" onclick="IH.end()">방 종료</button></div><div class="card"><div id="ihHostCd" class="btime hidden"></div><div id="ihNow"></div><div id="ihHostMsg" class="message error"></div></div><div class="card"><div id="ihList"></div></div></section>
+<section id="ihHost" class="hidden"><div id="ihHostCd" class="btime hidden"></div><div class="hp"><div class="card"><div id="ihRoomInfo"></div></div><div class="card"><div id="ihNow"></div><div id="ihHostMsg" class="message error"></div></div></div><div class="hp hidden"><div class="card"><div id="ihList"></div></div><button class="linkbtn endbtn" onclick="IH.end()">방 종료</button></div><div class="htabs"><button class="on" onclick="hTab('ihHost',0)">▶ 진행</button><button class="" onclick="hTab('ihHost',1)">📋 주제 고르기</button></div></section>
 <section id="ihPlay" class="hidden"><div class="card"><div id="ihCd" class="btime hidden"></div><div id="ihPlayBody"></div><div id="ihPlayMsg" class="message"></div></div><button class="gray" onclick="IH.leave()">방 나가기</button></section>
 <section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
@@ -263,7 +275,9 @@ async function loadScripts(){try{const r=await api("getScripts",{gameCode:"LIAR"
 function lines(step,sit){return SCRIPTS.filter(x=>x.step===step&&x.sit===sit&&(x.mode==="공통"||x.mode===PLAY_MODE)).sort((a,b)=>a.order-b.order).map(x=>x.text)}
 
 /* ===== 공통 ===== */
-function show(id){document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll();if(typeof CQ!=="undefined"){if(id!=="cqHost"&&id!=="cqPlay")CQ.stopPoll();if(id!=="ihHost"&&id!=="ihPlay")IH.stopPoll()}}
+function hTab(id,i){const s=document.getElementById(id);s.querySelectorAll(":scope>.hp").forEach((p,j)=>p.classList.toggle("hidden",j!==i));s.querySelectorAll(".htabs button").forEach((b,j)=>b.classList.toggle("on",j===i));window.scrollTo(0,0)}
+const SB=["역할","힌트","토론","투표","결과"],SBI={role:0,hint:1,discuss:2,vote:3,result:4};function sbFill(id){if(!(id in SBI))return;const el=document.querySelector("#"+id+" .stepbar");if(!el)return;const c=SBI[id];el.innerHTML=SB.map((n,i)=>`<span class="${i<c?"done":i===c?"cur":""}">${n}</span>`).join("")}
+function show(id){sbFill(id);if(id==="balHost"||id==="cqHost"||id==="ihHost")hTab(id,0);document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll();if(typeof CQ!=="undefined"){if(id!=="cqHost"&&id!=="cqPlay")CQ.stopPoll();if(id!=="ihHost"&&id!=="ihPlay")IH.stopPoll()}}
 function msg(id,t){document.getElementById(id).textContent=t}
 /* 버튼을 여러 번 눌러도 요청이 끝날 때까지 한 번만 실행 */
 async function once(btn,fn){if(btn.dataset.busy)return;btn.dataset.busy="1";btn.disabled=true;try{await fn()}finally{delete btn.dataset.busy;btn.disabled=false}}
@@ -360,8 +374,8 @@ function renderHost(r){show("host");hcMount("hostMount");const f=r.facilitator||
  document.getElementById("hcTimer").classList.toggle("hidden",r.phase!=="토론");
  hcSetCurrent(phaseTab(r.phase),r);updateTimers();
  const a=document.getElementById("hostAct");
- if(r.phase==="토론"){a.className="gray";a.textContent="⏱️ 토론 1분 추가";a.onclick=extendDiscussion}
- else if(r.phase==="종료"){a.className="";a.textContent="처음으로";a.onclick=goHome;stopPoll()}
+ if(r.phase==="토론"){a.className="gray pinned";a.textContent="⏱️ 토론 1분 추가";a.onclick=extendDiscussion}
+ else if(r.phase==="종료"){a.className="pinned";a.textContent="처음으로";a.onclick=goHome;stopPoll()}
  else a.className="hidden";
  let d="";if(["힌트","토론","투표"].includes(r.phase))d=(f.hints||[]).map(h=>`<div class="hint"><b>${escapeHtml(h.name)}</b><br>${h.submitted?escapeHtml(h.hint):"아직 제출하지 않았습니다."}</div>`).join("");
  if(r.phase==="라이어추리"||r.phase==="종료")d=votesHtml(r.votes)+(r.phase==="종료"?`<div class="result" style="margin-top:14px"><b>${r.winner==="라이어"?"😈 라이어 승리":"🎉 시민 승리"}</b></div>`:"");
@@ -622,7 +636,7 @@ async function balPickQ(i){
  if(bal.pending)return;
  if(bal.q&&bal.phase==="open"&&bal.a.length+bal.b.length>0&&!confirm("지금 문제를 닫고 이 문제로 바꿀까요?\n(지금까지의 선택은 사라져요)"))return;
  bal.pending=true;bal.seq++;msg("balHostMsg","");const x=BAL_Q[i];bal.special="";
- try{const s=await bapi("bal_setq",{roomNumber:bal.num,userId,qid:i,a:x.a,b:x.b});if(!bal.asked[i])bal.asked[i]=1;balSaveAsked();balApply(s);window.scrollTo({top:0,behavior:"smooth"})}catch(e){msg("balHostMsg",e.message)}finally{bal.pending=false}}
+ try{const s=await bapi("bal_setq",{roomNumber:bal.num,userId,qid:i,a:x.a,b:x.b});if(!bal.asked[i])bal.asked[i]=1;balSaveAsked();balApply(s);hTab("balHost",0)}catch(e){msg("balHostMsg",e.message)}finally{bal.pending=false}}
 async function balHostAct(action){if(bal.pending)return;bal.pending=true;bal.seq++;msg("balHostMsg","");try{balApply(await bapi(action,{roomNumber:bal.num,userId}))}catch(e){msg("balHostMsg",e.message);try{balApply(await bapi("bal_state",{roomNumber:bal.num,userId}))}catch(x){}}finally{bal.pending=false}}
 function balStart(){balHostAct("bal_start")}
 function balStop(){balHostAct("bal_stop")}
@@ -743,7 +757,7 @@ function cqListRender(R){
  setHtml("cqList",xChips(CQ_CATS,x.cat,"CQ.cat")+items)}
 async function cqPickQ(i){const R=CQ;if(R.pending)return;const s=R.s;
  if(s.q&&s.phase==="open"&&s.queue.length&&!confirm("지금 문제를 닫고 이 문제로 바꿀까요?"))return;
- const v=CQ_Q[i];R.x.special="";await R.act("setq",{qid:i,cho:v.cho,ans:v.ans},"cqHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();cqListRender(R);window.scrollTo({top:0,behavior:"smooth"})}
+ const v=CQ_Q[i];R.x.special="";await R.act("setq",{qid:i,cho:v.cho,ans:v.ans},"cqHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();cqListRender(R);hTab("cqHost",0)}
 function cqPlayRender(R){
  const s=R.s,q=s.q,ph=s.phase,tm=cqTimeOver(R);let h="",m="";
  const teamLine=s.teamCount>=2?` · ${TEAM_ICON[s.myTeam]} ${s.myTeam?s.myTeam+"팀":"팀 배정 전"}`:"";
@@ -795,7 +809,7 @@ function ihListRender(R){
  setHtml("ihList",xChips(IH_CATS,x.cat,"IH.cat")+items)}
 async function ihPickQ(i){const R=IH;if(R.pending)return;const s=R.s;
  if(s.q&&s.phase==="open"&&s.submitted.length&&!confirm("지금 주제를 닫고 이 주제로 바꿀까요?\n(지금까지의 답은 사라져요)"))return;
- R.x.special="";await R.act("setq",{qid:i,topic:IH_Q[i].t},"ihHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();ihListRender(R);window.scrollTo({top:0,behavior:"smooth"})}
+ R.x.special="";await R.act("setq",{qid:i,topic:IH_Q[i].t},"ihHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();ihListRender(R);hTab("ihHost",0)}
 function ihPlayRender(R){
  const s=R.s,q=s.q,ph=s.phase;let h="",m="";
  if(!q)h='<div class="my-role" style="font-size:24px">⏳ 사회자가 주제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
