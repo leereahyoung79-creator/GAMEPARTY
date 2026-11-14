@@ -170,7 +170,7 @@ body.hubp .pleave{display:none!important}
 
 <section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="title2" style="margin-top:0">진행 방식</div><div class="modes"><button class="mbtn on" data-m="one" onclick="serMode('one')">🎮 게임 하나만</button><button class="mbtn" data-m="A" onclick="serMode('A')">🏆 이어서 · 통합 방</button><button class="mbtn" data-m="B" onclick="serMode('B')">🏆 이어서 · 게임별 방</button></div><div id="modeNote" class="small" style="margin:6px 0 14px"></div><div id="modeA" class="hidden"><button onclick="once(this,hubCreate)">사회자 통합 방 만들기</button><button class="gray" onclick="show('hubJoin')">통합 방 참가</button><div id="modeMsg" class="message error"></div></div><div id="gameList"><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div></div><button id="serEndBtn" class="linkbtn" style="display:none;margin:0 auto 8px" onclick="serEnd()">점수판 끝내기</button><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="title2" style="margin-top:0">진행 방식</div><div class="modes"><button class="mbtn on" data-m="one" onclick="serMode('one')">🎮 게임 하나만</button><button class="mbtn" data-m="A" onclick="serMode('A')">🏆 여러 게임 이어서 (점수 합산)</button></div><div id="modeNote" class="small" style="margin:6px 0 14px"></div><div id="modeA" class="hidden"><button onclick="once(this,hubCreate)">사회자 통합 방 만들기</button><button class="gray" onclick="show('hubJoin')">통합 방 참가</button><div id="modeMsg" class="message error"></div></div><div id="gameList"><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
 <section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><button onclick="show('create')">사회자 방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
 
@@ -577,7 +577,7 @@ function balApply(s){const nr=s.q?(s.q.round||0):0,or=bal.q?(bal.q.round||0):0;
  if(nr!==or){bal.showDesc=false;bal.mOpen=true;bal.special=""}
  if(s.phase==="closed"&&bal.phase!=="closed")bal.mOpen=true;
  bal.role=s.role;bal.q=s.q||null;bal.phase=s.phase||"idle";bal.endAt=s.phase==="open"?Date.now()+(s.remainingMs||0):0;bal.fired=false;
- bal.firstSec=s.firstSec||60;bal.addSec=s.addSec||30;
+ bal.myScore=s.myScore;bal.myTeam=s.myTeam;bal.teamCount=s.teamCount;bal.firstSec=s.firstSec||60;bal.addSec=s.addSec||30;
  bal.myPick=s.myPick||"";bal.players=s.players||[];bal.a=s.a||[];bal.b=s.b||[];bal.none=s.none||[];bal.presenters=s.presenters||[];
  if(s.role==="host"&&s.q&&s.phase==="closed"&&bal.asked[s.q.id]!==2){bal.asked[s.q.id]=2;balSaveAsked()}
  if(s.role==="host")balHostRender();else balPlayRender();
@@ -657,9 +657,9 @@ function balStop(){balHostAct("bal_stop")}
 /* 참가자 화면 */
 function balPlayRender(){
  const q=bal.q,ph=bal.phase;let h,m="";
- if(!q)h='<div class="my-role" style="font-size:24px">⏳ 사회자가 문제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
+ if(!q)h=scLine(bal)+'<div class="my-role" style="font-size:24px">⏳ 사회자가 문제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
  else{const dis=ph==="open"?"":"disabled";
-  h=`<div class="small" style="margin-bottom:14px">${q.round}번째 문제</div>
+  h=scLine(bal)+`<div class="small" style="margin-bottom:14px">${q.round}번째 문제</div>
 <button class="abtn${bal.myPick==="A"?" sel":""}" ${dis} onclick="balPick('A')"><b>A</b>${escapeHtml(q.a)}</button>
 <button class="abtn${bal.myPick==="B"?" sel":""}" ${dis} onclick="balPick('B')"><b>B</b>${escapeHtml(q.b)}</button>`;
   m=ph==="ready"?"사회자가 시작하면 고를 수 있어요.":ph==="open"?(bal.myPick?`${bal.myPick}를 골랐어요! 시간이 끝나기 전까지는 바꿀 수 있어요.`:"A 또는 B를 골라 주세요."):(bal.myPick?`🔒 마감되었어요 · 내 선택: ${bal.myPick}`:"🔒 마감되었어요 · 선택하지 않았어요")}
@@ -807,6 +807,7 @@ function ihHostRender(R){
   if(ph==="ready"||ph==="open")h+=`<div class="title2">입력함 · ${s.submitted.length}명</div><div class="names">${s.submitted.length?s.submitted.map(escapeHtml).join(", "):"-"}</div><div class="title2">아직 · ${s.none.length}명</div><div class="names">${s.none.length?s.none.map(escapeHtml).join(", "):"-"}</div>`;
   if((ph==="closed"||ph==="revealed")&&s.groups){h+=`<div class="title2">결과 (이름은 사회자만 보여요)</div><div class="small" style="margin-bottom:8px">비슷한 답은 두 개를 차례로 눌러 합칠 수 있어요.</div>${s.groups.length?ihBars(s.groups,true,R):'<div class="small">아무도 적지 않았어요.</div>'}`;
    if(s.groups.length&&s.groups[0].count>=2)h+=`<div class="bpres" style="text-align:center"><b>가장 많이 통한 답: ${escapeHtml(s.groups[0].label)} (${s.groups[0].count}명)</b></div>`;
+   if(ph==="revealed"&&s.award)h+=s.award.names.length?`<div class="bpres" style="text-align:center"><b>🏆 +${s.award.point}점: ${s.award.names.map(escapeHtml).join(", ")}</b></div>`:"";
    h+=`<div style="display:flex;gap:8px;margin-top:6px">${ph==="closed"?`<button onclick="IH.act('reveal',{},'ihHostMsg')">📢 결과 공개</button>`:""}${s.merged?`<button class="gray" onclick="IH.x.sel='';IH.act('unmerge',{},'ihHostMsg')">↩ 합치기 되돌리기</button>`:""}</div>`}}
  h+=xMentBtns("ih");
  setHtml("ihNow",h);ihListRender(R)}
@@ -826,13 +827,13 @@ async function ihPickQ(i){const R=IH;if(R.pending)return;const s=R.s;
  R.x.special="";await R.act("setq",{qid:i,topic:IH_Q[i].t},"ihHostMsg");if(!R.x.asked[i])R.x.asked[i]=1;R.saveAsked();ihListRender(R);hTab("ihHost",0);hToast(IH_Q[i].t)}
 function ihPlayRender(R){
  const s=R.s,q=s.q,ph=s.phase;let h="",m="";
- if(!q)h='<div class="my-role" style="font-size:24px">⏳ 사회자가 주제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
- else{h=`<div class="small" style="margin-bottom:6px">${q.round}번째 주제</div><div class="ihtopic">${escapeHtml(q.topic)}</div>`;
+ if(!q)h=scLine(s)+'<div class="my-role" style="font-size:24px">⏳ 사회자가 주제를<br>고르고 있어요</div><div class="small">잠시만 기다려 주세요.</div>';
+ else{h=scLine(s)+`<div class="small" style="margin-bottom:6px">${q.round}번째 주제</div><div class="ihtopic">${escapeHtml(q.topic)}</div>`;
   if(ph==="ready"||ph==="open"){const on=ph==="open";h+=`<input id="ihInput" type="text" maxlength="20" placeholder="떠오르는 단어 하나" value="${escapeHtml(s.myAnswer)}" ${on?"":"disabled"} onkeydown="if(event.key==='Enter')ihSubmit()"><button ${on?"":"disabled"} onclick="ihSubmit()">${s.myAnswer?"수정해서 제출":"제출"}</button>`;
    m=ph==="ready"?"사회자가 시작하면 적을 수 있어요.":s.myAnswer?`'${s.myAnswer}'(으)로 냈어요. 시간이 끝나기 전까지는 바꿀 수 있어요.`:"한 단어로 적어 주세요."}
   else if(ph==="closed"){h+=`<div class="bpres" style="text-align:center">${s.myAnswer?`내 답: <b>${escapeHtml(s.myAnswer)}</b>`:"적지 않았어요"}</div>`;m="🔒 마감되었어요. 사회자가 결과를 공개할 때까지 기다려 주세요."}
   else{const g=s.groups||[],top=g[0];h+=g.length?ihBars(g,false,R):'<div class="small">아무도 적지 않았어요.</div>';
-   const mine=g.find(v=>v.mine);m=mine&&top&&mine.count===top.count&&top.count>=2?"🎉 이심전심! 가장 많은 사람과 통했어요!":mine?`내 답과 같은 사람은 ${mine.count}명이에요.`:"적지 않았어요."}}
+   const mine=g.find(v=>v.mine);m=mine&&top&&mine.count===top.count&&top.count>=2?`🎉 이심전심! 가장 많은 사람과 통했어요!${s.award&&s.award.names.length?` +${s.award.point}점`:""}`:mine?`내 답과 같은 사람은 ${mine.count}명이에요.`:"적지 않았어요."}}
  msg("ihPlayMsg",m);setHtml("ihPlayBody",h)}
 async function ihSubmit(){const R=IH,el=document.getElementById("ihInput");if(!el||!R.s.q||R.s.phase!=="open"||R.pending)return;const t=el.value.trim();if(!t){msg("ihPlayMsg","답을 입력해주세요.");return}await R.act("answer",{text:t,round:R.s.q.round},"ihPlayMsg")}
 
@@ -848,14 +849,16 @@ function SERH(){return !!(SER&&SER.role==="host"&&SER.code)}
 function serBack(){if(!SER||SER.mode!=="A")return false;if(SER.role==="host"){hubHostShow();return true}HUB.joined="";show("hubPlay");return true}
 try{SER=JSON.parse(localStorage.getItem("GP_SER")||"null")}catch(e){SER=null}
 try{MODE=localStorage.getItem("GP_MODE")||"one"}catch(e){}
+if(SER&&SER.mode==="B"){SER=null;try{localStorage.removeItem("GP_SER")}catch(e){}}
+if(MODE==="B")MODE="one";
 if(SER&&SER.role==="host")MODE=SER.mode;
 function serUi(){
  document.querySelectorAll(".mbtn").forEach(b=>b.classList.toggle("on",b.dataset.m===MODE));
- const notes={one:"",A:"방 번호 하나로 입장해요. 게임은 사회자가 고르면 모두의 폰이 자동으로 넘어가요. 점수와 팀이 계속 이어져요.",B:"게임마다 방 번호가 따로예요. 같은 사람끼리 점수와 팀이 이어져요."};
+ const notes={one:"",A:"방 번호 하나로 입장해요. 게임은 사회자가 고르면 모두의 폰이 자동으로 넘어가요. 점수와 팀이 계속 이어져요."};
  const n=document.getElementById("modeNote");if(n)n.textContent=notes[MODE]||"";
  const a=document.getElementById("modeA"),g=document.getElementById("gameList"),e=document.getElementById("serEndBtn");
  if(a)a.classList.toggle("hidden",MODE!=="A");if(g)g.classList.toggle("hidden",MODE==="A");
- if(e)e.style.display=(SERH()&&MODE==="B")?"block":"none";
+ if(e)e.style.display="none";
  document.body.classList.toggle("serH",SERH());
  document.body.classList.toggle("serA",SERH()&&SER.mode==="A");
  document.body.classList.toggle("hubp",!!(SER&&SER.role==="player"))}
@@ -869,7 +872,6 @@ async function serEnd(silent){
  if(SERH()){try{await bapi("sc_leave",{roomNumber:SER.code,userId})}catch(e){}}
  SER=null;serSave();scbStop();SCB.s=null;serUi()}
 async function serParams(){
- if(MODE==="B"&&!SERH()){const s=await bapi("sc_create",{userId});SER={mode:"B",code:s.num,role:"host"};SCB.s=s;serSave();scbStart();serUi()}
  return SERH()?{series:SER.code}:{}}
 function serFail(e){if(SERH()&&/존재하지|만료/.test(e&&e.message||"")){SER=null;serSave();scbStop();serUi()}}
 /* ---- 공용 점수판 패널 (사회자) ---- */
@@ -910,6 +912,7 @@ async function hubJoin(){
  msg("hubJoinMsg","");
  try{const s=await bapi("sc_join",{roomNumber:n,playerName:name,userId});try{localStorage.setItem("GAME_PARTY_NAME",name)}catch(e){}
   SER={mode:"A",code:s.num,role:"player",name};serSave();serUi();HUB.joined="";show("hubPlay");hubApply(s);hubStartPoll()}catch(e){msg("hubJoinMsg",e.message)}}
+function scLine(s){if(s.myScore===undefined||!(SER&&SER.role==="player"))return"";const tl=s.teamCount>=2?` · ${TEAM_ICON[s.myTeam]} ${s.myTeam?s.myTeam+"팀":"팀 배정 전"}`:"";return `<div class="small" style="margin-bottom:6px">내 점수 <b>${s.myScore}점</b>${tl}</div>`}
 function hubStopGames(){if(typeof balStopPoll==="function")balStopPoll();bal.num="";CQ.stopPoll();CQ.num="";IH.stopPoll();IH.num="";["BAL","CQ","IH"].forEach(g=>{try{localStorage.removeItem("GP_"+g+"_ROOM")}catch(e){}})}
 async function hubApply(s){
  HUB.s=s;
@@ -930,7 +933,9 @@ function hubPlayRender(s){
  if(s.ranking&&s.ranking.length)h+=`<div class="title2">🏅 현재 순위</div>`+s.ranking.map((r,i)=>`<div class="info-row" style="margin-bottom:4px"><span>${i+1}. ${escapeHtml(r.name)}</span><b>${r.score}점</b></div>`).join("");
  setHtml("hubPlayBody",h)}
 async function hubTick(){
- if(HUB.busy||!SER||SER.role!=="player")return;HUB.busy=true;
+ if(HUB.busy||!SER||SER.role!=="player")return;
+ if(HUB.joined){HUB.skip=(HUB.skip||0)+1;if(HUB.skip%4)return}else HUB.skip=0;
+ HUB.busy=true;
  try{hubApply(await bapi("sc_state",{roomNumber:SER.code,userId}))}
  catch(e){if(/종료|만료|존재하지|참가자가 아닙/.test(e.message))hubKicked(e.message)}
  finally{HUB.busy=false}}
