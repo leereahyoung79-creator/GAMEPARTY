@@ -151,7 +151,7 @@ body,button,input{font-family:"Pretendard",-apple-system,"Noto Sans KR",Arial,sa
 body.hubp .pleave{display:none!important}
 #hubHost{padding-bottom:84px}.endbtn2{display:block;margin:6px auto 0}
 /* 사회자 탭 */
-#balHost,#cqHost,#ihHost{padding-bottom:84px}
+#balHost,#cqHost,#ihHost,#mbHost{padding-bottom:84px}
 .btime{}
 #balHostCd,#cqHostCd,#ihHostCd{position:sticky;top:0;z-index:20;background:#fff;padding:8px 0;margin:0 0 12px;border-bottom:3px solid #000}
 .htabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:0;background:#fff;border-top:3px solid #000;max-width:620px;margin:auto}
@@ -161,6 +161,32 @@ body.hubp .pleave{display:none!important}
 .endbtn{display:block;margin:6px auto 0}
 .stepbar{display:flex;gap:4px;margin:0 0 12px}.stepbar span{flex:1;text-align:center;font-size:13px;font-weight:700;color:#555;padding-top:5px;border-top:5px solid #ccc}.stepbar span.cur{color:#000;border-top-color:#000;font-weight:900}.stepbar span.done{border-top-color:#888}
 #hostAct.pinned{position:fixed;left:15px;right:15px;bottom:12px;z-index:40;width:auto;max-width:590px;margin:0 auto}
+/* MBTI */
+.mbtabs{display:flex;gap:0;border:3px solid #000;border-radius:12px;overflow:hidden;margin:10px 0 10px}
+.mbtabs button{flex:1;margin:0;border:0;border-radius:0;background:#fff;color:#000;font-size:18px;font-weight:900;min-height:52px;box-shadow:none}
+.mbtabs button+button{border-left:3px solid #000}.mbtabs button.on{background:#ffe14d}
+.mbpager{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start}
+.mbpager::-webkit-scrollbar{display:none}
+.mbpg{flex:0 0 100%;min-width:0;scroll-snap-align:start;box-sizing:border-box}
+.mbmem{border:2px solid #000;border-radius:12px;padding:12px 14px;margin-bottom:8px;font-size:19px;background:#fff}.mbmem.me{background:#ffe14d}
+.mbfold{display:flex;justify-content:space-between;align-items:center;width:100%;margin:10px 0 8px;padding:14px 16px;background:#fff;color:#000;border:3px solid #000;border-radius:12px;font-size:19px;font-weight:900;min-height:56px}
+.mbfold.con{background:#f2f2f2}.mbfold span:last-child{font-size:14px;font-weight:700}
+.mbcard{border:3px solid #000;border-radius:14px;padding:10px;margin-bottom:14px;background:#fff}
+.mbhd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.mbt2{font-family:"Jua","Pretendard",sans-serif;font-size:34px;letter-spacing:2px}.mbn2{font-size:17px;font-weight:800}
+.mbwho{margin:4px 0 8px;font-weight:700;line-height:1.5;word-break:keep-all}
+.mbcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.mbcols .mbi{padding:8px 8px;font-size:14px;line-height:1.45}.mbcols .mbi b{font-size:15px}
+.mbcol{font-weight:900;font-size:16px;margin-bottom:6px}
+#mbHost{padding-bottom:84px}
+.mbprog{display:flex;justify-content:center;gap:8px;margin:6px 0 4px}
+.mbprog span{width:52px;height:52px;line-height:46px;text-align:center;border:3px dashed #888;border-radius:12px;font-size:26px;font-weight:900;color:#888;font-family:"Jua","Pretendard","Noto Sans KR",sans-serif}
+.mbprog span.on{border:3px solid #000;background:#ffe600;color:#000}
+.mbt{font-family:"Jua","Pretendard","Noto Sans KR",sans-serif;font-size:60px;text-align:center;letter-spacing:4px;line-height:1.1;margin:8px 0 0}
+.mbn{text-align:center;font-size:20px;font-weight:800;margin:4px 0 6px}
+.mbi{border:2px solid #000;border-radius:12px;padding:10px 12px;margin-bottom:8px;line-height:1.55;word-break:keep-all;background:#fff;color:#000}
+.mbi b{display:block;font-size:17px;margin-bottom:2px}
+.mbi span{font-size:15px}
+.mbi.con{background:#f3f3f3}
 </style>
 </head>
 <body>
@@ -170,7 +196,7 @@ body.hubp .pleave{display:none!important}
 
 <section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="title2" style="margin-top:0">진행 방식</div><div class="modes"><button class="mbtn on" data-m="one" onclick="serMode('one')">🎮 게임 하나만</button><button class="mbtn" data-m="A" onclick="serMode('A')">🏆 여러 게임 이어서 (점수 합산)</button></div><div id="modeNote" class="small" style="margin:6px 0 14px"></div><div id="modeA" class="hidden"><button onclick="once(this,hubCreate)">사회자 통합 방 만들기</button><button class="gray" onclick="show('hubJoin')">통합 방 참가</button><div id="modeMsg" class="message error"></div></div><div id="gameList"><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="title2" style="margin-top:0">진행 방식</div><div class="modes"><button class="mbtn on" data-m="one" onclick="serMode('one')">🎮 게임 하나만</button><button class="mbtn" data-m="A" onclick="serMode('A')">🏆 여러 게임 이어서 (점수 합산)</button></div><div id="modeNote" class="small" style="margin:6px 0 14px"></div><div id="modeA" class="hidden"><button onclick="once(this,hubCreate)">사회자 통합 방 만들기</button><button class="gray" onclick="show('hubJoin')">통합 방 참가</button><div id="modeMsg" class="message error"></div></div><div id="gameList"><div class="game-choice clickable" onclick="show('mbMenu')"><div class="game-icon">🧬</div><div><div class="game-name">MBTI</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('multiLiar')"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
 <section id="multiLiar" class="hidden"><div class="card"><h2>🎭 LIAR</h2><button onclick="show('create')">사회자 방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
 
@@ -202,7 +228,7 @@ body.hubp .pleave{display:none!important}
 
 <section id="hubJoin" class="hidden"><div class="card"><h2>통합 방 참가</h2><label>방 번호</label><input id="hubJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="hubJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,hubJoin)">입장하기</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="hubJoinMsg" class="message error"></div></div></section>
 <section id="hubPlay" class="hidden"><div class="card"><div id="hubPlayBody"></div><div id="hubPlayMsg" class="message"></div></div><button class="gray" onclick="hubLeave()">통합 방 나가기</button></section>
-<section id="hubHost" class="hidden"><div class="hp"><div class="card"><div id="hubInfo"></div></div><div class="card"><div class="title2" style="margin-top:0">다음 게임 고르기</div><div class="game-choice clickable" onclick="hubStart('cq')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('ih')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('bal')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div id="hubHostMsg" class="message error"></div></div><button class="linkbtn endbtn2" onclick="hubEnd()">통합 방 종료</button></div><div class="hp hidden"><div class="card"><div id="hubTeam"></div><div id="hubTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('hubHost',0)">🎲 게임</button><button onclick="hTab('hubHost',1)">🏆 점수·팀</button></div></section>
+<section id="hubHost" class="hidden"><div class="hp"><div class="card"><div id="hubInfo"></div></div><div class="card"><div class="title2" style="margin-top:0">다음 게임 고르기</div><div class="game-choice clickable" onclick="hubStart('mb')"><div class="game-icon">🧬</div><div><div class="game-name">MBTI</div><div class="small" style="margin:2px 0 0">끝나고 잘 어울리는 팀을 나눠요</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('bal')"><div class="game-icon">⚖️</div><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('ih')"><div class="game-icon">🤝</div><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('cq')"><div class="game-icon">🔤</div><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div id="hubHostMsg" class="message error"></div></div><button class="linkbtn endbtn2" onclick="hubEnd()">통합 방 종료</button></div><div class="hp hidden"><div class="card"><div id="hubTeam"></div><div id="hubTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('hubHost',0)">🎲 게임</button><button onclick="hTab('hubHost',1)">🏆 점수·팀</button></div></section>
 <section id="balMenu" class="hidden"><div class="card"><h2>⚖️ 밸런스 게임</h2><button onclick="once(this,balCreate)">사회자 방 만들기</button><button class="gray" onclick="show('balJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="balMenuMsg" class="message error"></div></div></section>
 
 <section id="balJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="balJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="balJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,balJoin)">입장하기</button><button class="gray" onclick="show('balMenu')">뒤로가기</button><div id="balJoinMsg" class="message error"></div></div></section>
@@ -219,6 +245,10 @@ body.hubp .pleave{display:none!important}
 <section id="ihJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="ihJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="ihJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,IH.join)">입장하기</button><button class="gray" onclick="show('ihMenu')">뒤로가기</button><div id="ihJoinMsg" class="message error"></div></div></section>
 <section id="ihHost" class="hidden"><div id="ihHostCd" class="btime hidden"></div><div class="hp"><div class="card"><div id="ihRoomInfo"></div></div><div class="card"><div id="ihNow"></div><div id="ihHostMsg" class="message error"></div></div><button class="linkbtn endbtn" onclick="IH.end()">방 종료</button><button class="linkbtn hubbtn" onclick="hubBack()">🏠 통합 방으로 돌아가기</button></div><div class="hp hidden"><div class="card"><div id="ihList"></div></div></div><div class="hp hidden"><div class="card"><div id="ihTeam"></div><div id="ihTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('ihHost',0)">▶ 진행</button><button class="" onclick="hTab('ihHost',1)">📋 주제 고르기</button><button class="scbtab" onclick="hTab('ihHost',2)">🏆 점수·팀</button></div></section>
 <section id="ihPlay" class="hidden"><div class="card"><div id="ihCd" class="btime hidden"></div><div id="ihPlayBody"></div><div id="ihPlayMsg" class="message"></div></div><button class="gray pleave" onclick="IH.leave()">방 나가기</button></section>
+<section id="mbMenu" class="hidden"><div class="card"><h2>🧬 MBTI</h2><button onclick="once(this,MB.create)">사회자 방 만들기</button><button class="gray" onclick="show('mbJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="mbMenuMsg" class="message error"></div></div></section>
+<section id="mbJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="mbJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="mbJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,MB.join)">입장하기</button><button class="gray" onclick="show('mbMenu')">뒤로가기</button><div id="mbJoinMsg" class="message error"></div></div></section>
+<section id="mbHost" class="hidden"><div class="hp"><div class="card"><div id="mbRoomInfo"></div></div><div class="card"><div id="mbNow"></div><div id="mbHostMsg" class="message error"></div></div><button class="linkbtn endbtn" onclick="MB.end()">방 종료</button><button class="linkbtn hubbtn" onclick="hubBack()">🏠 통합 방으로 돌아가기</button></div><div class="hp hidden"><div class="card"><div id="mbList"></div></div></div><div class="hp hidden"><div class="card"><div id="mbTeam"></div><div id="mbTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('mbHost',0)">▶ 진행</button><button class="" onclick="hTab('mbHost',1)">📋 질문 보기</button><button class="scbtab" onclick="hTab('mbHost',2)">🏆 점수·팀</button></div></section>
+<section id="mbPlay" class="hidden"><div class="card"><div id="mbPlayBody"></div><div id="mbPlayMsg" class="message"></div></div><button class="gray pleave" onclick="MB.leave()">방 나가기</button></section>
 <section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
 
@@ -290,7 +320,7 @@ function lines(step,sit){return SCRIPTS.filter(x=>x.step===step&&x.sit===sit&&(x
 function hToast(t){let e=document.getElementById("hToast");if(!e){e=document.createElement("div");e.id="hToast";document.body.appendChild(e)}e.textContent="👉 선택: "+t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
 function hTab(id,i){const s=document.getElementById(id);s.querySelectorAll(":scope>.hp").forEach((p,j)=>p.classList.toggle("hidden",j!==i));s.querySelectorAll(".htabs button").forEach((b,j)=>b.classList.toggle("on",j===i));window.scrollTo(0,0)}
 const SB=["역할","힌트","토론","투표","결과"],SBI={role:0,hint:1,discuss:2,vote:3,result:4};function sbFill(id){if(!(id in SBI))return;const el=document.querySelector("#"+id+" .stepbar");if(!el)return;const c=SBI[id];el.innerHTML=SB.map((n,i)=>`<span class="${i<c?"done":i===c?"cur":""}">${n}</span>`).join("")}
-function show(id){sbFill(id);if(id==="balHost"||id==="cqHost"||id==="ihHost"||id==="hubHost")hTab(id,0);document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll();if(typeof CQ!=="undefined"){if(id!=="cqHost"&&id!=="cqPlay")CQ.stopPoll();if(id!=="ihHost"&&id!=="ihPlay")IH.stopPoll()}}
+function show(id){sbFill(id);if(id==="balHost"||id==="cqHost"||id==="ihHost"||id==="mbHost"||id==="hubHost")hTab(id,0);document.querySelectorAll("section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(POLL_SCREENS.indexOf(id)<0)stopPoll();if(typeof balStopPoll==="function"&&id!=="balHost"&&id!=="balPlay")balStopPoll();if(typeof CQ!=="undefined"){if(id!=="cqHost"&&id!=="cqPlay")CQ.stopPoll();if(id!=="ihHost"&&id!=="ihPlay")IH.stopPoll();if(typeof MB!=="undefined"&&id!=="mbHost"&&id!=="mbPlay")MB.stopPoll()}}
 function msg(id,t){document.getElementById(id).textContent=t}
 /* 버튼을 여러 번 눌러도 요청이 끝날 때까지 한 번만 실행 */
 async function once(btn,fn){if(btn.dataset.busy)return;btn.dataset.busy="1";btn.disabled=true;try{await fn()}finally{delete btn.dataset.busy;btn.disabled=false}}
@@ -691,7 +721,7 @@ const IH_MENT_END="이심전심은 여기까지예요! 서로 얼마나 통하�
 
 const TEAM_ICON=["⚪","🔴","🔵","🟢","🟡"];
 function xFmtT(left){return `⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`}
-function xOthers(k){["bal","cq","ih"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll()}
+function xOthers(k){["bal","cq","ih","mb"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll();if(k!=="mb")MB.stopPoll()}
 function xRoomInfo(num,names){return `<div class="room-label">방 번호</div><div class="room-number" style="margin:8px">${escapeHtml(num)}</div><div class="player-count">참가자 ${names.length}명 (사회자 제외)</div><div class="small">${names.length?names.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`}
 function xMentHtml(R,start,end){const sp=R.x.special;if(!sp)return "";const body=sp==="start"?start:end;return `<div class="bms"><button class="bmh" onclick="${R.k.toUpperCase()}.toggleMent()" aria-expanded="${R.x.mOpen}"><span>💬 사회자 멘트</span><span>${R.x.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${R.x.mOpen?`<div class="bmb"><p class="blb">${sp==="start"?"시작 멘트":"마무리 멘트"}</p>${escapeHtml(body)}</div>`:""}</div>`}
 function xMentBtns(k){const K=k.toUpperCase();return `<div style="display:flex;gap:8px;margin-top:12px"><button class="gray" onclick="${K}.special('start')">🎬 시작 멘트</button><button class="gray" onclick="${K}.special('end')">🏁 마무리 멘트</button></div>`}
@@ -837,7 +867,126 @@ function ihPlayRender(R){
  msg("ihPlayMsg",m);setHtml("ihPlayBody",h)}
 async function ihSubmit(){const R=IH,el=document.getElementById("ihInput");if(!el||!R.s.q||R.s.phase!=="open"||R.pending)return;const t=el.value.trim();if(!t){msg("ihPlayMsg","답을 입력해주세요.");return}await R.act("answer",{text:t,round:R.s.q.round},"ihPlayMsg")}
 
-window.addEventListener("load",()=>{CQ.restore();IH.restore()});
+/* ---------------- MBTI ---------------- */
+/* 지표 4개: l=[앞 글자, 뒤 글자], t=지표 이름, intro/res=사회자가 읽는 멘트 */
+const MB_DIMS=[
+ {l:["E","I"],t:"에너지 방향 (E/I)",intro:"첫 번째 질문은 E와 I예요! 사람들과 어울릴 때 에너지가 솟는지, 아니면 혼자만의 시간을 가질 때 충전이 되는지 알아보는 시간인데요. 정답은 없으니, 평소 내 모습에 더 가까운 쪽을 부담 없이 골라 주세요!",res:"E와 I 결과가 나왔어요!\nE는 외향형이에요. 사람들과 어울릴 때 힘이 나요. 예배 후 교제 시간이 제일 즐거운 분들이죠.\nI는 내향형이에요. 혼자 조용히 쉴 때 힘이 차올라요. 한 사람과 깊이 이야기하는 걸 좋아하죠.\n어느 쪽이 더 좋다는 건 없어요. 폰에서 내 글자를 확인해 보세요!"},
+ {l:["S","N"],t:"인식 방식 (S/N)",intro:"자, 두 번째 질문은 S와 N이에요! 어떤 상황을 마주했을 때 눈앞에 보이는 현실적인 사실부터 꼼꼼히 따져보는지, 아니면 '어? 혹시 이런 건 아닐까?' 하고 숨은 의미나 새로운 가능성부터 떠올리는지 알아보는 시간입니다. 깊게 고민하지 마시고, 평소 내 생각의 흐름과 더 가까운 쪽을 편하게 골라 주세요!",res:"S와 N 결과가 나왔어요!\nS는 감각형이에요. 지금 눈앞의 사실과 직접 겪은 경험을 중요하게 생각해요. 말씀을 읽을 때도 누가, 언제, 어디서, 무엇을 했는지 구체적으로 보는 편이에요.\nN은 직관형이에요. 보이는 것 너머의 의미와 앞으로의 가능성을 먼저 떠올려요. 말씀 속의 상징이나 큰 그림에 마음이 가는 편이에요.\n둘 다 말씀을 깊이 만나는 좋은 방법이에요!"},
+ {l:["T","F"],t:"판단 기준 (T/F)",intro:"자, 벌써 세 번째 질문, T와 F예요! 누군가 고민을 털어놓았을 때 '그래서 해결책은 이거야!' 하고 객관적인 사실과 원리부터 따져보는지, 아니면 '진짜 속상했겠다!' 하고 상대의 마음부터 먼저 살피는지 알아보는 시간입니다. 평소에 내가 더 자주 보이는 반응을 솔직하게 골라 주세요!",res:"T와 F 결과가 나왔어요!\nT는 사고형이에요. 무엇이 맞고 합리적인지를 먼저 따져서 판단해요. 힘들어하는 친구에게도 해결 방법부터 찾아 주려고 하죠.\nF는 감정형이에요. 사람의 마음과 관계를 먼저 살펴요. 힘들어하는 친구 곁에서 먼저 공감해 주려고 하죠.\n둘 다 사랑을 표현하는 방식이 다를 뿐이에요!"},
+ {l:["J","P"],t:"생활 방식 (J/P)",intro:"드디어 마지막 질문, J와 P예요! 여행을 떠나거나 일을 시작할 때 미리 계획을 쫙 세워두고 움직여야 마음이 편한지, 아니면 일단 부딪혀 보면서 그때그때 상황에 맞춰 즐기는 걸 좋아하는지 알아보는 시간입니다. 자, 마지막까지 내 평소 스타일에 딱 맞는 쪽을 골라 주세요!",res:"마지막 J와 P 결과가 나왔어요!\nJ는 판단형이에요. 미리 계획을 세우고 정리되어 있을 때 마음이 편해요. 약속과 마감을 잘 지키는 편이죠.\nP는 인식형이에요. 상황에 맞춰 유연하게 움직이는 걸 좋아해요. 갑자기 계획이 바뀌어도 잘 적응하는 편이죠.\n이제 곧 여러분의 MBTI가 완성돼요!"}];
+const MB_LET={E:["외향형","사람들과 함께할 때 에너지가 올라가요"],I:["내향형","혼자만의 시간에서 에너지를 채워요"],S:["감각형","눈앞의 사실과 경험을 중요하게 봐요"],N:["직관형","가능성과 큰 그림을 먼저 봐요"],T:["사고형","논리와 객관적인 기준으로 판단해요"],F:["감정형","사람의 마음과 관계를 먼저 살펴요"],J:["판단형","계획을 세우고 정리된 것을 좋아해요"],P:["인식형","상황에 맞춰 유연하게 움직여요"]};
+/* [지표번호, 질문, A 문장, B 문장, A가 뜻하는 글자]  (A/B 위치는 일부러 섞어 두었어요) */
+const MB_Q=[
+ [0,"주일 예배가 끝난 뒤, 나는?","교제 시간에 이 사람 저 사람과 인사하고 이야기를 나눈다","조용히 은혜를 되새기며 일찍 집에 가서 쉬고 싶다","E"],
+ [0,"교회에서 처음 보는 새 가족을 만났을 때 나는?","먼저 다가가서 말을 걸고 인사한다","눈이 마주치면 인사하고, 다가와 주길 기다린다","E"],
+ [0,"하나님과 가장 가까워지는 시간은?","혼자 조용히 기도하고 묵상하는 시간","여럿이 함께 찬양하고 기도하는 시간","I"],
+ [0,"소그룹 나눔 시간에 나는?","생각나는 대로 이야기하면서 정리한다","충분히 생각을 정리한 뒤에 말한다","E"],
+ [0,"수련회에서 내가 더 편한 시간은?","소수의 사람과 깊이 나누는 기도 모임","다 같이 뛰고 웃는 레크리에이션 시간","I"],
+ [1,"성경을 읽을 때 나는?","본문의 인물, 장소, 사건을 구체적으로 이해하려 한다","말씀 속의 상징과 숨은 의미를 깊이 묵상한다","S"],
+ [1,"설교를 들을 때 더 와닿는 건?","하나님이 이루실 큰 그림과 비전 이야기","삶에서 바로 적용할 수 있는 구체적인 예시","N"],
+ [1,"기도할 때 나는?","감사한 일과 필요한 일을 구체적으로 하나하나 올려 드린다","하나님의 뜻과 앞으로의 인도하심을 마음에 그려 본다","S"],
+ [1,"새로운 사역이나 모임을 맡게 되었을 때 나는?","새로운 아이디어를 내서 색다르게 시도해 보고 싶다","기존에 해 오던 방식과 자료를 먼저 살펴본다","N"],
+ [1,"하나님의 인도하심을 느끼는 순간은?","말씀과 현실 속의 분명한 일들이 맞아떨어질 때","마음에 문득 떠오르는 확신과 감동이 올 때","S"],
+ [2,"믿음의 친구가 큰 시험에 낙심해 있을 때 나는?","상황을 같이 정리하고 해결 방법을 찾아 준다","먼저 곁에서 손을 잡고 함께 울어 준다","T"],
+ [2,"교회에서 의견이 갈릴 때 더 중요한 건?","서로의 마음이 상하지 않는 화목한 분위기","무엇이 옳고 합당한지 따져서 결정하는 것","F"],
+ [2,"더 마음에 남는 설교는?","말씀의 논리와 구조가 분명해서 이해가 잘 되는 설교","마음이 뜨거워지고 눈물이 나는 설교","T"],
+ [2,"공동체 지체가 잘못된 길로 가는 것 같을 때 나는?","상처받지 않도록 어떻게 말할지 오래 기도하고 고민한다","사랑으로 사실을 분명하게 짚어서 말해 준다","F"],
+ [2,"봉사나 선교를 정할 때 더 큰 기준은?","효과와 필요를 따져서 가장 도움이 되는 방향","어려운 사람의 사정에 마음이 움직이는 방향","T"],
+ [3,"주일 예배 시간에 나는?","미리 도착해서 자리를 잡고 마음을 준비한다","딱 시작 시간에 맞춰 들어간다","J"],
+ [3,"수련회 일정은?","큰 흐름만 정하고 은혜 따라 유연하게 진행하고 싶다","시간표를 꼼꼼히 짜서 순서대로 진행하고 싶다","P"],
+ [3,"교회 행사 준비 마감이 다가오면 나는?","미리미리 조금씩 준비해서 여유 있게 끝낸다","마감 직전에 집중력이 폭발해서 해낸다","J"],
+ [3,"갑자기 예배 순서나 모임 장소가 바뀌었다면?","오히려 새롭다며 금방 적응한다","계획이 틀어져서 조금 신경이 쓰인다","P"],
+ [3,"나의 성경책과 묵상 노트는?","여기저기 펼쳐져 있어도 어디에 뭐가 있는지는 안다","항상 제자리에 정리되어 있어야 마음이 편하다","P"]];
+/* 16유형: nick=별명, pros=장점 3개, cons=단점 3개 — 각 항목은 [제목, 한 문장 설명] */
+const MB_TYPES={
+ ISTJ:{nick:"원칙의 수호자",pros:[["책임감과 성실함","맡은 일은 끝까지 해내며 약속과 마감을 철저히 지키는 믿음직한 사람입니다."],["꼼꼼한 계획과 실행력","사실과 절차를 바탕으로 차근차근 계획하고 흔들림 없이 실행합니다."],["차분하고 안정적인 태도","위기 상황에서도 감정에 휘둘리지 않고 침착하게 상황을 정리합니다."]],cons:[["변화에 대한 거부감","익숙한 방식을 고집하다 보니 새로운 시도나 갑작스러운 변경에 스트레스를 받습니다."],["융통성 부족","원칙과 규칙을 중시해 예외를 인정하지 않는 고지식한 모습으로 비칠 수 있습니다."],["감정 표현의 서투름","속마음을 잘 드러내지 않아 주변에서 차갑거나 무뚝뚝하다고 오해하기도 합니다."]]},
+ ISFJ:{nick:"따뜻한 수호천사",pros:[["세심한 배려와 헌신","주변 사람의 필요를 먼저 알아채고 조용히 챙겨 주는 따뜻한 사람입니다."],["뛰어난 기억력과 성실함","사람들의 취향과 소소한 기념일까지 기억하며 맡은 일을 책임감 있게 해냅니다."],["안정감을 주는 존재감","갈등을 만들기보다 모임의 분위기를 부드럽게 이어 주는 든든한 조력자입니다."]],cons:[["거절하지 못하는 성격","부탁을 쉽게 거절하지 못해 혼자 짐을 떠안고 지치기 쉽습니다."],["속마음을 쌓아 두는 습관","불편한 감정을 말하지 않고 참다가 어느 순간 크게 서운해합니다."],["변화와 갈등에 대한 두려움","낯선 환경이나 충돌 상황을 피하려다 좋은 기회를 놓치기도 합니다."]]},
+ INFJ:{nick:"고요한 통찰가",pros:[["깊은 통찰력과 직관","사람의 말 뒤에 숨은 마음과 상황의 큰 흐름을 꿰뚫어 봅니다."],["따뜻한 공감과 진심","상대의 이야기를 깊이 경청하며 진심 어린 위로와 조언을 건넵니다."],["확고한 신념과 비전","의미 있는 가치를 위해 꾸준히 노력하며 주변에 좋은 영향을 줍니다."]],cons:[["완벽주의와 높은 기대","이상이 높아 자신과 타인에게 지나치게 엄격해질 수 있습니다."],["쉽게 소진되는 에너지","타인의 감정까지 떠안다가 혼자 지쳐 갑자기 관계를 닫기도 합니다."],["속을 드러내지 않는 신비주의","마음을 잘 열지 않아 가까운 사람도 속내를 알기 어렵습니다."]]},
+ INTJ:{nick:"치밀한 전략가",pros:[["장기적인 전략과 계획력","목표를 세우면 큰 그림부터 세부 단계까지 치밀하게 설계합니다."],["독립적인 사고와 분석력","남의 시선보다 논리와 근거로 판단하고 문제의 핵심을 빠르게 짚습니다."],["높은 집념과 자기 확신","한번 정한 목표는 끝까지 밀고 나가는 추진력이 있습니다."]],cons:[["냉정해 보이는 소통 방식","효율과 논리를 앞세우다 상대의 감정을 놓쳐 차갑다는 말을 듣습니다."],["타인의 의견을 쉽게 수용하지 않음","자신의 판단에 확신이 강해 고집스럽게 보일 수 있습니다."],["완벽을 향한 비판적 태도","기준이 높아 자신과 주변의 부족한 점이 먼저 눈에 들어옵니다."]]},
+ ISTP:{nick:"과묵한 해결사",pros:[["뛰어난 문제 해결력","위기 상황에서 침착하게 원인을 파악하고 현실적인 해결책을 찾아냅니다."],["손재주와 실용적 감각","도구나 기계를 다루는 데 능숙하며 직접 해 보면서 빠르게 익힙니다."],["쿨하고 유연한 태도","사소한 일에 집착하지 않고 상황에 맞게 융통성 있게 대처합니다."]],cons:[["감정 표현과 소통 부족","말수가 적고 속마음을 나누지 않아 거리감이 느껴질 수 있습니다."],["지속력 부족","흥미가 식으면 하던 일을 갑자기 멈추거나 장기 계획을 소홀히 하기 쉽습니다."],["위험을 가볍게 보는 경향","새로운 자극을 즐기다 보니 신중함이 부족해지기도 합니다."]]},
+ ISFP:{nick:"자유로운 예술가",pros:[["따뜻한 감성과 부드러움","다른 사람을 편안하게 해 주는 온화한 분위기를 지녔습니다."],["뛰어난 미적 감각","음악, 그림, 패션 등 자신만의 감성을 표현하는 데 재능이 있습니다."],["현재를 즐기는 여유","지금 이 순간의 경험과 소소한 즐거움을 소중히 여깁니다."]],cons:[["갈등을 회피하는 성향","불편한 이야기를 꺼내지 못하고 속으로 삭이는 경우가 많습니다."],["계획성과 추진력 부족","미래 계획이나 마감 관리는 미루다가 뒤늦게 서두르곤 합니다."],["비판에 쉽게 위축됨","날 선 말 한마디에도 상처를 받고 의욕을 잃을 수 있습니다."]]},
+ INFP:{nick:"감성 몽상가",pros:[["뛰어난 공감 능력과 배려심","타인의 감정을 잘 알아채고 깊이 공감하며, 상대방에게 상처를 주지 않으려 노력합니다."],["풍부한 상상력과 창의력","예술, 문학, 미디어, 기획 등 창의적인 분야에서 독창적인 아이디어를 발휘합니다."],["진정성과 내적 신념","자신이 중요하게 생각하는 가치관에 깊이 헌신하며, 외풍에 쉽게 흔들리지 않는 이상주의적 태도를 지닙니다."]],cons:[["지나친 이상주의와 현실 감각 부족","현실적인 제약이나 효율성보다 개인의 가치관을 우선시해 갈등을 겪거나 실행력이 떨어질 수 있습니다."],["우유부단함과 미루기 습관","완벽하게 처리하려는 성향이나 결단의 어려움 때문에 마감을 지연시키기 쉽습니다."],["비판에 대한 예민함","타인의 차가운 피드백이나 냉정한 거절을 개인적인 공격으로 받아들이고 오랫동안 상처를 품는 경향이 있습니다."]]},
+ INTP:{nick:"호기심 많은 사색가",pros:[["날카로운 분석력과 논리","복잡한 문제도 원리부터 파고들어 핵심을 정확히 짚어 냅니다."],["끝없는 호기심과 창의력","새로운 이론과 아이디어를 탐구하며 독창적인 해법을 떠올립니다."],["열린 사고와 공정함","편견 없이 다양한 관점을 받아들이고 사실에 따라 판단합니다."]],cons:[["실행력 부족과 미루기","생각은 깊지만 행동으로 옮기기까지 시간이 오래 걸립니다."],["사회적 센스의 서투름","감정 표현이나 분위기 파악에 어두워 엉뚱한 말을 하기도 합니다."],["관심사에만 몰두","흥미 없는 일상 업무나 약속은 쉽게 잊어버립니다."]]},
+ ESTP:{nick:"모험을 즐기는 행동파",pros:[["빠른 상황 판단력","눈앞의 상황을 재빨리 파악하고 즉석에서 대처하는 순발력이 뛰어납니다."],["활발한 에너지와 추진력","일단 부딪쳐 보며 주변 사람들까지 함께 움직이게 만듭니다."],["유쾌한 사교성","어디서든 쉽게 어울리고 분위기를 띄우는 재주가 있습니다."]],cons:[["충동적인 결정","깊이 생각하기 전에 행동해 후회할 일을 만들기도 합니다."],["장기 계획에 대한 약한 인내심","지루한 준비 과정이나 반복 업무를 견디기 어려워합니다."],["직설적인 말투","거침없이 말하다 의도치 않게 상대를 불편하게 할 수 있습니다."]]},
+ ESFP:{nick:"분위기 메이커",pros:[["넘치는 흥과 친화력","있는 것만으로 분위기가 살아나며 누구와도 금방 친해집니다."],["따뜻한 표현력과 공감","기쁨도 위로도 아낌없이 표현해 주변을 기분 좋게 만듭니다."],["현실 감각과 센스","그 순간 필요한 것을 눈치 빠르게 알아채고 즉흥적으로 해결합니다."]],cons:[["계획성 부족","지금 즐거운 일에 빠져 해야 할 일이나 지출 관리를 놓치기 쉽습니다."],["혼자 있는 시간을 힘들어함","조용하고 반복적인 상황에서는 금세 지루해합니다."],["비판과 갈등에 민감함","분위기가 어색해지는 것을 싫어해 불편한 문제를 피하곤 합니다."]]},
+ ENFP:{nick:"열정 불꽃 아이디어뱅크",pros:[["샘솟는 아이디어와 열정","새로운 가능성을 발견하고 사람들의 마음에 불을 지핍니다."],["뛰어난 소통과 공감","누구와도 쉽게 대화를 시작하며 상대의 이야기에 진심으로 반응합니다."],["긍정적인 에너지","낙관적인 시선으로 분위기를 밝게 이끄는 힘이 있습니다."]],cons:[["끈기와 마무리 부족","새로운 일에 금방 빠지고 하던 일은 흐지부지 끝내기 쉽습니다."],["감정 기복","기분에 따라 의욕이 크게 오르내려 일정한 페이스를 유지하기 어렵습니다."],["세부 사항과 일정 관리가 약함","큰 그림은 잘 보지만 꼼꼼한 확인과 마감은 소홀해집니다."]]},
+ ENTP:{nick:"토론을 즐기는 발명가",pros:[["기발한 아이디어와 재치","틀에 박힌 방식을 깨고 새로운 해법을 즉석에서 만들어 냅니다."],["설득력 있는 말솜씨","논리와 유머로 사람들을 이끌고 토론에서 빛을 발합니다."],["빠른 적응력과 도전 정신","변화를 두려워하지 않고 낯선 분야에도 거침없이 뛰어듭니다."]],cons:[["끝맺음의 약함","흥미가 옮겨 가면 시작만 하고 마무리하지 못하는 일이 생깁니다."],["지나친 논쟁 성향","토론을 즐기다 보니 상대에게는 따지거나 공격하는 것처럼 보일 수 있습니다."],["규칙과 반복 업무에 대한 싫증","정해진 절차와 일상적인 업무를 답답해합니다."]]},
+ ESTJ:{nick:"믿음직한 관리자",pros:[["강한 리더십과 추진력","목표와 역할을 분명히 정하고 팀을 체계적으로 이끕니다."],["철저한 책임감","약속과 규칙을 지키며 맡은 일을 확실하게 마무리합니다."],["명확한 의사소통","돌려 말하지 않고 핵심을 정확히 전달해 일이 빠르게 진행됩니다."]],cons:[["융통성 부족과 고집","자신이 옳다고 믿는 방식을 밀어붙여 주변이 답답해할 수 있습니다."],["감정에 대한 무심함","효율을 우선하다 보니 상대의 기분을 놓치기도 합니다."],["통제하려는 경향","일이 계획대로 흘러가지 않으면 사사건건 간섭하게 됩니다."]]},
+ ESFJ:{nick:"친절한 분위기 리더",pros:[["따뜻한 배려와 사교성","주변 사람을 세심하게 챙기며 모임의 중심에서 분위기를 이끕니다."],["협력과 조화를 이끄는 힘","사람들 사이의 갈등을 조율하고 모두가 편안한 환경을 만듭니다."],["성실한 책임감","약속과 역할을 소중히 여기며 맡은 일을 꼼꼼히 챙깁니다."]],cons:[["타인의 시선에 민감함","다른 사람의 평가와 인정에 신경을 많이 쓰고 눈치를 봅니다."],["갈등과 비판을 불편해함","쓴소리를 듣거나 해야 할 때 크게 스트레스를 받습니다."],["지나친 오지랖","도와주려는 마음이 앞서 상대가 원하지 않는 일에도 개입하곤 합니다."]]},
+ ENFJ:{nick:"모두의 길잡이",pros:[["사람을 이끄는 카리스마","따뜻한 말솜씨로 사람들에게 동기를 부여하고 함께 성장하도록 돕습니다."],["깊은 공감과 통찰","상대의 감정과 잠재력을 빠르게 읽어 알맞은 격려를 건넵니다."],["책임감 있는 조율 능력","모임의 분위기와 사람들의 필요를 두루 살피며 조화를 만듭니다."]],cons:[["지나친 책임감과 희생","남을 돕느라 자신의 시간과 감정을 돌보지 못해 지치기 쉽습니다."],["비판에 대한 민감함","자신의 노력이 인정받지 못하거나 비난을 받으면 크게 흔들립니다."],["이상 때문에 생기는 간섭","사람들을 좋은 방향으로 이끌려다 보니 부담스러운 참견이 될 수 있습니다."]]},
+ ENTJ:{nick:"타고난 지휘관",pros:[["결단력과 리더십","목표를 정하면 사람과 자원을 효율적으로 배치해 성과를 만듭니다."],["전략적 사고와 추진력","큰 그림을 그리고 장애물을 돌파하며 앞장서 나아갑니다."],["자신감 있는 의사 표현","논리적으로 명확하게 말해 팀의 방향을 분명하게 해 줍니다."]],cons:[["강한 주도권과 독선","자신의 방식을 밀어붙여 주변이 압박감을 느낄 수 있습니다."],["감정에 대한 둔감함","결과와 효율을 우선하다 보니 사람들의 마음을 놓치기도 합니다."],["조급함과 높은 기대치","느린 속도나 실수를 참기 어려워 날카로운 말이 나가기도 합니다."]]}};
+const MB_MENT_START="이번에 함께할 프로그램은 나의 성향을 알아보는 MBTI 게임입니다. 제가 질문을 읽어 드리면, 가지고 계신 스마트폰 화면에 A와 B 두 가지 보기가 나타날 텐데요. 맞고 틀리는 문제가 아니니, 평소 나의 생각이나 행동과 가장 가까운 쪽을 편하게 선택해 주세요. 네 가지 지표별로 다섯 문항씩, 총 스무 개의 질문을 마치고 나면 나의 MBTI 결과와 유형별 장단점을 확인하실 수 있습니다. 그럼, 화면을 확인해 주시고 첫 번째 지표부터 시작해 보겠습니다.";
+const MB_MENT_END="이것으로 MBTI 게임은 모두 마무리되었습니다. 확인하신 유형 결과가 평소 생각하시던 모습과 잘 맞았는지 궁금한데요. 서로의 장점과 단점을 알고 나면 함께 봉사하고 어울리는 데 훨씬 큰 도움이 될 것입니다. 끝까지 즐겁게 참여해 주신 여러분 모두 수고 많으셨습니다.";
+const MB=mkRoom("mb",{doneAt:()=>false,render:R=>R.role==="host"?mbHostRender(R):mbPlayRender(R)});
+MB.render=()=>MB.s&&(MB.role==="host"?mbHostRender(MB):mbPlayRender(MB));
+function mbProg(s){const d=s.dims||[];return `<div class="mbprog">${[0,1,2,3].map(i=>d[i]?`<span class="on">${d[i].letter}</span>`:"<span>?</span>").join("")}</div>`}
+let MB_PG=0;
+function mbPgTabs(){document.querySelectorAll(".mbtabs button").forEach((b,i)=>b.classList.toggle("on",i===MB_PG))}
+function mbPgScroll(el){const w=el.clientWidth||1,i=Math.round(el.scrollLeft/w);if(i!==MB_PG){MB_PG=i;mbPgTabs()}}
+function mbPage(i){MB_PG=i;const el=document.getElementById("mbPager");if(el)el.scrollTo({left:i*el.clientWidth,behavior:"smooth"});mbPgTabs()}
+function mbPgRestore(){const el=document.getElementById("mbPager");if(el&&MB_PG)el.scrollLeft=MB_PG*el.clientWidth}
+const MB_OPEN={pros:false,cons:false};
+function mbTog(k){MB_OPEN[k]=!MB_OPEN[k];if(MB.s&&MB.render)MB.render()}
+function mbTypeCard(t,hideType){const T=MB_TYPES[t];if(!T)return "";
+ const it=(a,c)=>a.map(p=>`<div class="mbi${c}"><b>${escapeHtml(p[0])}</b><span>${escapeHtml(p[1])}</span></div>`).join("");
+ const sec=(k,label,a,c)=>`<button class="mbfold${c}" aria-expanded="${MB_OPEN[k]}" onclick="mbTog('${k}')"><span>${label}</span><span>${MB_OPEN[k]?"접기 ▲":"펼치기 ▼"}</span></button>${MB_OPEN[k]?it(a,c):""}`;
+ return `${hideType?"":`<div class="mbt">${t}</div>`}<div class="mbn">${escapeHtml(T.nick)}</div>${sec("pros","장점",T.pros,"")}${sec("cons","단점",T.cons," con")}`}
+function mbHostRender(R){
+ const s=R.s,x=R.x,q=s.q,ph=s.phase;
+ setHtml("mbRoomInfo",xRoomInfo(s.num,s.players));
+ let h=xMentHtml(R,MB_MENT_START,MB_MENT_END);
+ if(ph==="idle"){h+=`<div class="small" style="margin-bottom:12px">참가자가 모두 들어오면 시작하세요. (지표 4개 × 질문 5개 = 20문항)</div><button onclick="mbNext()">▶ 시작</button>`}
+ else if(ph==="ask"){const d=q.dim,D=MB_DIMS[d],e=MB_Q[q.idx],n=q.idx%s.per+1,total=s.players.length;
+  if(n===1)h+=`<div class="bpres"><b>💬 사회자 멘트</b><br>${escapeHtml(D.intro).replace(/\n/g,"<br>")}</div>`;
+  h+=`<div class="small" style="margin:10px 0 6px">${escapeHtml(D.t)} · ${n}/${s.per} (전체 ${q.idx+1}/${s.total})</div><div class="ihtopic">${escapeHtml(e[1])}</div><div class="bab"><b>A</b><div>${escapeHtml(e[2])}</div></div><div class="bab"><b>B</b><div>${escapeHtml(e[3])}</div></div>`;
+  h+=`<div class="info-row"><span>✋ 선택 ${s.submitted.length}/${total}명</span></div>`;
+  if(s.none.length)h+=`<div class="title2">아직 안 고른 사람 · ${s.none.length}명</div><div class="names">${s.none.map(escapeHtml).join(", ")}</div>`;
+  h+=`<button style="margin-top:12px" onclick="mbNext()">${n===s.per?"이 지표 결과 보기 ▶":"다음 질문 ▶"}</button>`}
+ else if(ph==="dim"){const d=q.dim,D=MB_DIMS[d],sp=s.split;
+  h+=`<div class="small" style="margin-bottom:6px">${escapeHtml(D.t)} 결과</div><div class="bpres"><b>💬 사회자 멘트</b><br>${escapeHtml(D.res).replace(/\n/g,"<br>")}</div>`;
+  [[D.l[0],sp.first],[D.l[1],sp.second]].forEach(g=>{h+=`<div class="title2">${g[0]} ${MB_LET[g[0]][0]} · ${g[1].length}명</div><div class="names">${g[1].length?g[1].map(escapeHtml).join(", "):"-"}</div>`});
+  h+=`<button style="margin-top:12px" onclick="mbNext()">${q.idx>=s.total-1?"🎉 MBTI 공개 ▶":"다음 질문 ▶"}</button>`}
+ else{
+  h+=`<div class="my-role" style="font-size:26px;margin:6px 0">🎉 MBTI 공개!</div><div class="small" style="margin-bottom:8px">유형별 장점·단점이에요. 사회자가 읽어 주세요.</div>`;
+  h+=mbRevealCards(s.types);
+  const n=x.pickN||2;
+  h+=`<div class="title2">🧩 잘 어울리는 팀 나누기</div><div class="small" style="margin-bottom:8px">대화가 잘 통하고 서로 에너지를 채워 주는 유형끼리 한 팀이 되도록 짜 드려요.</div><div class="bchips">${[2,3,4].map(t=>`<div class="bchip${t===n?" on":""}" onclick="mbTeamN(${t})">${t}팀</div>`).join("")}</div><button onclick="mbMakeTeams()">${s.teams&&s.teams.length?"🔄 다시 나누기":"🧩 팀 나누기"}</button>`;
+  if(s.teams&&s.teams.length){h+=s.teams.map((t,i)=>`<div class="bpres"><b>${TEAM_ICON[i+1]} ${i+1}팀 · 팀 궁합 ${t.pct}%</b><br>${t.members.map(m=>escapeHtml(m.name)).join(" · ")}</div>`).join("");
+   h+=s.series?'<div class="small" style="margin-top:8px">✅ 점수판 팀으로 적용했어요. 다음 게임에서도 이 팀으로 이어져요.</div>':'<div class="small" style="margin-top:8px">💡 \'여러 게임 이어서\' 방식으로 시작하면 이 팀이 다음 게임까지 이어져요.</div>'}}
+ h+=xMentBtns("mb");
+ setHtml("mbNow",h);mbListRender(R)}
+function mbRevealCards(types){
+ if(!types||!types.length)return '<div class="small">참가자가 없어요.</div>';
+ const g={};types.forEach(t=>{(g[t.type]=g[t.type]||[]).push(t.name)});
+ const li=(a,c)=>a.map(p=>`<div class="mbi${c}"><b>${escapeHtml(p[0])}</b><span>${escapeHtml(p[1])}</span></div>`).join("");
+ return Object.keys(g).sort((a,b)=>g[b].length-g[a].length||(a<b?-1:1)).map(t=>{const T=MB_TYPES[t];if(!T)return "";
+  return `<div class="mbcard"><div class="mbhd"><span class="mbt2">${t}</span><span class="mbn2">${escapeHtml(T.nick)}</span></div><div class="mbwho">${g[t].map(escapeHtml).join(", ")} <span class="small">(${g[t].length}명)</span></div><div class="mbcols"><div><div class="mbcol good">장점</div>${li(T.pros,"")}</div><div><div class="mbcol bad">단점</div>${li(T.cons," con")}</div></div></div>`}).join("")}
+function mbListRender(R){
+ const s=R.s,q=s.q,cur=q&&(s.phase==="ask"||s.phase==="dim")?q.idx:(s.phase==="final"?99:-1);let h="";
+ MB_DIMS.forEach((D,d)=>{h+=`<div class="title2" style="margin-top:${d?18:0}px">${escapeHtml(D.t)}</div>`+MB_Q.map((e,i)=>e[0]===d?`<div class="bq${i===cur?" cur":""}"><span class="bn">${i<cur?"✓":i%s.per+1}</span><span>${escapeHtml(e[1])}<br><span class="small">A. ${escapeHtml(e[2])}<br>B. ${escapeHtml(e[3])}</span></span></div>`:"").join("")});
+ setHtml("mbList",h)}
+function mbNext(){const R=MB,s=R.s;if(R.pending||!s)return;
+ if(s.phase==="ask"&&s.none.length&&!confirm(`아직 ${s.none.length}명이 고르지 않았어요. 그래도 넘어갈까요?`))return;
+ R.x.mt="";window.scrollTo(0,0);R.act("next",{step:s.step},"mbHostMsg")}
+function mbPickType(t){MB.x.mt=MB.x.mt===t?"":t;mbHostRender(MB)}
+function mbTeamN(n){MB.x.pickN=n;mbHostRender(MB)}
+function mbMakeTeams(){const R=MB;if(R.pending)return;R.act("teams",{n:R.x.pickN||2},"mbHostMsg")}
+function mbPlayRender(R){
+ const s=R.s,q=s.q,ph=s.phase;let h="",m="";
+ if(ph==="idle")h=scLine(s)+'<div class="my-role" style="font-size:24px">⏳ 사회자가 곧<br>시작해요</div><div class="small" style="text-align:center">질문이 나오면 A 또는 B를 골라 주세요.</div>';
+ else if(ph==="ask"){const e=MB_Q[q.idx],pair=MB_DIMS[q.dim].l,la=e[4],lb=pair[0]===la?pair[1]:pair[0];
+  h=scLine(s)+mbProg(s)+`<div class="small" style="margin:10px 0 6px;text-align:center">${escapeHtml(MB_DIMS[q.dim].t)} · 질문 ${q.idx+1}/${s.total}</div><div class="ihtopic">${escapeHtml(e[1])}</div><button class="abtn${s.myPick===la?" sel":""}" onclick="mbPick('${la}')"><b>A</b>${escapeHtml(e[2])}</button><button class="abtn${s.myPick===lb?" sel":""}" onclick="mbPick('${lb}')"><b>B</b>${escapeHtml(e[3])}</button>`;
+  m=s.myPick?`${s.myPick===la?"A":"B"}를 골랐어요! 사회자가 넘기기 전까지는 바꿀 수 있어요.`:"A 또는 B를 골라 주세요."}
+ else if(ph==="dim"){const r=s.dims[q.dim],p=MB_DIMS[q.dim].l;
+  h=scLine(s)+mbProg(s)+`<div class="small" style="margin:10px 0 0;text-align:center">${escapeHtml(MB_DIMS[q.dim].t)} 결과</div><div class="my-role" style="margin:8px 0">${r.letter}</div><div class="bpres" style="text-align:center"><b>${MB_LET[r.letter][0]}</b><br>${MB_LET[r.letter][1]}<br><span class="small">${p[0]} ${r.a}개 · ${p[1]} ${r.b}개</span></div>`;
+  m="사회자가 다음으로 넘길 때까지 기다려 주세요."}
+ else{const pg1=`<div class="small" style="text-align:center;margin-top:6px">${escapeHtml(s.name)}님의 MBTI</div>${mbTypeCard(s.type,true)}`;
+  const pg2=s.team?`<div class="bpres" style="margin-top:6px"><b>${TEAM_ICON[s.team.no]} 우리 ${s.team.no}팀</b><div class="small" style="margin:4px 0 8px;text-align:left">함께하는 사람들</div>${s.team.members.map(t=>t.me?`<div class="mbmem me"><b>${escapeHtml(t.name)}</b> ← 나</div>`:`<div class="mbmem">${escapeHtml(t.name)}</div>`).join("")}${s.series?'<div class="small" style="margin-top:8px">이 팀은 다음 게임에도 이어져요!</div>':""}</div>`:'<div class="my-role" style="font-size:22px;margin:30px 0 8px">🧩 아직 팀이 없어요</div><div class="small" style="text-align:center">사회자가 팀을 나누면 여기에 나타나요.</div>';
+  h=scLine(s)+mbProg(s)+`<div class="mbtabs"><button class="${MB_PG===0?"on":""}" onclick="mbPage(0)">내 유형</button><button class="${MB_PG===1?"on":""}" onclick="mbPage(1)">우리 팀</button></div><div class="small" style="text-align:center;margin:-4px 0 6px">옆으로 밀어서 넘겨 보세요</div><div class="mbpager" id="mbPager" onscroll="mbPgScroll(this)"><div class="mbpg">${pg1}</div><div class="mbpg">${pg2}</div></div>`}
+ msg("mbPlayMsg",m);setHtml("mbPlayBody",h);mbPgRestore()}
+async function mbPick(l){const R=MB;if(!R.s||!R.s.q||R.s.phase!=="ask"||R.pending)return;await R.act("pick",{letter:l,round:R.s.q.round},"mbPlayMsg")}
+
+window.addEventListener("load",()=>{CQ.restore();IH.restore();MB.restore()});
 </script>
 <script>
 /* ============ 점수 이어가기: 통합 방(A) / 게임별 방(B) ============ */
@@ -875,7 +1024,7 @@ async function serParams(){
  return SERH()?{series:SER.code}:{}}
 function serFail(e){if(SERH()&&/존재하지|만료/.test(e&&e.message||"")){SER=null;serSave();scbStop();serUi()}}
 /* ---- 공용 점수판 패널 (사회자) ---- */
-function scbMsg(t){["hubTeamMsg","cqTeamMsg","ihTeamMsg","balTeamMsg"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t})}
+function scbMsg(t){["hubTeamMsg","cqTeamMsg","ihTeamMsg","mbTeamMsg","balTeamMsg"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t})}
 function scbHtml(s){
  const n=s.teamCount;if(n>=2&&!SCB.touched)SCB.pickN=n;const pn=SCB.pickN;
  let h=`<div class="title2" style="margin-top:0">🏆 점수 · 팀 (모든 게임 합산)</div><div class="bchips">${[2,3,4].map(t=>`<div class="bchip${t===pn?" on":""}" onclick="SCB.pickN=${t};SCB.touched=true;scbPaint()">${t}팀</div>`).join("")}</div>
@@ -886,7 +1035,7 @@ function scbHtml(s){
  h+=ps.length?ps.map(p=>`<div class="player" style="gap:6px"><span style="display:flex;align-items:center;gap:8px;min-width:0">${n>=2?`<button class="mini" style="min-width:48px;font-size:16px" onclick="scbAct('setteam',{pid:'${escapeHtml(p.id)}',team:${(p.team+1)%(n+1)}})">${TEAM_ICON[p.team]}</button>`:""}<b>${escapeHtml(p.name)}</b></span><span style="display:flex;align-items:center;gap:6px"><button class="mini" style="min-width:40px" onclick="scbAct('adjust',{pid:'${escapeHtml(p.id)}',delta:-10})">−</button><b style="min-width:52px;text-align:center;font-size:18px">${p.score}점</b><button class="mini" style="min-width:40px" onclick="scbAct('adjust',{pid:'${escapeHtml(p.id)}',delta:10})">＋</button></span></div>`).join(""):'<div class="small">아직 참가자가 없어요.</div>';
  h+='<button class="gray" onclick="if(confirm(\'모든 점수를 0점으로 되돌릴까요?\'))scbAct(\'resetscore\',{})">점수 모두 0점으로</button>';
  return h}
-function scbPaint(){const s=SCB.s;if(!s)return;const h=scbHtml(s);["hubTeam","cqTeam","ihTeam","balTeam"].forEach(id=>{if(document.getElementById(id))setHtml(id,h)});hubRender()}
+function scbPaint(){const s=SCB.s;if(!s)return;const h=scbHtml(s);["hubTeam","cqTeam","ihTeam","mbTeam","balTeam"].forEach(id=>{if(document.getElementById(id))setHtml(id,h)});hubRender()}
 async function scbAct(action,params){if(!SERH())return;scbMsg("");try{SCB.s=await bapi("sc_"+action,Object.assign({roomNumber:SER.code,userId},params||{}));scbPaint()}catch(e){scbMsg(e.message)}}
 async function scbTick(){if(SCB.busy||!SERH())return;SCB.busy=true;try{SCB.s=await bapi("sc_state",{roomNumber:SER.code,userId});scbPaint()}catch(e){if(/존재하지|만료/.test(e.message)){serFail(e);scbStop()}}finally{SCB.busy=false}}
 function scbStart(){scbStop();SCB.timer=setInterval(scbTick,2500);scbTick()}
@@ -899,11 +1048,11 @@ async function hubStart(k){
  msg("hubHostMsg","");
  try{const s=await bapi(k+"_create",{userId,series:SER.code});
   await bapi("sc_setgame",{roomNumber:SER.code,userId,k,num:s.num});
-  if(k==="bal")balEnter("host",s);else (k==="cq"?CQ:IH).enter("host",s)}catch(e){msg("hubHostMsg",e.message)}}
+  if(k==="bal")balEnter("host",s);else ({cq:CQ,ih:IH,mb:MB})[k].enter("host",s)}catch(e){msg("hubHostMsg",e.message)}}
 async function hubBack(){
  if(!confirm("게임을 끝내고 통합 방으로 돌아갈까요?"))return;
  try{await bapi("sc_setgame",{roomNumber:SER.code,userId,k:""})}catch(e){}
- if(bal.num)await balLeave();else if(CQ.num)await CQ.leave();else if(IH.num)await IH.leave();else hubHostShow()}
+ if(bal.num)await balLeave();else if(CQ.num)await CQ.leave();else if(IH.num)await IH.leave();else if(MB.num)await MB.leave();else hubHostShow()}
 async function hubEnd(){if(!confirm("통합 방을 종료할까요? 모든 참가자가 나가게 됩니다."))return;await serEnd(true);show("multi")}
 /* ---- 통합 방(A) 참가자 ---- */
 async function hubJoin(){
@@ -913,14 +1062,14 @@ async function hubJoin(){
  try{const s=await bapi("sc_join",{roomNumber:n,playerName:name,userId});try{localStorage.setItem("GAME_PARTY_NAME",name)}catch(e){}
   SER={mode:"A",code:s.num,role:"player",name};serSave();serUi();HUB.joined="";show("hubPlay");hubApply(s);hubStartPoll()}catch(e){msg("hubJoinMsg",e.message)}}
 function scLine(s){if(s.myScore===undefined||!(SER&&SER.role==="player"))return"";const tl=s.teamCount>=2?` · ${TEAM_ICON[s.myTeam]} ${s.myTeam?s.myTeam+"팀":"팀 배정 전"}`:"";return `<div class="small" style="margin-bottom:6px">내 점수 <b>${s.myScore}점</b>${tl}</div>`}
-function hubStopGames(){if(typeof balStopPoll==="function")balStopPoll();bal.num="";CQ.stopPoll();CQ.num="";IH.stopPoll();IH.num="";["BAL","CQ","IH"].forEach(g=>{try{localStorage.removeItem("GP_"+g+"_ROOM")}catch(e){}})}
+function hubStopGames(){if(typeof balStopPoll==="function")balStopPoll();bal.num="";CQ.stopPoll();CQ.num="";IH.stopPoll();IH.num="";MB.stopPoll();MB.num="";["BAL","CQ","IH","MB"].forEach(g=>{try{localStorage.removeItem("GP_"+g+"_ROOM")}catch(e){}})}
 async function hubApply(s){
  HUB.s=s;
  const g=s.game;
  if(g){const key=g.k+":"+g.num;
   if(HUB.joined!==key&&!HUB.joining){HUB.joining=true;
    try{const st=await bapi(g.k+"_join",{roomNumber:g.num,playerName:s.name,userId});HUB.joined=key;
-    if(g.k==="bal")balEnter("player",st);else (g.k==="cq"?CQ:IH).enter("player",st);
+    if(g.k==="bal")balEnter("player",st);else ({cq:CQ,ih:IH,mb:MB})[g.k].enter("player",st);
     document.body.classList.add("hubp")}catch(e){}finally{HUB.joining=false}}
   if(HUB.joined===key)return}
  else if(HUB.joined){HUB.joined="";hubStopGames();show("hubPlay")}
@@ -950,7 +1099,7 @@ window.addEventListener("load",async()=>{
  scbStart();
  if(SER.mode==="A"){try{const s=await bapi("sc_state",{roomNumber:SER.code,userId});SCB.s=s;
   if(!s.game)hubHostShow();
-  else setTimeout(async()=>{if(CQ.num||IH.num||bal.num)return;try{await bapi("sc_setgame",{roomNumber:SER.code,userId,k:""})}catch(e){}hubHostShow()},3000)}
+  else setTimeout(async()=>{if(CQ.num||IH.num||MB.num||bal.num)return;try{await bapi("sc_setgame",{roomNumber:SER.code,userId,k:""})}catch(e){}hubHostShow()},3000)}
   catch(e){serFail(e)}}});
 </script>
 <script>
