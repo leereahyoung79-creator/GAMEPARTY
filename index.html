@@ -205,7 +205,7 @@ body.hubp .pleave{display:none!important}
 
 <section id="single" class="hidden"><div class="card"><h2>📱 한 기기로 플레이</h2><div class="game-choice clickable" onclick="openSoloSetup()"><div class="game-icon">🎭</div><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
-<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="mmt"><button class="on" onclick="mmGo(0)">🏆 이어서 하기</button><button onclick="mmGo(1)">🎮 게임 하나만</button></div><div class="mmw"><button id="mmL" class="mmar" aria-label="이전" onclick="mmGo(0)">‹</button><button id="mmR" class="mmar" aria-label="다음" onclick="mmGo(1)">›</button><div class="mbpager" id="mmPager" onscroll="mmScroll(this)"><div class="mbpg"><div class="small" style="margin:0 0 12px;text-align:center">점수와 팀이 게임마다 이어져요.<br>사회자가 게임을 고르면 모두의 폰이 자동으로 넘어가요.</div><div class="game-choice clickable" onclick="once(this,hubCreate)"><div><div class="game-name">통합 방 만들기</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('hubJoin')"><div><div class="game-name">통합 방 참가</div></div><div class="arrow">›</div></div><div id="modeMsg" class="message error"></div></div><div class="mbpg" id="gameList"><div class="game-choice clickable" onclick="show('mbMenu')"><div><div class="game-name">MBTI</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('multiLiar')"><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div></div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
+<section id="multi" class="hidden"><div class="card"><h2>🌐 여러 기기로 플레이</h2><div class="mmt"><button class="on" onclick="mmGo(0)">🏆 이어서 하기</button><button onclick="mmGo(1)">🎮 게임 하나만</button></div><div class="mmw"><button id="mmL" class="mmar" aria-label="이전" onclick="mmGo(0)">‹</button><button id="mmR" class="mmar" aria-label="다음" onclick="mmGo(1)">›</button><div class="mbpager" id="mmPager" onscroll="mmScroll(this)"><div class="mbpg"><div class="small" style="margin:0 0 12px;text-align:center">점수와 팀이 게임마다 이어져요.<br>사회자가 게임을 고르면 모두의 폰이 자동으로 넘어가요.</div><div class="game-choice clickable" onclick="once(this,hubCreate)"><div><div class="game-name">통합 방 만들기</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('hubJoin')"><div><div class="game-name">통합 방 참가</div></div><div class="arrow">›</div></div><div id="modeMsg" class="message error"></div></div><div class="mbpg" id="gameList"><div class="game-choice clickable" onclick="show('mbMenu')"><div><div class="game-name">MBTI</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('balMenu')"><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('ihMenu')"><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('cqMenu')"><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('tfMenu')"><div><div class="game-name">진실과 거짓</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="show('multiLiar')"><div><div class="game-name">LIAR</div></div><div class="arrow">›</div></div></div></div></div><button class="gray" onclick="show('home')">뒤로가기</button></div></section>
 
 <section id="multiLiar" class="hidden"><div class="card"><h2>LIAR</h2><button onclick="show('create')">방 만들기</button><button class="gray" onclick="show('join')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button></div></section>
 
@@ -237,7 +237,7 @@ body.hubp .pleave{display:none!important}
 
 <section id="hubJoin" class="hidden"><div class="card"><h2>통합 방 참가</h2><label>방 번호</label><input id="hubJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="hubJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,hubJoin)">입장하기</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="hubJoinMsg" class="message error"></div></div></section>
 <section id="hubPlay" class="hidden"><div class="card"><div id="hubPlayBody"></div><div id="hubPlayMsg" class="message"></div></div><button class="gray" onclick="hubLeave()">통합 방 나가기</button></section>
-<section id="hubHost" class="hidden"><div class="hp"><div class="card"><div id="hubInfo"></div></div><div class="card"><div class="title2" style="margin-top:0">다음 게임 고르기</div><div class="game-choice clickable" onclick="hubStart('mb')"><div><div class="game-name">MBTI</div><div class="small" style="margin:2px 0 0">끝나고 잘 어울리는 팀을 나눠요</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('bal')"><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('ih')"><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('cq')"><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div id="hubHostMsg" class="message error"></div></div><button class="linkbtn endbtn2" onclick="hubEnd()">통합 방 종료</button></div><div class="hp hidden"><div class="card"><div id="hubTeam"></div><div id="hubTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('hubHost',0)">🎲 게임</button><button onclick="hTab('hubHost',1)">🏆 점수·팀</button></div></section>
+<section id="hubHost" class="hidden"><div class="hp"><div class="card"><div id="hubInfo"></div></div><div class="card"><div class="title2" style="margin-top:0">다음 게임 고르기</div><div class="game-choice clickable" onclick="hubStart('mb')"><div><div class="game-name">MBTI</div><div class="small" style="margin:2px 0 0">끝나고 잘 어울리는 팀을 나눠요</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('bal')"><div><div class="game-name">밸런스 게임</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('ih')"><div><div class="game-name">이심전심</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('cq')"><div><div class="game-name">초성 퀴즈</div></div><div class="arrow">›</div></div><div class="game-choice clickable" onclick="hubStart('tf')"><div><div class="game-name">진실과 거짓</div></div><div class="arrow">›</div></div><div id="hubHostMsg" class="message error"></div></div><button class="linkbtn endbtn2" onclick="hubEnd()">통합 방 종료</button></div><div class="hp hidden"><div class="card"><div id="hubTeam"></div><div id="hubTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('hubHost',0)">🎲 게임</button><button onclick="hTab('hubHost',1)">🏆 점수·팀</button></div></section>
 <section id="balMenu" class="hidden"><div class="card"><h2>밸런스 게임</h2><button onclick="once(this,balCreate)">방 만들기</button><button class="gray" onclick="show('balJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="balMenuMsg" class="message error"></div></div></section>
 
 <section id="balJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="balJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="balJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,balJoin)">입장하기</button><button class="gray" onclick="show('balMenu')">뒤로가기</button><div id="balJoinMsg" class="message error"></div></div></section>
@@ -258,6 +258,15 @@ body.hubp .pleave{display:none!important}
 <section id="mbJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="mbJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="mbJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,MB.join)">입장하기</button><button class="gray" onclick="show('mbMenu')">뒤로가기</button><div id="mbJoinMsg" class="message error"></div></div></section>
 <section id="mbHost" class="hidden"><div class="hp"><div class="card"><div id="mbRoomInfo"></div></div><div class="card"><div id="mbNow"></div><div id="mbHostMsg" class="message error"></div></div><button class="linkbtn endbtn" onclick="MB.end()">방 종료</button><button class="linkbtn hubbtn" onclick="hubBack()">🏠 통합 방으로 돌아가기</button></div><div class="hp hidden"><div class="card"><div id="mbList"></div></div></div><div class="hp hidden"><div class="card"><div id="mbTeam"></div><div id="mbTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('mbHost',0)">▶ 진행</button><button class="" onclick="hTab('mbHost',1)">📋 질문 보기</button><button class="scbtab" onclick="hTab('mbHost',2)">🏆 점수·팀</button></div></section>
 <section id="mbPlay" class="hidden"><div class="card"><div id="mbPlayBody"></div><div id="mbPlayMsg" class="message"></div></div><button class="gray pleave" onclick="MB.leave()">방 나가기</button></section>
+
+<section id="tfMenu" class="hidden"><div class="card"><h2>진실과 거짓</h2><button onclick="once(this,TF.create)">방 만들기</button><button class="gray" onclick="show('tfJoin')">방 참가</button><button class="gray" onclick="show('multi')">뒤로가기</button><div id="tfMenuMsg" class="message error"></div></div></section>
+
+<section id="tfJoin" class="hidden"><div class="card"><h2>방 참가하기</h2><label>방 번호</label><input id="tfJoinNumber" type="text" maxlength="4" inputmode="numeric" placeholder="사회자 화면의 4자리 번호"><label>내 이름</label><input id="tfJoinName" type="text" maxlength="20" placeholder="이름을 입력하세요"><button onclick="once(this,TF.join)">입장하기</button><button class="gray" onclick="show('tfMenu')">뒤로가기</button><div id="tfJoinMsg" class="message error"></div></div></section>
+
+<section id="tfHost" class="hidden"><div class="hp"><div class="card"><div id="tfRoomInfo"></div></div><div class="card"><div id="tfNow"></div><div id="tfHostMsg" class="message error"></div></div><button class="linkbtn endbtn" onclick="TF.end()">방 종료</button><button class="linkbtn hubbtn" onclick="hubBack()">🏠 통합 방으로 돌아가기</button></div><div class="hp hidden"><div class="card"><div id="tfList"></div></div></div><div class="hp hidden"><div class="card"><div id="tfTeam"></div><div id="tfTeamMsg" class="message error"></div></div></div><div class="htabs"><button class="on" onclick="hTab('tfHost',0)">▶ 진행</button><button class="" onclick="hTab('tfHost',1)">📋 이야기 보기</button><button class="scbtab" onclick="hTab('tfHost',2)">🏆 점수·팀</button></div></section>
+
+<section id="tfPlay" class="hidden"><div class="card"><div id="tfPlayBody"></div><div id="tfPlayMsg" class="message"></div></div><button class="gray pleave" onclick="TF.leave()">방 나가기</button></section>
+
 <section id="pass" class="hidden"><div class="card" style="text-align:center"><div id="passBody"></div></div></section>
 </div>
 
@@ -730,7 +739,7 @@ const IH_MENT_END="이심전심은 여기까지예요! 서로 얼마나 통하�
 
 const TEAM_ICON=["⚪","🔴","🔵","🟢","🟡"];
 function xFmtT(left){return `⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`}
-function xOthers(k){["bal","cq","ih","mb"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll();if(k!=="mb")MB.stopPoll()}
+function xOthers(k){["bal","cq","ih","mb","tf"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll();if(k!=="mb")MB.stopPoll();if(k!=="tf")TF.stopPoll()}
 function roomNoShow(num){const h=SERH()&&SER.mode==="A";return {label:h?"통합 방 번호":"방 번호",num:h?SER.code:num}}
 function xRoomInfo(num,names){const r=roomNoShow(num);return `<div class="room-label">${r.label}</div><div class="room-number" style="margin:8px">${escapeHtml(r.num)}</div><div class="player-count">참가자 ${names.length}명 (사회자 제외)</div><div class="small">${names.length?names.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`}
 function xMentHtml(R,start,end){const sp=R.x.special;if(!sp)return "";const body=sp==="start"?start:end;return `<div class="bms"><button class="bmh" onclick="${R.k.toUpperCase()}.toggleMent()" aria-expanded="${R.x.mOpen}"><span>💬 사회자 멘트</span><span>${R.x.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${R.x.mOpen?`<div class="bmb"><p class="blb">${sp==="start"?"시작 멘트":"마무리 멘트"}</p>${escapeHtml(body)}</div>`:""}</div>`}
@@ -998,7 +1007,85 @@ function mbPlayRender(R){
  msg("mbPlayMsg",m);setHtml("mbPlayBody",h);mbPgRestore()}
 async function mbPick(l){const R=MB;if(!R.s||!R.s.q||R.s.phase!=="ask"||R.pending)return;await R.act("pick",{letter:l,round:R.s.q.round},"mbPlayMsg")}
 
-window.addEventListener("load",()=>{CQ.restore();IH.restore();MB.restore()});
+/* ---------------- 진실과 거짓 ---------------- */
+const TF_MENT={
+ start:"이번에 함께할 게임은 '진실과 거짓'입니다! 여러분 각자의 이야기 4가지를 적는데, 3개는 진실, 1개는 거짓이에요. 먼저 연습 게임으로 제 이야기부터 듣고 거짓을 찾아보세요!",
+ practice:["1, 나는 살아있는 뱀을 입 안에 넣었다가 빼 봤다.","2, 나의 최고 몸무게는 85kg이었다.","3, 나는 고등학교 때 선도부였다.","4, 나는 군대에서 영창을 갔다 왔다."],
+ practiceEnd:"정답은 몇 번일까요? 정답은 바로 4번입니다! 다들 감 잡으셨죠?",
+ write:"지금부터 폰에 진실 3개와 거짓 1개를 써 주세요. 거짓은 진짜처럼 그럴듯하게, 진실 살짝 과장되게 쓰면 더 재밌어요! 다 쓰신 분들은 완료 버튼을 눌러 주세요.",
+ end:"이것으로 '진실과 거짓' 게임을 모두 마치겠습니다. 오늘 서로에 대해 새롭게 알게 된 이야기가 꽤 많았죠? 참여해 주셔서 감사합니다!"};
+const TF_LABEL={start:"시작 멘트",practice:"연습 예시",write:"쓰기 안내",end:"마무리 멘트"};
+const TF=mkRoom("tf",{doneAt:()=>false,render:R=>R.role==="host"?tfHostRender(R):tfPlayRender(R)});
+TF.render=()=>TF.s&&(TF.role==="host"?tfHostRender(TF):tfPlayRender(TF));
+function tfMentBox(R){const sp=R.x.special;if(!sp)return "";
+ const body=sp==="practice"?TF_MENT.practice.map(escapeHtml).join("<br>")+"<br><br>"+escapeHtml(TF_MENT.practiceEnd):escapeHtml(TF_MENT[sp]);
+ return `<div class="bms"><button class="bmh" onclick="TF.toggleMent()" aria-expanded="${R.x.mOpen}"><span>💬 사회자 멘트</span><span>${R.x.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${R.x.mOpen?`<div class="bmb"><p class="blb">${TF_LABEL[sp]}</p>${body}</div>`:""}</div>`}
+function tfMentBtns(){return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">${["start","practice","write","end"].map(k=>`<button class="gray" onclick="TF.special('${k}')">${{start:"🎬",practice:"🎯",write:"✏️",end:"🏁"}[k]} ${TF_LABEL[k]}</button>`).join("")}</div>`}
+function tfSay(t){return `<div class="bpres"><b>💬 사회자 멘트</b><br>${t}</div>`}
+function tfStories(texts,lie,res){return texts.map((t,i)=>{const isL=lie===i,c=res?res.counts[i]:0;
+ return `<div class="bab"${isL?' style="border-color:#d33;background:#fff4f4"':""}><b${isL?' style="background:#d33"':""}>${i+1}</b><div style="flex:1;text-align:left">${escapeHtml(t)}${isL?'<div class="small" style="color:#d33;margin-top:2px">← 거짓</div>':""}${res?`<div class="small" style="margin-top:2px">${c}명 선택${res.who[i].length?" · "+res.who[i].map(escapeHtml).join(", "):""}</div>`:""}</div></div>`}).join("")}
+function tfPickChips(s){return s.candidates.length?`<div class="small" style="margin:10px 0 6px">직접 지명 (이름을 누르세요)</div><div class="bchips">${s.candidates.map(c=>`<div class="bchip" data-id="${escapeHtml(c.id)}" onclick="TF.act('call',{target:this.dataset.id},'tfHostMsg')">${escapeHtml(c.name)}</div>`).join("")}</div>`:""}
+function tfHostRender(R){
+ const s=R.s,ph=s.phase,c=s.cur;
+ if(R.x.hPh!==undefined&&R.x.hPh!==ph+(s.round||0)&&(ph==="read"||ph==="idle"))R.x.special="";R.x.hPh=ph+(s.round||0);
+ setHtml("tfRoomInfo",xRoomInfo(s.num,s.players));
+ let h=tfMentBox(R);
+ if(ph==="idle"||ph==="reveal"){
+  if(ph==="reveal"){const res=s.result,lie=c.lie;
+   h+=`<div class="small" style="margin-bottom:6px">${escapeHtml(c.name)}님의 이야기 · 결과</div>`+tfStories(c.texts,lie,res);
+   h+=tfSay(res.fooled?`정답은 ${lie+1}번! 와, ${escapeHtml(c.name)}님이 모두를 속였네요!`:`정답은 ${lie+1}번! 맞히신 분들 박수 주세요!`);
+   if(s.series&&s.award)h+=`<div class="info-row" style="margin-top:10px"><span>🏅 맞힌 ${s.award.right.length}명 +${s.rightPt}점${s.award.fooled?` · ${escapeHtml(c.name)}님 +${s.foolPt}점`:""}</span></div>`;
+   else if(!s.series)h+=`<div class="small" style="margin-top:10px">💡 통합 방에서 하면 점수가 자동으로 쌓여요. (직접 주려면 🏆 점수·팀)</div>`}
+  const left=s.candidates.length;
+  h+=`<div class="info-row" style="margin-top:12px"><span>✍️ 완료 ${s.written.length}/${s.players.length}명 · 발표 ${s.playedNames.length}명 · 남은 사람 ${left}명</span></div>`;
+  if(s.notWritten.length)h+=`<div class="title2">아직 안 쓴 사람 · ${s.notWritten.length}명</div><div class="names">${s.notWritten.map(escapeHtml).join(", ")}</div>`;
+  h+=`<button style="margin-top:12px" onclick="TF.act('call',{},'tfHostMsg')"${left?"":" disabled"}>${ph==="reveal"?"다음 사람 ":""}🎲 랜덤 지명</button>`+tfPickChips(s);
+  if(!left&&s.written.length)h+=`<div class="small" style="margin-top:10px">모두 발표했어요! 🎉 마무리 멘트로 끝내 주세요.</div>`}
+ else{const vote=ph==="vote";
+  h+=tfSay(vote?"자, 폰에서 거짓이라고 생각하는 번호를 골라 주세요! 고민할 시간 드릴게요~ 선택 완료!":`자, 이번에는 ${escapeHtml(c.name)}님의 이야기를 들어 볼게요! 과연 사람들을 속일 수 있을지~<br><br>${escapeHtml(c.name)}님이 쓴 4가지 이야기입니다. 이 중에 거짓은 무엇일까요? 제가 하나씩 읽어 드릴게요.`);
+  h+=`<div class="small" style="margin:12px 0 6px">${escapeHtml(c.name)}님의 이야기 (빨간 표시는 사회자만 보여요)</div>`+tfStories(c.texts,c.lie,null);
+  if(vote){h+=`<div class="info-row"><span>🗳 투표 ${s.voted.length}/${s.voted.length+s.notVoted.length}명</span></div>`;
+   if(s.notVoted.length)h+=`<div class="title2">아직 안 고른 사람 · ${s.notVoted.length}명</div><div class="names">${s.notVoted.map(escapeHtml).join(", ")}</div>`;
+   h+=`<button style="margin-top:12px" onclick="tfReveal()">정답 공개 ▶</button>`}
+  else h+=`<button style="margin-top:12px" onclick="TF.act('open',{},'tfHostMsg')">🗳 투표 열기 ▶</button>`;
+  h+=`<button class="gray" onclick="tfSkip()">건너뛰기 (점수 없이 다음 사람)</button>`}
+ h+=tfMentBtns();
+ setHtml("tfNow",h);
+ setHtml("tfList",`<div class="title2" style="margin-top:0">쓴 이야기 · ${s.all.length}명</div>`+(s.all.length?s.all.map(a=>`<div class="title2">${escapeHtml(a.name)}${a.played?" ✅ 발표함":""}</div>`+a.texts.map((t,i)=>`<div class="bq"><span class="bn" style="${i===3?"background:#d33":""}">${i===3?"거":"진"}</span><span>${escapeHtml(t)}</span></div>`).join("")).join(""):'<div class="small">아직 아무도 완료하지 않았어요.</div>'));
+ if(SERH())scbPaint()}
+function tfReveal(){const R=TF,s=R.s;if(R.pending||!s)return;if(s.notVoted.length&&!confirm(`아직 ${s.notVoted.length}명이 고르지 않았어요. 그래도 공개할까요?`))return;R.act("reveal",{},"tfHostMsg")}
+function tfSkip(){const R=TF;if(R.pending)return;if(!confirm("이 이야기를 건너뛸까요? 점수 없이 발표한 것으로 처리돼요."))return;R.act("skip",{},"tfHostMsg")}
+function tfForm(pre){const lb=["진실 1","진실 2","진실 3","거짓 (진짜처럼 그럴듯하게!)"];
+ return lb.map((l,i)=>`<label${i===3?' style="color:#d33"':""}>${l}</label><input id="tfT${i}" type="text" maxlength="80" placeholder="${i===3?"지어낸 이야기":"실제로 있었던 일"}" value="${pre?escapeHtml(pre[i]):""}">`).join("")+`<button style="margin-top:12px" onclick="tfSubmit()">✅ 완료</button>`}
+function tfSubmit(){const R=TF;if(R.pending)return;const t=[0,1,2,3].map(i=>{const el=document.getElementById("tfT"+i);return el?el.value.trim():""});
+ if(t.some(x=>!x)){msg("tfPlayMsg","4칸을 모두 적어 주세요. (진실 3개 + 거짓 1개)");return}
+ R.act("write",{texts:t.join("\n")},"tfPlayMsg").then(()=>{if(R.s&&R.s.myTexts&&R.s.myTexts.join()===t.join()){R.x.edit=false;R.render()}})}
+function tfEdit(){TF.x.edit=true;TF.render()}
+async function tfVote(i){const R=TF;if(!R.s||R.s.phase!=="vote"||R.pending)return;await R.act("vote",{idx:i,round:R.s.round},"tfPlayMsg")}
+function tfPlayRender(R){
+ const s=R.s,ph=s.phase,c=s.cur;let h="",m="";
+ const mine=s.myTexts;
+ const writeBox=()=>{
+  if(s.myPlayed)return `<div class="small" style="text-align:center;margin-top:10px">내 이야기는 발표를 마쳤어요 ✅</div>`;
+  if(!mine||R.x.edit)return `<div class="title2" style="margin-top:0">✍️ 내 이야기 쓰기</div><div class="small" style="margin-bottom:6px">진실 3개와 거짓 1개를 써 주세요. 순서는 앱이 섞어 줘요.</div>${tfForm(R.x.edit?mine:null)}`;
+  return `<div class="my-role" style="font-size:22px;margin:6px 0">✅ 완료했어요!</div><div class="small" style="text-align:center;margin-bottom:8px">내 이야기 (사회자만 볼 수 있어요)</div>${mine.map((t,i)=>`<div class="bq"><span class="bn" style="${i===3?"background:#d33":""}">${i===3?"거":"진"}</span><span>${escapeHtml(t)}</span></div>`).join("")}<button class="gray" style="margin-top:10px" onclick="tfEdit()">✏️ 수정하기</button>`};
+ if(ph==="idle"){
+  h=(mine&&!R.x.edit?scLine(s):"")+writeBox();
+  m=mine&&!R.x.edit?`지금까지 ${s.writtenCount}/${s.total}명이 완료했어요. 사회자가 지명하면 화면이 바뀌어요.`:""}
+ else{const res=s.result,who=escapeHtml(c.name);
+  const stories=c.texts.map((t,i)=>{
+   if(ph==="reveal"){const isL=res.lie===i,pick=s.myVote===i;return `<div class="bab"${isL?' style="border-color:#d33;background:#fff4f4"':""}><b${isL?' style="background:#d33"':""}>${i+1}</b><div style="flex:1;text-align:left">${escapeHtml(t)}${isL?'<div class="small" style="color:#d33;margin-top:2px">← 거짓!</div>':""}<div class="small" style="margin-top:2px">${res.counts[i]}명 선택${pick?" · 내 선택":""}</div></div></div>`}
+   const can=ph==="vote"&&!c.isMe;
+   return `<button class="abtn${s.myVote===i?" sel":""}" style="min-height:0${can?"":";pointer-events:none"}"${can?` onclick="tfVote(${i})"`:" disabled"}><b>${i+1}</b>${escapeHtml(t)}</button>`}).join("");
+  if(ph==="read")h=scLine(s)+`<div class="my-role" style="font-size:22px;margin:6px 0">📖 ${who}님의 이야기</div><div class="small" style="text-align:center;margin-bottom:10px">${c.isMe?"내 이야기예요! 친구들이 읽고 있어요.":"사회자가 읽어 주는 동안 잘 들어 보세요."}</div>${stories}`,m="투표가 열리면 거짓이라고 생각하는 번호를 고를 수 있어요.";
+  else if(ph==="vote")h=scLine(s)+`<div class="my-role" style="font-size:22px;margin:6px 0">🗳 거짓은 몇 번?</div><div class="small" style="text-align:center;margin-bottom:10px">${who}님의 이야기 중 거짓이라고 생각하는 번호를 골라 주세요.</div>${stories}`,m=c.isMe?"내 이야기라서 투표하지 않아요. 친구들을 지켜봐 주세요!":s.myVote>=0?`${s.myVote+1}번을 골랐어요! 공개 전까지는 바꿀 수 있어요.`:"번호를 골라 주세요.";
+  else{const head=c.isMe?(res.fooled?"😎 모두를 속였어요!":"🙈 들켜 버렸네요!"):(s.myRight?"🎉 정답!":s.myVote<0?"⏰ 투표하지 못했어요":"😅 아쉬워요");
+   const gain=s.myGain?`<div class="small" style="text-align:center;margin-bottom:8px"><b>+${s.myGain}점</b></div>`:"";
+   h=scLine(s)+`<div class="my-role" style="font-size:24px;margin:6px 0">${head}</div>${gain}<div class="small" style="text-align:center;margin-bottom:10px">정답은 ${res.lie+1}번 · ${who}님의 이야기</div>${stories}`+(!mine&&!s.myPlayed?`<div style="margin-top:14px">${writeBox()}</div>`:"");
+   m=""}}
+ if(m||R.x.lastPh!==ph)msg("tfPlayMsg",m);R.x.lastPh=ph;setHtml("tfPlayBody",h)}
+
+window.addEventListener("load",()=>{CQ.restore();IH.restore();MB.restore();TF.restore()});
 </script>
 <script>
 /* ============ 점수 이어가기: 통합 방(A) / 게임별 방(B) ============ */
@@ -1046,7 +1133,7 @@ function scbHtml(s){
  h+=ps.length?ps.map(p=>`<div class="player" style="gap:6px"><span style="display:flex;align-items:center;gap:8px;min-width:0">${n>=2?`<button class="mini" style="min-width:48px;font-size:16px" onclick="scbAct('setteam',{pid:'${escapeHtml(p.id)}',team:${(p.team+1)%(n+1)}})">${TEAM_ICON[p.team]}</button>`:""}<b>${escapeHtml(p.name)}</b></span><span style="display:flex;align-items:center;gap:6px"><button class="mini" style="min-width:40px" onclick="scbAct('adjust',{pid:'${escapeHtml(p.id)}',delta:-10})">−</button><b style="min-width:52px;text-align:center;font-size:18px">${p.score}점</b><button class="mini" style="min-width:40px" onclick="scbAct('adjust',{pid:'${escapeHtml(p.id)}',delta:10})">＋</button></span></div>`).join(""):'<div class="small">아직 참가자가 없어요.</div>';
  h+='<button class="gray" onclick="if(confirm(\'모든 점수를 0점으로 되돌릴까요?\'))scbAct(\'resetscore\',{})">점수 모두 0점으로</button>';
  return h}
-function scbPaint(){const s=SCB.s;if(!s)return;const h=scbHtml(s);["hubTeam","cqTeam","ihTeam","mbTeam","balTeam"].forEach(id=>{if(document.getElementById(id))setHtml(id,h)});hubRender()}
+function scbPaint(){const s=SCB.s;if(!s)return;const h=scbHtml(s);["hubTeam","cqTeam","ihTeam","mbTeam","tfTeam","balTeam"].forEach(id=>{if(document.getElementById(id))setHtml(id,h)});hubRender()}
 async function scbAct(action,params){if(!SERH())return;scbMsg("");try{SCB.s=await bapi("sc_"+action,Object.assign({roomNumber:SER.code,userId},params||{}));scbPaint()}catch(e){scbMsg(e.message)}}
 async function scbTick(){if(SCB.busy||!SERH())return;SCB.busy=true;try{SCB.s=await bapi("sc_state",{roomNumber:SER.code,userId});scbPaint()}catch(e){if(/존재하지|만료/.test(e.message)){serFail(e);scbStop()}}finally{SCB.busy=false}}
 function scbStart(){scbStop();SCB.timer=setInterval(scbTick,2500);scbTick()}
@@ -1059,11 +1146,11 @@ async function hubStart(k){
  msg("hubHostMsg","");
  try{const s=await bapi(k+"_create",{userId,series:SER.code});
   await bapi("sc_setgame",{roomNumber:SER.code,userId,k,num:s.num});
-  if(k==="bal")balEnter("host",s);else ({cq:CQ,ih:IH,mb:MB})[k].enter("host",s)}catch(e){msg("hubHostMsg",e.message)}}
+  if(k==="bal")balEnter("host",s);else ({cq:CQ,ih:IH,mb:MB,tf:TF})[k].enter("host",s)}catch(e){msg("hubHostMsg",e.message)}}
 async function hubBack(){
  if(!confirm("게임을 끝내고 통합 방으로 돌아갈까요?"))return;
  try{await bapi("sc_setgame",{roomNumber:SER.code,userId,k:""})}catch(e){}
- if(bal.num)await balLeave();else if(CQ.num)await CQ.leave();else if(IH.num)await IH.leave();else if(MB.num)await MB.leave();else hubHostShow()}
+ if(bal.num)await balLeave();else if(CQ.num)await CQ.leave();else if(IH.num)await IH.leave();else if(MB.num)await MB.leave();else if(TF.num)await TF.leave();else hubHostShow()}
 async function hubEnd(){if(!confirm("통합 방을 종료할까요? 모든 참가자가 나가게 됩니다."))return;await serEnd(true);show("multi")}
 /* ---- 통합 방(A) 참가자 ---- */
 async function hubJoin(){
@@ -1073,14 +1160,14 @@ async function hubJoin(){
  try{const s=await bapi("sc_join",{roomNumber:n,playerName:name,userId});try{localStorage.setItem("GAME_PARTY_NAME",name)}catch(e){}
   SER={mode:"A",code:s.num,role:"player",name};serSave();serUi();HUB.joined="";show("hubPlay");hubApply(s);hubStartPoll()}catch(e){msg("hubJoinMsg",e.message)}}
 function scLine(s){if(s.myScore===undefined||!(SER&&SER.role==="player"))return"";const tl=s.teamCount>=2?` · ${TEAM_ICON[s.myTeam]} ${s.myTeam?s.myTeam+"팀":"팀 배정 전"}`:"";return `<div class="small" style="margin-bottom:6px">내 점수 <b>${s.myScore}점</b>${tl}</div>`}
-function hubStopGames(){if(typeof balStopPoll==="function")balStopPoll();bal.num="";CQ.stopPoll();CQ.num="";IH.stopPoll();IH.num="";MB.stopPoll();MB.num="";["BAL","CQ","IH","MB"].forEach(g=>{try{localStorage.removeItem("GP_"+g+"_ROOM")}catch(e){}})}
+function hubStopGames(){if(typeof balStopPoll==="function")balStopPoll();bal.num="";CQ.stopPoll();CQ.num="";IH.stopPoll();IH.num="";MB.stopPoll();MB.num="";TF.stopPoll();TF.num="";["BAL","CQ","IH","MB","TF"].forEach(g=>{try{localStorage.removeItem("GP_"+g+"_ROOM")}catch(e){}})}
 async function hubApply(s){
  HUB.s=s;
  const g=s.game;
  if(g){const key=g.k+":"+g.num;
   if(HUB.joined!==key&&!HUB.joining){HUB.joining=true;
    try{const st=await bapi(g.k+"_join",{roomNumber:g.num,playerName:s.name,userId});HUB.joined=key;
-    if(g.k==="bal")balEnter("player",st);else ({cq:CQ,ih:IH,mb:MB})[g.k].enter("player",st);
+    if(g.k==="bal")balEnter("player",st);else ({cq:CQ,ih:IH,mb:MB,tf:TF})[g.k].enter("player",st);
     document.body.classList.add("hubp")}catch(e){}finally{HUB.joining=false}}
   if(HUB.joined===key)return}
  else if(HUB.joined){HUB.joined="";hubStopGames();show("hubPlay")}
