@@ -1023,7 +1023,7 @@ function tfMentBox(R){const sp=R.x.special;if(!sp)return "";
 function tfMentBtns(){return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">${["start","practice","write","end"].map(k=>`<button class="gray" onclick="TF.special('${k}')">${{start:"🎬",practice:"🎯",write:"✏️",end:"🏁"}[k]} ${TF_LABEL[k]}</button>`).join("")}</div>`}
 function tfSay(t){return `<div class="bpres"><b>💬 사회자 멘트</b><br>${t}</div>`}
 function tfStories(texts,lie,res){return texts.map((t,i)=>{const isL=lie===i,c=res?res.counts[i]:0;
- return `<div class="bab"${isL?' style="border-color:#d33;background:#fff4f4"':""}><b${isL?' style="background:#d33"':""}>${i+1}</b><div style="flex:1;text-align:left">${escapeHtml(t)}${isL?'<div class="small" style="color:#d33;margin-top:2px">← 거짓</div>':""}${res?`<div class="small" style="margin-top:2px">${c}명 선택${res.who[i].length?" · "+res.who[i].map(escapeHtml).join(", "):""}</div>`:""}</div></div>`}).join("")}
+ return `<div class="bab"${isL?' style="border:2px solid #000;background:#fff200;font-weight:900"':""}><b${isL?' style="background:#000;color:#fff200"':""}>${i+1}</b><div style="flex:1;text-align:left">${escapeHtml(t)}${isL?'<div class="small" style="color:#000;font-weight:900;margin-top:2px">← 거짓</div>':""}${res?`<div class="small" style="margin-top:2px">${c}명 선택${res.who[i].length?" · "+res.who[i].map(escapeHtml).join(", "):""}</div>`:""}</div></div>`}).join("")}
 function tfPickChips(s){return s.candidates.length?`<div class="small" style="margin:10px 0 6px">직접 지명 (이름을 누르세요)</div><div class="bchips">${s.candidates.map(c=>`<div class="bchip" data-id="${escapeHtml(c.id)}" onclick="TF.act('call',{target:this.dataset.id},'tfHostMsg')">${escapeHtml(c.name)}</div>`).join("")}</div>`:""}
 function tfHostRender(R){
  const s=R.s,ph=s.phase,c=s.cur;
@@ -1051,7 +1051,8 @@ function tfHostRender(R){
   h+=`<button class="gray" onclick="tfSkip()">건너뛰기 (점수 없이 다음 사람)</button>`}
  h+=tfMentBtns();
  setHtml("tfNow",h);
- setHtml("tfList",`<div class="title2" style="margin-top:0">쓴 이야기 · ${s.all.length}명</div>`+(s.all.length?s.all.map(a=>`<div class="title2">${escapeHtml(a.name)}${a.played?" ✅ 발표함":""}</div>`+a.texts.map((t,i)=>`<div class="bq"><span class="bn" style="${i===3?"background:#d33":""}">${i===3?"거":"진"}</span><span>${escapeHtml(t)}</span></div>`).join("")).join(""):'<div class="small">아직 아무도 완료하지 않았어요.</div>'));
+ {const done=new Set(s.written),pl=new Set(s.playedNames);
+ setHtml("tfList",`<div class="title2" style="margin-top:0">작성 현황 · 완료 ${s.written.length}/${s.players.length}명</div><div class="bchips" style="margin-bottom:6px">${s.players.map(n=>`<div class="bchip" style="background:${done.has(n)?"#e3f6d8":"#eee"};color:${done.has(n)?"#1d5e0b":"#777"}">${done.has(n)?"✅":"⏳"} ${escapeHtml(n)}${pl.has(n)?" · 발표함":""}</div>`).join("")}</div><div class="small" style="margin-bottom:6px">✅ 완료 · ⏳ 아직 안 썼어요</div>`+(s.all.length?s.all.map(a=>`<div class="title2">${escapeHtml(a.name)}${a.played?" ✅ 발표함":""}</div>`+a.texts.map((t,i)=>i===3?`<div class="bq" style="background:#fff200;border:2px solid #000;font-weight:900"><span class="bn" style="background:#000;color:#fff200">거짓</span><span>${escapeHtml(t)}</span></div>`:`<div class="bq"><span class="bn">진실</span><span>${escapeHtml(t)}</span></div>`).join("")).join(""):'<div class="small">아직 아무도 완료하지 않았어요.</div>'))}
  if(SERH())scbPaint()}
 function tfReveal(){const R=TF,s=R.s;if(R.pending||!s)return;if(s.notVoted.length&&!confirm(`아직 ${s.notVoted.length}명이 고르지 않았어요. 그래도 공개할까요?`))return;R.act("reveal",{},"tfHostMsg")}
 function tfSkip(){const R=TF;if(R.pending)return;if(!confirm("이 이야기를 건너뛸까요? 점수 없이 발표한 것으로 처리돼요."))return;R.act("skip",{},"tfHostMsg")}
