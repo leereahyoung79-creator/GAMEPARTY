@@ -653,7 +653,7 @@ function balCloseMent(){const na=bal.a.length,nb=bal.b.length,nm=n=>`<span class
  return h}
 function balHostRender(){
  const q=bal.q,total=bal.players.length,picked=bal.a.length+bal.b.length,ph=bal.phase;
- setHtml("balRoomInfo",`<div class="room-label">방 번호</div><div class="room-number" style="margin:8px">${escapeHtml(bal.num)}</div><div class="player-count">참가자 ${total}명 (사회자 제외)</div><div class="small">${total?bal.players.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`);
+ const rn=roomNoShow(bal.num);setHtml("balRoomInfo",`<div class="room-label">${rn.label}</div><div class="room-number" style="margin:8px">${escapeHtml(rn.num)}</div><div class="player-count">참가자 ${total}명 (사회자 제외)</div><div class="small">${total?bal.players.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`);
  const body=balMentBody();let h="";
  if(body)h+=`<div class="bms"><button class="bmh" onclick="balMToggle()" aria-expanded="${bal.mOpen}"><span>💬 사회자 멘트</span><span>${bal.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${bal.mOpen?`<div class="bmb">${body}</div>`:""}</div>`;
  if(!q){if(!body)h+='<div class="small" style="margin-bottom:12px">아래 목록에서 문제를 골라 주세요.</div>'}
@@ -731,7 +731,8 @@ const IH_MENT_END="이심전심은 여기까지예요! 서로 얼마나 통하�
 const TEAM_ICON=["⚪","🔴","🔵","🟢","🟡"];
 function xFmtT(left){return `⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`}
 function xOthers(k){["bal","cq","ih","mb"].forEach(g=>{if(g!==k){try{localStorage.removeItem("GP_"+g.toUpperCase()+"_ROOM")}catch(e){}}});if(k!=="bal"&&typeof balStopPoll==="function")balStopPoll();if(k!=="cq")CQ.stopPoll();if(k!=="ih")IH.stopPoll();if(k!=="mb")MB.stopPoll()}
-function xRoomInfo(num,names){return `<div class="room-label">방 번호</div><div class="room-number" style="margin:8px">${escapeHtml(num)}</div><div class="player-count">참가자 ${names.length}명 (사회자 제외)</div><div class="small">${names.length?names.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`}
+function roomNoShow(num){const h=SERH()&&SER.mode==="A";return {label:h?"통합 방 번호":"방 번호",num:h?SER.code:num}}
+function xRoomInfo(num,names){const r=roomNoShow(num);return `<div class="room-label">${r.label}</div><div class="room-number" style="margin:8px">${escapeHtml(r.num)}</div><div class="player-count">참가자 ${names.length}명 (사회자 제외)</div><div class="small">${names.length?names.map(escapeHtml).join(", "):"참가자가 들어오길 기다리고 있어요."}</div>`}
 function xMentHtml(R,start,end){const sp=R.x.special;if(!sp)return "";const body=sp==="start"?start:end;return `<div class="bms"><button class="bmh" onclick="${R.k.toUpperCase()}.toggleMent()" aria-expanded="${R.x.mOpen}"><span>💬 사회자 멘트</span><span>${R.x.mOpen?"접기 ▲":"펼치기 ▼"}</span></button>${R.x.mOpen?`<div class="bmb"><p class="blb">${sp==="start"?"시작 멘트":"마무리 멘트"}</p>${escapeHtml(body)}</div>`:""}</div>`}
 function xMentBtns(k){const K=k.toUpperCase();return `<div style="display:flex;gap:8px;margin-top:12px"><button class="gray" onclick="${K}.special('start')">🎬 시작 멘트</button><button class="gray" onclick="${K}.special('end')">🏁 마무리 멘트</button></div>`}
 function xChips(cats,cur,fn){return `<div class="bchips">${cats.map((c,i)=>`<div class="bchip${i===cur?" on":""}" onclick="${fn}(${i})">${escapeHtml(c)}</div>`).join("")}</div>`}
@@ -746,7 +747,7 @@ function mkRoom(k,cfg){
  R.closed=(t,silent)=>{R.stopPoll();R.num="";R.s=null;R.seq++;try{localStorage.removeItem("GP_"+K+"_ROOM")}catch(e){}if(serBack())return;show(k+"Menu");if(!silent)alert(t||"방이 종료되었습니다.")};
  R.tick=async()=>{if(R.busy||R.pending||!R.num)return;R.busy=true;const sq=R.seq,num=R.num;try{const s=await bapi(k+"_state",{roomNumber:num,userId});if(sq===R.seq&&num===R.num)R.apply(s)}catch(e){if(sq===R.seq&&/종료|만료|존재하지|참가자가 아닙/.test(e.message))R.closed(e.message)}finally{R.busy=false}};
  R.apply=s=>{const nr=s.q?(s.q.round||0):0,or=R.s&&R.s.q?(R.s.q.round||0):0;if(nr!==or){R.x.showDesc=false;R.x.special="";R.x.mOpen=true;R.x.sel=""}
-  R.role=s.role;R.s=s;R.endAt=s.phase==="open"?Date.now()+(s.remainingMs||0):0;R.fired=false;
+  R.role=s.role;R.s=s;R.endAt=s.phase==="open"?Date.now()+(s.remainingMs||0):0;R.openAt=s.phase==="open"&&s.leadMs>0?Date.now()+s.leadMs:0;R.leadDone=!R.openAt;R.fired=false;
   if(s.role==="host"&&s.q){const done=cfg.doneAt(s);if(done&&R.x.asked[s.q.id]!==2){R.x.asked[s.q.id]=2;R.saveAsked()}}
   cfg.render(R);R.clock()};
  R.enter=(role,s)=>{xOthers(k);R.s=null;R.role=role;R.num=s.num;R.seq++;let a={};try{a=JSON.parse(localStorage.getItem("GP_"+K+"_ASKED_"+R.num)||"{}")}catch(e){}
@@ -761,8 +762,10 @@ function mkRoom(k,cfg){
  R.special=sp=>{R.x.special=R.x.special===sp?"":sp;R.x.mOpen=true;cfg.render(R)};
  R.cat=i=>{R.x.cat=i;cfg.render(R)};
  R.desc=()=>{R.x.showDesc=!R.x.showDesc;cfg.render(R)};
- R.clock=()=>{const open=R.s&&R.s.phase==="open",ms=open?R.endAt-Date.now():0,left=open?Math.max(0,Math.ceil(ms/1000)):0,t=xFmtT(left);
+ R.clock=()=>{const now=Date.now(),open=R.s&&R.s.phase==="open",lead=open&&R.openAt>now?R.openAt-now:0,ms=open?R.endAt-now-lead:0,left=open?Math.max(0,Math.ceil(ms/1000)):0,t=xFmtT(left);
   [[k+"HostCd","host"],[k+"Cd","player"]].forEach(x=>{const el=document.getElementById(x[0]);if(!el)return;const on=open&&R.role===x[1];el.classList.toggle("hidden",!on);if(on){el.textContent=t;el.classList.toggle("warn",left<=10)}});
+  const pb=document.getElementById(k+"PressBtn");if(pb&&lead)pb.textContent="⏳ "+Math.ceil(lead/1000);
+  if(R.openAt&&!lead&&!R.leadDone){R.leadDone=true;cfg.render(R)}
   if(open&&ms<=0&&!R.fired){R.fired=true;cfg.render(R);R.tick()}};
  setInterval(R.clock,250);
  return R}
@@ -775,7 +778,7 @@ function cqHostRender(R){
  setHtml("cqRoomInfo",xRoomInfo(s.num,names));
  let h=xMentHtml(R,CQ_MENT_START,CQ_MENT_END);
  if(!q){if(!h)h+='<div class="small" style="margin-bottom:12px">아래 목록에서 문제를 골라 주세요.</div>'}
- else{const src=CQ_Q[q.id]||{},d=src.d,st=ph==="ready"?"⏸ 시작 전 (참가자는 아직 누를 수 없어요)":ph==="open"?(tm?"⌛ 시간 종료 (＋30초로 늘릴 수 있어요)":"✋ 진행 중"):"🔒 끝";
+ else{const src=CQ_Q[q.id]||{},d=src.d,lead=ph==="open"&&R.openAt>Date.now(),st=ph==="ready"?"⏸ 시작 전 (참가자는 아직 누를 수 없어요)":ph==="open"?(lead?"⏳ 곧 열려요 (모든 폰이 같은 순간에 열려요)":tm?"⌛ 시간 종료 (＋30초로 늘릴 수 있어요)":"✋ 진행 중"):"🔒 끝";
   h+=`<div class="small" style="margin-bottom:6px">${escapeHtml(CQ_CATS[src.c]||"")} · ${q.round}번째 문제</div><div class="cqcho">${escapeHtml(q.cho)}</div>
 <div class="info-row"><span>정답: <b>${escapeHtml(q.ans)}</b></span>${d?'<button class="mini" onclick="CQ.desc()">💡 설명</button>':""}</div>
 ${x.showDesc&&d?`<div class="hint" style="margin-top:8px;white-space:pre-wrap;line-height:1.6">${escapeHtml(d)}</div>`:""}
@@ -819,13 +822,13 @@ function cqPlayRender(R){
  else{const my=s.myStatus;
   h+=`<div class="small" style="margin-bottom:4px">${q.round}번째 문제</div><div class="cqcho">${escapeHtml(q.cho)}</div>`;
   if(ph==="done"){h+=`<div class="bpres" style="text-align:center"><div class="blb" style="color:#000">정답</div><div style="font-size:30px;font-weight:900">${escapeHtml(q.ans)}</div><div style="margin-top:6px;font-weight:800">${s.winnerName?`🎉 ${escapeHtml(s.winnerName)}님 정답!`:"😅 아무도 못 맞혔어요"}</div></div>`;m="다음 문제를 기다려 주세요."}
-  else{const can=ph==="open"&&!tm&&!my;
-   h+=`<button class="cqpress" ${can?"":"disabled"} onclick="cqPress()">${my==="current"?"🎤 지금 답하세요!":my==="wrong"?"❌ 아쉬워요":my==="waiting"?"⏳ 순서를 기다려요":ph==="ready"?"곧 시작해요":tm?"⌛ 시간 종료":"✋ 정답!"}</button>`;
-   m=ph==="ready"?"사회자가 시작하면 누를 수 있어요.":my==="current"?"큰 소리로 정답을 말하세요!":s.currentName?`🎤 ${s.currentName}님이 답하는 중이에요.`:my==="wrong"?"틀렸어요. 다른 분의 차례를 지켜봐요.":tm?"시간이 끝났어요.":"정답이 떠오르면 빨리 누르세요!"}}
+  else{const lead=ph==="open"&&R.openAt>Date.now(),can=ph==="open"&&!tm&&!my&&!lead;
+   h+=`<button id="cqPressBtn" class="cqpress" ${can?"":"disabled"} onclick="cqPress()">${lead?"⏳ "+Math.ceil((R.openAt-Date.now())/1000):my==="current"?"🎤 지금 답하세요!":my==="wrong"?"❌ 아쉬워요":my==="waiting"?"⏳ 순서를 기다려요":ph==="ready"?"곧 시작해요":tm?"⌛ 시간 종료":"✋ 정답!"}</button>`;
+   m=ph==="ready"?"사회자가 시작하면 누를 수 있어요.":lead?"곧 열려요! 모두 같은 순간에 시작해요.":my==="current"?"큰 소리로 정답을 말하세요!":s.currentName?`🎤 ${s.currentName}님이 답하는 중이에요.`:my==="wrong"?"틀렸어요. 다른 분의 차례를 지켜봐요.":tm?"시간이 끝났어요.":"정답이 떠오르면 빨리 누르세요!"}}
  if(s.teamCount>=2)h+=`<div class="names" style="margin-top:14px;text-align:center">${s.teamScores.map((v,i)=>`${TEAM_ICON[i+1]} ${i+1}팀 ${v}점`).join(" · ")}</div>`;
  if(s.ranking&&s.ranking.length&&s.ranking[0].score>0)h+=`<div class="names" style="margin-top:8px;text-align:center">🏅 ${s.ranking.filter(r=>r.score>0).map(r=>`${escapeHtml(r.name)} ${r.score}`).join(" · ")}</div>`;
  msg("cqPlayMsg",m);setHtml("cqPlayBody",h)}
-async function cqPress(){const R=CQ;if(!R.s.q||R.s.phase!=="open"||R.pending)return;await R.act("press",{round:R.s.q.round},"cqPlayMsg")}
+async function cqPress(){const R=CQ;if(!R.s.q||R.s.phase!=="open"||R.pending||R.openAt>Date.now())return;await R.act("press",{round:R.s.q.round},"cqPlayMsg")}
 
 /* ---------------- 이심전심 ---------------- */
 const IH=mkRoom("ih",{doneAt:s=>s.phase==="revealed",render:R=>R.role==="host"?ihHostRender(R):ihPlayRender(R)});
@@ -1050,7 +1053,7 @@ function scbStart(){scbStop();SCB.timer=setInterval(scbTick,2500);scbTick()}
 function scbStop(){if(SCB.timer){clearInterval(SCB.timer);SCB.timer=null}}
 /* ---- 통합 방(A) 사회자 ---- */
 function hubHostShow(){show("hubHost");hubRender()}
-function hubRender(){const s=SCB.s;if(!s||!SERH()||SER.mode!=="A")return;setHtml("hubInfo",xRoomInfo(s.num,s.players.map(p=>p.name)).replace("방 번호","통합 방 번호"))}
+function hubRender(){const s=SCB.s;if(!s||!SERH()||SER.mode!=="A")return;setHtml("hubInfo",xRoomInfo(s.num,s.players.map(p=>p.name)))}
 async function hubCreate(){msg("modeMsg","");try{const s=await bapi("sc_create",{userId});SER={mode:"A",code:s.num,role:"host"};SCB.s=s;serSave();serUi();scbStart();hubHostShow()}catch(e){msg("modeMsg",e.message)}}
 async function hubStart(k){
  msg("hubHostMsg","");
